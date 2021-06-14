@@ -11,6 +11,7 @@
       permanent
       dark
       app
+      class="zindex10"
     >
       <v-list>
         <v-list-item
@@ -97,10 +98,9 @@
       <!-- -->
     </v-app-bar>
     <v-main
-    class="grey lighten-3 pl-0 pt-2">
+    class="grey lighten-3 pl-0 pt-2 zindex1">
       <v-content fluid>
-        <blog>
-        </blog>
+        <blog/>
       </v-content>
     </v-main>
   </v-app>
@@ -173,5 +173,10 @@ hr#hr {
 .test{
   background: #00BFA5;
 }
-
+.zindex10{
+  z-index: 10;
+}
+.zindex1{
+  z-index: 1;
+}
 </style>

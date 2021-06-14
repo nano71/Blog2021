@@ -6,7 +6,10 @@ import vuetify from './plugins/vuetify'
 import 'roboto-fontface/css/roboto/roboto-fontface.css'
 import '@mdi/font/css/materialdesignicons.css'
 import VuetifyIcon from 'vuetify/lib'
+import mavonEditor from 'mavon-editor'
+import 'mavon-editor/dist/css/index.css'
 Vue.use(VuetifyIcon)
+Vue.use(mavonEditor)
 Vue.config.productionTip = false
 new Vue({
   router,
