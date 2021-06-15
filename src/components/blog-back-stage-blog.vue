@@ -1,23 +1,29 @@
 <template>
 
 
-  <v-row>
-    <v-col cols="12">
+  <v-row class="white ma-4 pa-4 rounded">
+    <v-col cols="6">
+      <v-text-field
+        label="博客标题"
+        autofocus
+        value="Test"
+      ></v-text-field>
+    </v-col>
+    <v-col offset="1"></v-col>
+    <v-col cols="6">
       <v-combobox
         v-model="select"
         :items="items"
-        label="I use chips"
+        label="博客标签"
         multiple
         chips
       ></v-combobox>
     </v-col>
-
-    <v-col class="white ma-4 pa-4">
-
+    <v-col cols="12" class="h-75">
+      <div class="black06 scale-075">仅支持Markdown格式</div>
+      <mavon-editor v-model="context" :toolbars="toolbars" @keydown="" class="elevation-0 fill-height border"/>
     </v-col>
 
-    <mavon-editor v-model="context" :toolbars="toolbars" @keydown="" class="elevation-0 fill-height"/>
- 
   </v-row>
 </template>
 
@@ -64,12 +70,16 @@ export default {
           subfield: true, // 单双栏模式
           preview: true, // 预览
         },
-        select: ['Vuetify', 'Programming'],
+        select: ['Test'],
         items: [
-          'Programming',
-          'Design',
+          'Javascript',
+          'Ajax',
+          'js',
           'Vue',
           'Vuetify',
+          'Element',
+          '歪门邪道',
+          'Test'
         ],
       }
     }
@@ -78,5 +88,21 @@ export default {
 </script>
 
 <style scoped>
+.border {
+  border: 1px solid rgba(176, 176, 176, 0.08) !important;
+}
+
+.h-75 {
+  height: 75vh;
+}
+
+.black06 {
+  color: #00000099;
+}
+
+.scale-075 {
+  font-size: .75rem !important;
+}
+
 
 </style>

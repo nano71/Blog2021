@@ -95,10 +95,16 @@
       elevation="0"
       color="white"
     >
+      <v-app-bar-title class="subtitle-1">
+        发布博客
+      </v-app-bar-title>
+      <v-btn right absolute elevation="0"  color="teal" dark>
+        发布
+      </v-btn>
       <!-- -->
     </v-app-bar>
     <v-main
-    class="grey lighten-3 pl-0 pt-2 zindex1">
+      class="grey lighten-3 pl-0 pt-2 zindex1">
       <v-content fluid>
         <blog/>
       </v-content>
@@ -170,13 +176,16 @@ hr#hr {
   border: white 1px solid;
   border-bottom: 0;
 }
-.test{
+
+.test {
   background: #00BFA5;
 }
-.zindex10{
+
+.zindex10 {
   z-index: 10;
 }
-.zindex1{
+
+.zindex1 {
   z-index: 1;
 }
 </style>
