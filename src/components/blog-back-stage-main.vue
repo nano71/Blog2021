@@ -94,11 +94,13 @@
       app
       elevation="0"
       color="white"
+      hide-on-scroll
     >
-      <v-app-bar-title class="subtitle-1">
-        发布博客
-      </v-app-bar-title>
-      <v-btn right absolute elevation="0"  color="teal" dark>
+      <v-toolbar-title class="subtitle-1">
+        发表博客
+      </v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn right absolute elevation="0" color="teal" dark @click="input_blog">
         发布
       </v-btn>
       <!-- -->
@@ -106,7 +108,7 @@
     <v-main
       class="grey lighten-3 pl-0 pt-2 zindex1">
       <v-content fluid>
-        <blog/>
+        <blog ref="blog"/>
       </v-content>
     </v-main>
   </v-app>
@@ -160,7 +162,12 @@ export default {
         e.currentTarget.parentNode.children[i].classList.remove("test")
       }
       e.currentTarget.classList.add("test");
+    },
+    input_blog: function () {
+      //this.$refs.自定义ref属性的值.a(this.r);
+      this.$refs.blog.input_blog();
     }
+
   }
 }
 </script>

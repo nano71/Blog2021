@@ -121,7 +121,7 @@ export default {
       //   v => !!v || '离线密钥是必须的',
       //   v => (v && v.length <= 4) || '长度超出',
       // ],
-      OnlineKey: '',
+      OnlineKey: '17@42',
       OnlineKeyRes: [
         v => !!v || '在线密钥是必须的',
         v => v && v.length <= 8 || '格式错误',

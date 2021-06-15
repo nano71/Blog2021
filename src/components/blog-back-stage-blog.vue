@@ -2,38 +2,169 @@
 
 
   <v-row class="white ma-4 pa-4 rounded">
-    <v-col cols="6">
-      <v-text-field
-        label="博客标题"
-        autofocus
-        value="Test"
-      ></v-text-field>
+    <v-col cols1="6">
+      <v-col cols="12">
+        <v-text-field
+          label="博客标题"
+          autofocus
+          value="Test"
+          v-model="title"
+        ></v-text-field>
+      </v-col>
+      <v-col cols="12">
+        <v-combobox
+          v-model="select"
+          :items="items"
+          label="博客标签"
+          multiple
+          chips
+        ></v-combobox>
+      </v-col>
     </v-col>
-    <v-col offset="1"></v-col>
     <v-col cols="6">
-      <v-combobox
-        v-model="select"
-        :items="items"
-        label="博客标签"
-        multiple
-        chips
-      ></v-combobox>
+      <v-col cols="6">
+        <v-text-field
+          label="博客URL"
+          autofocus
+          value="Test"
+        ></v-text-field>
+      </v-col>
+      <v-col cols="6">
+        <div class="black06 scale-075">若不编辑，则默认当前时间</div>
+        <v-btn
+          color="primary"
+          dark
+          @click.stop="date_dialog = true"
+        >
+          自定义发表日期
+        </v-btn>
+      </v-col>
+
+      <v-dialog
+        v-model="date_dialog"
+        max-width="600"
+      >
+        <v-card class="pa-4">
+          <v-date-picker
+            full-width
+            v-model="picker"
+            landscape
+            color="teal"
+          ></v-date-picker>
+          <v-card-actions class="mt-4">
+            <v-btn
+              text
+              color="blue accent-4"
+              @click="date_dialog = false"
+            >
+              取消
+            </v-btn>
+            <v-btn
+              text
+              color="blue accent-4"
+              @click="date_dialog = false;time_dialog=true"
+            >
+              继续
+            </v-btn>
+            <v-spacer></v-spacer>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+      <v-dialog
+        v-model="time_dialog"
+        max-width="600"
+      >
+        <v-card class="pa-4">
+          <v-time-picker
+            full-width
+            v-model="time_picker"
+            color="teal"
+            use-seconds
+            scrollable
+            format="24hr"
+          >
+
+          </v-time-picker>
+          <v-card-actions class="mt-4">
+            <v-btn
+              text
+              color="blue accent-4"
+              @click="time_dialog = false"
+            >
+              返回日期选择
+            </v-btn>
+            <v-btn
+              text
+              color="blue accent-4"
+              @click="time_dialog = false"
+            >
+              确定
+            </v-btn>
+            <v-spacer></v-spacer>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+
     </v-col>
+
     <v-col cols="12" class="h-75">
       <div class="black06 scale-075">仅支持Markdown格式</div>
       <mavon-editor v-model="context" :toolbars="toolbars" @keydown="" class="elevation-0 fill-height border"/>
     </v-col>
 
   </v-row>
+
 </template>
 
 <script>
 
+import axios from "axios";
+
 export default {
   name: "blog-back-stage-blog",
+  methods: {
+    a: function (r) {
+      console.log(r);
+    },
+    input_blog: function () {
+      axios.post('https://personal-station.cn/php/BLOG.php', {
+          type: 3,
+          title:this.title,
+          time: this.picker + ' ' + this.time_picker,
+          content: this.context,
+          url: 'test',
+          tag1: this.select[0],
+          tag2: this.select[1],
+          tag3: this.select[2],
+          last_time:this.picker + ' ' + this.time_picker
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json;charset=UTF-8'
+          }
+        })
+    }
+  },
+  mounted() {
+    var date = new Date()
+    var hour = date.getHours() // 获取小时
+    var minute = date.getMinutes() // 获取分钟
+    var second = date.getSeconds() // 获取秒
+    if (second < 10) {
+      second = '0' + second
+    }
+    this.time_picker = hour + ':' + minute + ':' + second
+    // console.log(this.picker+' '+ this.time_picker)
+  },
   data() {
     {
       return {
+        title:'test',
+        date_dialog: false,
+        time_dialog: false,
+        //日期选择器
+        picker: new Date().toISOString().substr(0, 10),
+        time_picker: '',
         context: ' ',//输入的数据
         toolbars: {
           bold: true, // 粗体
