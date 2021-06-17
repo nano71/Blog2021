@@ -166,6 +166,10 @@ export default {
     input_blog: function () {
       //this.$refs.自定义ref属性的值.a(this.r);
       this.$refs.blog.input_blog();
+    },
+    re_input_blog:function () {
+      this.$refs.blog.re_input_blog();
+
     }
 
   }

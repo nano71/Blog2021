@@ -122,6 +122,11 @@ import axios from "axios";
 export default {
   name: "blog-back-stage-blog",
   methods: {
+    re_input_blog: function () {
+      this.title = ''
+      this.context = ''
+      this.select = ''
+    },
     a: function (r) {
       console.log(r);
     },
