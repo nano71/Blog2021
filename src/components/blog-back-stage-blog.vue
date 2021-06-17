@@ -163,8 +163,12 @@ export default {
           last_time: this.picker + ' ' + this.time_picker
         }).then(res => {
           //成功
-          this.re_input_blog()
-          alert(res.data);
+          if (res.data != '新记录插入成功') {
+            alert(res.data);
+          } else {
+            this.re_input_blog()
+            alert(res.data);
+          }
         }).then(error => {
           console.log(error);
         })

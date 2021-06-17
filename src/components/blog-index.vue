@@ -21,13 +21,15 @@
         <v-container class="py-0 fill-height">
           <!--头像-->
           <v-avatar
+            class="point"
+            @click="to_blog"
             color="teal accent-4"
             tile
             size="50"
           ><span class="white--text headline">LH</span>
           </v-avatar>
-       <span class="text-h4 font-weight-thin  ml-3 mr-3">|</span>
-         <span class="mr-10 text-h5 text-uppercase">
+          <span class="text-h4 font-weight-thin  ml-3 mr-3">|</span>
+          <span class="mr-10 text-h5 text-uppercase point" @click="to_blog">
             Blog
          </span>
           <!--v-btn用作浮动动作按钮-->
@@ -62,7 +64,8 @@
         :width="windowWidth"
       >
         <span v-html="v_toolbar"></span>
-        <v-toolbar-title>BLO<span class="teal--text">G</span><small>vue</small></v-toolbar-title>
+        <v-toolbar-title @click="to_blog" class="point">BLO<span class="teal--text">G</span><small>vue</small>
+        </v-toolbar-title>
 
         <v-spacer></v-spacer>
 
@@ -138,7 +141,7 @@
                     class="mt-3 mb-3 Body-2 font-weight-light"
                     style="color: #666666">
                     歪门邪道
-                  </v-list-item-title >
+                  </v-list-item-title>
                   <v-list-item
                     class="font-weight-medium text-uppercase"
                     v-for="n in 5"
@@ -206,7 +209,7 @@ export default {
       '关于我',
       '控制台'
     ],
-    links_href:[
+    links_href: [
       '#/document',
       '#/copyright',
       '#/about',
@@ -240,7 +243,9 @@ export default {
   },
 
   methods: {
-
+    to_blog() {
+      this.$router.push({path: '/'})
+    },
     onResize() {
       this.isMobile = window.innerWidth > 1264;
       this.windowWidth = window.innerWidth
@@ -254,6 +259,11 @@ export default {
   background: #00BFA5;
   color: white;
 }
+
+.point {
+  cursor: pointer;
+}
+
 .small-shadow {
   ul {
     li {
