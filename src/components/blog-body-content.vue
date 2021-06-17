@@ -235,14 +235,14 @@ export default {
       this.content_list = reslistdata.data[1]
       this.tags = [this.content_list.tag, this.content_list.tag2, this.content_list.tag3]
       for (let i = 0; i < this.tags.length; i++) {
-        if (this.tags[i] == ''){
-          this.tags.splice(i, this.tags.length-i)
+        if (this.tags[i] == '') {
+          this.tags.splice(i, this.tags.length - i)
         }
       }
       this.comments = rescomments.data
       // console.log('re_two', this.comments)
-    })),
-      this.onResize()
+    }))
+    this.onResize()
     window.addEventListener('resize', this.onResize, {passive: true})
 
   },
