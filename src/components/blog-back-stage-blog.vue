@@ -25,7 +25,6 @@
       <v-col cols="6">
         <v-text-field
           label="博客URL"
-          autofocus
           value="Test"
         ></v-text-field>
       </v-col>
@@ -126,23 +125,27 @@ export default {
     a: function (r) {
       console.log(r);
     },
-    input_blog: function () {
-      axios.post('https://personal-station.cn/php/BLOG.php', {
+    input_blog: ()=> {
+      if (this.title == null) {
+        alert('标题不能为空')
+      } else {
+        axios.post('https://personal-station.cn/php/BLOG.php', {
           type: 3,
-          title:this.title,
+          title: this.title,
           time: this.picker + ' ' + this.time_picker,
           content: this.context,
           url: 'test',
           tag1: this.select[0],
           tag2: this.select[1],
           tag3: this.select[2],
-          last_time:this.picker + ' ' + this.time_picker
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json;charset=UTF-8'
-          }
+          last_time: this.picker + ' ' + this.time_picker
+        }).then(res => {
+          //成功
+          console.log(res);
+        }).then(error => {
+          console.log(error);
         })
+      }
     }
   },
   mounted() {
@@ -156,16 +159,24 @@ export default {
     this.time_picker = hour + ':' + minute + ':' + second
     // console.log(this.picker+' '+ this.time_picker)
   },
+  watch: {
+    select: function (n, o) {
+      if (n.length > 3) {
+        alert('最多三个')
+        this.select.pop()
+      }
+    }
+  },
   data() {
     {
       return {
-        title:'test',
+        title: null,
         date_dialog: false,
         time_dialog: false,
         //日期选择器
         picker: new Date().toISOString().substr(0, 10),
-        time_picker: '',
-        context: ' ',//输入的数据
+        time_picker: null,
+        context: null,//输入的数据
         toolbars: {
           bold: true, // 粗体
           italic: true, // 斜体
@@ -210,7 +221,8 @@ export default {
           'Vuetify',
           'Element',
           '歪门邪道',
-          'Test'
+          'Test',
+          '日志'
         ],
       }
     }
