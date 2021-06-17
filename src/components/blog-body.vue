@@ -28,10 +28,8 @@
         <div
           style="max-height: 75px "
           class="text--primary col-lg-7 col-xl-7 col-md-6 col-sm-12 col-12 overflow-hidden">
-          {{ blog_list[index]['content'] }}
-
+          {{ removeHTMLTag(blog_list[index]['content']) }}
         </div>
-
       </v-card-text>
       <v-card-actions>
         <v-btn
@@ -110,9 +108,16 @@ export default {
   },
   methods: {
     //更新下一页
+    removeHTMLTag(str) {
+      str = str.replace(/<\/?[^>]*>/g, ''); //去除HTML tag
+      str = str.replace(/[ | ]*\n/g, '\n'); //去除行尾空白
+//str = str.replace(/\n[\s| | ]*\r/g,'\n'); 去除多余空行
+      str = str.replace(/&nbsp;/ig, ''); //去掉&nbsp;
+      str = str.replace(/\s/g, ''); //将空格去掉
+      return str;
+    },
     next: function () {
       this.$router.push({path: `/page/${this.page}`})
-      console.log('next方法下的page：' + this.page);
       this.blog_list = []
       axios.post('https://personal-station.cn/php/BLOG.php', {
           type: 0,
@@ -146,6 +151,7 @@ export default {
   background: #00BFA5;
   color: white;
 }
+
 .v-card-absolute {
   position: absolute;
   right: 3%;

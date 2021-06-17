@@ -31,7 +31,11 @@
       <v-list
         nav
       >
-        <v-list-item link>
+        <v-list-item
+          link
+          @click="a($event,i)"
+          class="test"
+        >
           <v-list-item-icon>
             <v-icon>mdi-note-plus</v-icon>
           </v-list-item-icon>
@@ -158,8 +162,8 @@ export default {
   methods: {
     a: function (e, i) {
       console.log(this.$refs.a);
-      for (let i = 0; i < e.currentTarget.parentNode.children.length; i++) {
-        e.currentTarget.parentNode.children[i].classList.remove("test")
+      for (let i = 0; i < document.querySelectorAll('.test').length; i++) {
+        document.querySelectorAll('.test')[i].classList.remove("test")
       }
       e.currentTarget.classList.add("test");
     },
@@ -167,9 +171,8 @@ export default {
       //this.$refs.自定义ref属性的值.a(this.r);
       this.$refs.blog.input_blog();
     },
-    re_input_blog:function () {
+    re_input_blog: function () {
       this.$refs.blog.re_input_blog();
-
     }
 
   }

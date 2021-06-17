@@ -107,8 +107,8 @@
     </v-col>
 
     <v-col cols="12" class="h-75">
-      <div class="black06 scale-075">仅支持Markdown格式</div>
-      <mavon-editor v-model="context" :toolbars="toolbars" @keydown="" class="elevation-0 fill-height border"/>
+      <div class="black06 scale-075" @click="test">仅支持Markdown格式</div>
+      <mavon-editor ref="md" v-model="context" :toolbars="toolbars" @keydown="" class="elevation-0 fill-height border"/>
     </v-col>
 
   </v-row>
@@ -122,6 +122,14 @@ import axios from "axios";
 export default {
   name: "blog-back-stage-blog",
   methods: {
+    test: function () {
+      /*通过$refs获取: html声明ref : `<mavon-editor ref=md ></mavon-editor>，`$vm`为 `this.$refs.md`
+ this.$refs.md为原型方法*/
+      // this.$set(this.page_article, "html_content", this.$refs.md.d_render); // html
+      // this.$set(this.page_article, "md_content", this.$refs.md.d_value); //md
+      // console.log(this.$refs.md.d_render);
+      // console.log(this.$refs.md.d_value);
+    },
     re_input_blog: function () {
       this.title = ''
       this.context = ''
@@ -147,7 +155,7 @@ export default {
           type: 3,
           title: this.title,
           time: this.picker + ' ' + this.time_picker,
-          content: this.context,
+          content: this.$refs.md.d_render,
           url: 'test',
           tag1: this.select[0].toString(),
           tag2: this.select[1].toString(),
@@ -155,10 +163,8 @@ export default {
           last_time: this.picker + ' ' + this.time_picker
         }).then(res => {
           //成功
+          this.re_input_blog()
           alert(res.data);
-          this.title = ''
-          this.context = ''
-          this.select = ''
         }).then(error => {
           console.log(error);
         })
