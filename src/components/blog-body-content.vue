@@ -40,21 +40,10 @@
       <div
         class="py-6">
         <v-chip
+          v-for="(item,i) in tags"
           color="teal accent-4"
           class="white--text mr-3"
-        >#{{ content_list['tag'] }}
-        </v-chip>
-        <v-chip
-          color="teal accent-4"
-          class="white--text mr-3"
-          v-if="!(content_list['tag2'] ==null)"
-        ># {{ content_list['tag2'] }}
-        </v-chip>
-        <v-chip
-          color="teal accent-4"
-          class="white--text mr-3"
-          v-if="!(content_list['tag3']==null)"
-        ># {{ content_list['tag3'] }}
+        >#{{ tags[i] }}
         </v-chip>
       </div>
 
@@ -191,6 +180,7 @@ export default {
       isNull: true,
       dialog: false,
       snackbar: false,
+      tags: [],
       text: `不能为空，多多少少写点吧QAQ`,
       comment: null,
       rules: [v => v.length <= 255 || '超出部分会被剔除！'],
@@ -243,7 +233,12 @@ export default {
     ]).then(axios.spread((reslistdata, rescomments) => {
       // 上面两个请求都完成后，才执行这个回调方法
       this.content_list = reslistdata.data[1]
-      // console.log(this.content_list);
+      this.tags = [this.content_list.tag, this.content_list.tag2, this.content_list.tag3]
+      for (let i = 0; i < this.tags.length; i++) {
+        if (this.tags[i] == ''){
+          this.tags.splice(i, this.tags.length-i)
+        }
+      }
       this.comments = rescomments.data
       // console.log('re_two', this.comments)
     })),
@@ -263,28 +258,28 @@ export default {
       axios.post('https://personal-station.cn/php/BLOG.php',
         {
           type: 5,
-          bid:this.$route.params.bid,
-          email:this.email,
-          content:this.comment,
+          bid: this.$route.params.bid,
+          email: this.email,
+          content: this.comment,
         }
       ).then(res => {
-          //成功
-          alert(res.data)
-          this.dialog = false
-          this.comment = ''
-          axios.post(this.url, {
-              type: 2,
-              bid: this.$route.params.bid,
-            },
-            {
-              headers: {
-                'Content-Type': 'application/json;charset=UTF-8'
-              }
-            })
-            .then(res => {
-              this.comments = res.data
-            })
-        })
+        //成功
+        alert(res.data)
+        this.dialog = false
+        this.comment = ''
+        axios.post(this.url, {
+            type: 2,
+            bid: this.$route.params.bid,
+          },
+          {
+            headers: {
+              'Content-Type': 'application/json;charset=UTF-8'
+            }
+          })
+          .then(res => {
+            this.comments = res.data
+          })
+      })
 
     }
   }

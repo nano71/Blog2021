@@ -125,23 +125,35 @@ export default {
     a: function (r) {
       console.log(r);
     },
-    input_blog: ()=> {
+    input_blog: function () {
       if (this.title == null) {
         alert('标题不能为空')
       } else {
+        if (this.select[0] == null) {
+          this.select[0] = '1'
+        }
+        if (this.select[1] == null) {
+          this.select[1] = '1'
+        }
+        if (this.select[2] == null) {
+          this.select[2] = '1'
+        }
         axios.post('https://personal-station.cn/php/BLOG.php', {
           type: 3,
           title: this.title,
           time: this.picker + ' ' + this.time_picker,
           content: this.context,
           url: 'test',
-          tag1: this.select[0],
-          tag2: this.select[1],
-          tag3: this.select[2],
+          tag1: this.select[0].toString(),
+          tag2: this.select[1].toString(),
+          tag3: this.select[2].toString(),
           last_time: this.picker + ' ' + this.time_picker
         }).then(res => {
           //成功
-          console.log(res);
+          alert(res.data);
+          this.title = ''
+          this.context = ''
+          this.select = ''
         }).then(error => {
           console.log(error);
         })
