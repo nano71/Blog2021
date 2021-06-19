@@ -33,7 +33,7 @@
       >
         <v-list-item
           link
-          @click="a($event,i)"
+          @click="a($event,i);tabs('发表博客')"
           class="test"
         >
           <v-list-item-icon>
@@ -61,7 +61,7 @@
             ref="a"
             v-for="(it,i) in item.items"
             link
-            @click="a($event,i)"
+            @click="a($event,it);tabs(it)"
           >
             <v-list-item-icon>
               <v-icon>mdi-{{ item.icons[i] }}</v-icon>
@@ -101,7 +101,7 @@
       hide-on-scroll
     >
       <v-toolbar-title class="subtitle-1">
-        发表博客
+        {{ titles[ifs] }}
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn right absolute elevation="0" color="teal" dark @click="input_blog">
@@ -112,13 +112,15 @@
     <v-main
       class="grey lighten-3 pl-0 pt-2 zindex1">
       <v-content fluid>
-        <blog ref="blog"/>
+        <blog v-if="ifs===1" ref="blog"/>
+        <blog-list v-if="ifs===2" ref="blog_list"/>
       </v-content>
     </v-main>
   </v-app>
 </template>
 <script>
 import blog from './blog-back-stage-blog'
+import blogList from './blog-back-stage-list'
 
 export default {
   name: "BlogBackStageMain",
@@ -126,6 +128,15 @@ export default {
     return {
       r: '&blacktriangleright;',
       clicked: [true, true, true, true, true],
+      ifs: 1,
+      titles: [
+        'welcome',
+        '发布博客',
+        '博客列表',
+        '评论管理',
+        '头部链接',
+        '左侧链接',
+        '底部链接'],
       items: [
         {
           action: 'blogger',
@@ -157,11 +168,34 @@ export default {
     }
   },
   components: {
-    blog,
+    blog, blogList
   },
   methods: {
-    a: function (e, i) {
-      console.log(this.$refs.a);
+    tabs: function (i) {
+      switch (i) {
+        case '发表博客' :
+          this.ifs = 1
+          break
+        case '博客列表' :
+          this.ifs = 2
+          break
+        case '评论管理' :
+          this.ifs = 3
+          break
+        case '头部链接' :
+          this.ifs = 4
+          break
+        case '左侧链接' :
+          this.ifs = 5
+          break
+        case '底部链接' :
+          this.ifs = 6
+          break
+
+      }
+    },
+    a: function (e) {
+      // console.log(this.$refs.a);
       for (let i = 0; i < document.querySelectorAll('.test').length; i++) {
         document.querySelectorAll('.test')[i].classList.remove("test")
       }

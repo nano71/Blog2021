@@ -107,7 +107,7 @@ export default {
     })
   },
   methods: {
-    //更新下一页
+
     removeHTMLTag(str) {
       str = str.replace(/<\/?[^>]*>/g, ''); //去除HTML tag
       str = str.replace(/[ | ]*\n/g, '\n'); //去除行尾空白
@@ -116,6 +116,7 @@ export default {
       str = str.replace(/\s/g, ''); //将空格去掉
       return str;
     },
+    //更新下一页
     next: function () {
       this.$router.push({path: `/page/${this.page}`})
       this.blog_list = []

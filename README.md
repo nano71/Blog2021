@@ -1,6 +1,7 @@
 # Blog
 The blog for github.com/ChinaGamer | 1742968988@qq.com
 
+需要配套PHP文件可以[联系我](https://personal-station.cn/blog/#/about)
 ## Project setup
 ```
 npm install
