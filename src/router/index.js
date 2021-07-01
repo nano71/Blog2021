@@ -24,8 +24,9 @@ const routes = [
   },
   {
     path: '/resume',
+    name: 'resume',
     component: () => {
-      window.location='https://personal-station.cn/resume'
+      window.location = 'https://personal-station.cn/resume'
     }
   },
   {

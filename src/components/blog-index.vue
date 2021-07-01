@@ -255,10 +255,6 @@ export default {
 
 </script>
 <style scoped lang="less">
-　::selection {
-  background: #00BFA5;
-  color: white;
-}
 
 .point {
   cursor: pointer;
