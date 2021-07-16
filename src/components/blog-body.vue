@@ -108,6 +108,7 @@ export default {
   },
   methods: {
 
+
     removeHTMLTag(str) {
       str = str.replace(/<\/?[^>]*>/g, ''); //去除HTML tag
       str = str.replace(/[ | ]*\n/g, '\n'); //去除行尾空白
@@ -148,10 +149,6 @@ export default {
 </script>
 
 <style scoped lang="less">
-　::selection {
-  background: #00BFA5;
-  color: white;
-}
 
 .v-card-absolute {
   position: absolute;

@@ -64,10 +64,6 @@ export default {
 
 <style scoped lang="less">
 
-　::selection {
-  background: #00BFA5;
-  color: white;
-}
 
 #_content {
 

@@ -121,13 +121,13 @@ export default {
       //   v => !!v || '离线密钥是必须的',
       //   v => (v && v.length <= 4) || '长度超出',
       // ],
-      OnlineKey: '17@42',
+      OnlineKey: '',
       OnlineKeyRes: [
         v => !!v || '在线密钥是必须的',
         v => v && v.length <= 8 || '格式错误',
       ],
       valid: true,
-      lazy:false,
+      lazy: false,
       checkbox: false,
       MainShow: false,
       Key: true,
@@ -138,12 +138,12 @@ export default {
   },
   methods: {
     validate() {
-      if (this.$refs.form.validate() && this.OnlineKey == '17@42') {
+      if (this.$refs.form.validate () && this.OnlineKey == '1742') {
         this.MainShow = true
       } else {
         this.Key = false
-        this.reset()
-        setTimeout(() => {
+        this.reset ()
+        setTimeout (() => {
           this.Key = true
         }, 3000)
       }

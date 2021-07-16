@@ -19,7 +19,7 @@
         text
         rounded
         class="my-2"
-        @click="$vuetify.goTo(400, options);top()"
+        @click="top()"
       >
         TOP
       </v-btn>
@@ -38,7 +38,7 @@
         class="teal accent-4 py-4 text-center white--text"
         cols="12"
       >
-        Copyright © LiangHao {{ new Date().getFullYear() }} - <strong>桂ICP备2021003184号</strong> - Vue技术 VuetifyUI
+        Copyright © LiangHao {{ new Date ().getFullYear () }} - <strong>桂ICP备2021003184号</strong> - Vue技术 VuetifyUI
       </v-col>
     </v-row>
   </v-footer>
@@ -49,22 +49,16 @@
 
 export default {
   data: () => ({
-      links: [
-        'resume',
-        'index',
-        'About',
-      ],
-      options:{
-        duration: 500,
-        offset: 500,
-        easing: 'easeInOutCubic',
-      }
-    }),
-  methods:{
-    top:()=>{
-      setTimeout(function () {
-        document.querySelector('#top').click();
-      },100)
+    links: [
+      'resume',
+      'index',
+      'About',
+    ],
+  }),
+  methods: {
+    top () {
+      // this.$parent.top ();
+      this.$emit ('top')
     }
   }
 }

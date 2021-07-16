@@ -160,6 +160,7 @@
                   <v-list-item
                     link
                     color="grey lighten-4"
+                    @click="top"
                   >
                     <v-list-item-content>
                       <v-list-item-title>
@@ -186,7 +187,7 @@
           </v-row>
         </v-container>
       </v-main>
-      <blog-footer/>
+      <blog-footer @top="top"/>
     </v-app>
   </div>
 </template>
@@ -200,53 +201,63 @@ export default {
     'blog-body': BlogBody
   },
   // 箭头函数 (x) => x+6 相当于 function (x) { return x+6 } //
-  data: () => ({
-    overlay: false,
-    isMobile: false,
-    links: [
-      '本站简介',
-      '版权声明',
-      '关于我',
-      '控制台'
-    ],
-    links_href: [
-      '#/document',
-      '#/copyright',
-      '#/about',
-      '#/bbs'
-    ],
-    c_btn: 'teal accent-4',
-    options: [
-      '本站简介',
-      '版权声明',
-      '关于我',
-      '控制台'
-    ],
-    v_toolbar: "<style>.v-menu__content{box-shadow:none !important;}</style>",
-    windowWidth: null,
-    Tag_class: [
-      'Html',
-      'Css',
-      'JS脚本',
-      'JQuery',
-      'Vue.js',
-    ]
-  }),
-  beforeDestroy() {
+  data () {
+    return {
+      overlay: false,
+      isMobile: false,
+      links: [
+        '本站简介',
+        '版权声明',
+        '关于我',
+        '控制台'
+      ],
+      links_href: [
+        '#/document',
+        '#/copyright',
+        '#/about',
+        '#/bbs'
+      ],
+      c_btn: 'teal accent-4',
+      options: [
+        '本站简介',
+        '版权声明',
+        '关于我',
+        '控制台'
+      ],
+      v_toolbar: "<style>.v-menu__content{box-shadow:none !important;}</style>",
+      windowWidth: null,
+      Tag_class: [
+        'Html',
+        'Css',
+        'JS脚本',
+        'JQuery',
+        'Vue.js',
+      ],
+      op: {
+        duration: 500,
+        offset: 500,
+        easing: 'easeInOutCubic',
+      }
+    }
+  },
+  beforeDestroy () {
     if (typeof window === 'undefined') return
-    window.removeEventListener('resize', this.onResize, {passive: true})
+    window.removeEventListener ('resize', this.onResize, {passive: true})
   },
 
-  mounted() {
-    this.onResize()
-    window.addEventListener('resize', this.onResize, {passive: true})
+  mounted () {
+    this.onResize ()
+    window.addEventListener ('resize', this.onResize, {passive: true})
   },
 
   methods: {
-    to_blog() {
-      this.$router.push({path: '/'})
+    top () {
+      this.$vuetify.goTo (400, this.op)
     },
-    onResize() {
+    to_blog () {
+      this.$router.push ({path: '/'})
+    },
+    onResize () {
       this.isMobile = window.innerWidth > 1264;
       this.windowWidth = window.innerWidth
     }
