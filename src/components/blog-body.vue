@@ -103,7 +103,7 @@ export default {
       console.log('处理后的列表:');
       console.log(this.blog_list);
     }).catch((error) => {
-      console.log(error)
+      alert (error)
     })
   },
   methods: {
@@ -141,7 +141,7 @@ export default {
         console.log('最大页数：' + this.max_page);
         console.log('处理后的列表:');
       }).catch((error) => {
-        console.log(error)
+        alert (error)
       })
     }
   }

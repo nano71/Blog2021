@@ -58,7 +58,7 @@ export default {
   methods: {
     top () {
       // this.$parent.top ();
-      this.$emit ('top')
+      // this.$emit ('top')
     }
   }
 }
