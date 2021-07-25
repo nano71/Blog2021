@@ -10,7 +10,6 @@
     </v-btn>
     <v-btn
       elevation="0"
-
       dark
       color="teal"
       class="ml-4">
@@ -21,7 +20,8 @@
       elevation="0"
       dark
       color="teal"
-      class="ml-4">
+      class="ml-4"
+      @click="del">
       <v-icon small>mdi-delete</v-icon>
       &nbsp;删除
     </v-btn>
@@ -95,6 +95,7 @@ export default {
       blog_list: [],
       search: '',
       selected: [],
+      selected_bid: [],
       headers: [
         {
           text: '标题',
@@ -143,17 +144,33 @@ export default {
         // this.blog_list[i].tags = '#' + this.blog_list[i].tag + ' #' + this.blog_list[i].tag2 + ' #' + this.blog_list[i].tag3
 
       }
-      this.max_page = Math.ceil(response.data[this.blog_length]["count(*)"] / 15)
-      console.log('最大页数：' + this.max_page);
-      console.log('处理后的列表:');
-      console.log(this.blog_list);
-    }).catch((error) => {
-      console.log(error)
+      this.max_page = Math.ceil (response.data[this.blog_length]["count(*)"] / 15)
+      console.log ('最大页数：' + this.max_page);
+      console.log ('处理后的列表:');
+      console.log (this.blog_list);
+    }).catch ((error) => {
+      console.log (error)
     })
     this.tags = [this.blog_list[i].tag, this.blog_list[i].tag2, this.blog_list[i].tag3]
   },
-  methods: {}
-
+  methods: {
+    del () {
+      if (this.selected) {
+        axios.post ('https://personal-station.cn/php/BLOG.php', {
+          type: 6,
+        })
+      }
+    }
+  },
+  watch: {
+    selected: function (n, o) {
+      this.selected_bid = []
+      n.forEach ((e) => {
+        this.selected_bid.push (e.Bid)
+        console.log (this.selected_bid);
+      })
+    }
+  }
 
 }
 </script>

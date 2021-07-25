@@ -101,11 +101,10 @@
             class="mt-12"
             color="teal accent-4">
             <v-list-item
-              v-for="n in options"
-              :key="n"
-              @click="() => {}"
+              v-for="(n,index) in options"
+              :href="links_href[index]"
             >
-              <v-list-item-title class="white--text">{{ n }}</v-list-item-title>
+              <v-list-item-title class="white--text">{{ options[index] }}</v-list-item-title>
             </v-list-item>
           </v-list>
         </v-menu>
@@ -114,7 +113,7 @@
       <v-main class="grey lighten-3">
         <v-container>
           <v-row class="justify-center">
-            <v-col class="col-sm-4 .d-none .d-sm-flex col-md-3 col-lg-2 text-center" min-width="128">
+            <v-col class="col-sm-4 d-none d-sm-block  col-md-3 col-lg-2 text-center" min-width="128">
               <v-sheet rounded="lg">
                 <v-list color="transparent">
                   <v-list-item-title
