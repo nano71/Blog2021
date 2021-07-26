@@ -14,7 +14,7 @@
     >
       <v-card-text>
         <v-img
-          class="float-right  d-sm-none d-md-flex d-none  v-card-absolute"
+          class="float-right  d-sm-none d-md-flex d-none v-card-absolute"
           lazy-src="https://picsum.photos/id/11/10/6"
           :aspect-ratio="7/6"
           width="285"
@@ -28,7 +28,7 @@
         <div
           style="max-height: 75px "
           class="text--primary col-lg-7 col-xl-7 col-md-6 col-sm-12 col-12 overflow-hidden">
-          {{ removeHTMLTag(blog_list[index]['content']) }}
+          {{ removeHTMLTag (blog_list[index]['content']) }}
         </div>
       </v-card-text>
       <v-card-actions>
@@ -51,12 +51,14 @@
         <v-col cols="8">
           <v-container class="max-width">
             <v-pagination
+              id="pagination"
               color="teal accent-4"
               v-model="page"
               class="my-4"
               :length="max_page"
               @input="next"
             ></v-pagination>
+            <span v-html="pagination_style"></span>
           </v-container>
         </v-col>
       </v-row>
@@ -71,19 +73,25 @@ import Vue from "vue";
 
 export default {
   name: 'blog-body',
-  data() {
+  data () {
     return {
       page: 5,
       max_page: 1,
       blog_length: 0,
       blog_list: {},
+      pagination_style: `<style>
+      #pagination .v-pagination__navigation ,#pagination .v-pagination__item--active , #pagination .v-pagination__item{
+              box-shadow: unset !important;
+              background-color: #f0f0f0 ;
+      }
+    </style>`
     }
   },
-  mounted() {
-    this.page = parseInt(this.$route.params.page)
-    console.log('当前页数：' + this.page)
+  mounted () {
+    this.page = parseInt (this.$route.params.page)
+    console.log ('当前页数：' + this.page)
 //     mounted ： 在这发起后端请求，拿回数据，配合路由钩子做一些事情（dom渲染完成
-    axios.post('https://personal-station.cn/php/BLOG.php', {
+    axios.post ('https://personal-station.cn/php/BLOG.php', {
         type: 0,
         limit_page: this.page,
       },
@@ -91,37 +99,37 @@ export default {
         headers: {
           'Content-Type': 'application/json;charset=UTF-8'
         }
-      }).then((response) => {
-      this.blog_length = Object.keys(response.data).length
+      }).then ((response) => {
+      this.blog_length = Object.keys (response.data).length
       for (let i = 0; i < this.blog_length - 1; i++) {
         // this.blog_list[i] = response.data[i + 1]
         // Vue 不能检测以下数组的变动，也就是说改变数组不会触发重新渲染
-        Vue.set(this.blog_list, i, response.data[i + 1])
+        Vue.set (this.blog_list, i, response.data[i + 1])
       }
-      this.max_page = Math.ceil(response.data[this.blog_length]["count(*)"] / 6)
-      console.log('最大页数：' + this.max_page);
-      console.log('处理后的列表:');
-      console.log(this.blog_list);
-    }).catch((error) => {
+      this.max_page = Math.ceil (response.data[this.blog_length]["count(*)"] / 6)
+      console.log ('最大页数：' + this.max_page);
+      console.log ('处理后的列表:');
+      console.log (this.blog_list);
+    }).catch ((error) => {
       alert (error)
     })
   },
   methods: {
 
 
-    removeHTMLTag(str) {
-      str = str.replace(/<\/?[^>]*>/g, ''); //去除HTML tag
-      str = str.replace(/[ | ]*\n/g, '\n'); //去除行尾空白
+    removeHTMLTag (str) {
+      str = str.replace (/<\/?[^>]*>/g, ''); //去除HTML tag
+      str = str.replace (/[ | ]*\n/g, '\n'); //去除行尾空白
 //str = str.replace(/\n[\s| | ]*\r/g,'\n'); 去除多余空行
-      str = str.replace(/&nbsp;/ig, ''); //去掉&nbsp;
-      str = str.replace(/\s/g, ''); //将空格去掉
+      str = str.replace (/&nbsp;/ig, ''); //去掉&nbsp;
+      str = str.replace (/\s/g, ''); //将空格去掉
       return str;
     },
     //更新下一页
     next: function () {
-      this.$router.push({path: `/page/${this.page}`})
+      this.$router.push ({path: `/page/${this.page}`})
       this.blog_list = []
-      axios.post('https://personal-station.cn/php/BLOG.php', {
+      axios.post ('https://personal-station.cn/php/BLOG.php', {
           type: 0,
           limit_page: this.page,
         },
@@ -129,18 +137,18 @@ export default {
           headers: {
             'Content-Type': 'application/json;charset=UTF-8'
           }
-        }).then((response) => {
+        }).then ((response) => {
         // console.log(response.data)
-        this.blog_length = Object.keys(response.data).length
+        this.blog_length = Object.keys (response.data).length
         for (let i = 0; i < this.blog_length - 1; i++) {
           // this.blog_list[i] = response.data[i + 1]
           // Vue 不能检测以下数组的变动，也就是说改变数组不会触发重新渲染
-          Vue.set(this.blog_list, i, response.data[i + 1])
+          Vue.set (this.blog_list, i, response.data[i + 1])
         }
-        this.max_page = Math.ceil(response.data[this.blog_length]["count(*)"] / 6)
-        console.log('最大页数：' + this.max_page);
-        console.log('处理后的列表:');
-      }).catch((error) => {
+        this.max_page = Math.ceil (response.data[this.blog_length]["count(*)"] / 6)
+        console.log ('最大页数：' + this.max_page);
+        console.log ('处理后的列表:');
+      }).catch ((error) => {
         alert (error)
       })
     }

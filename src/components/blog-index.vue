@@ -69,9 +69,9 @@
 
         <v-spacer></v-spacer>
 
-        <v-btn color="black" plain icon>
-          <v-icon>mdi-heart</v-icon>
-        </v-btn>
+        <!--        <v-btn color="black" plain icon>-->
+        <!--          <v-icon>mdi-heart</v-icon>-->
+        <!--        </v-btn>-->
 
         <v-btn plain color="black" icon>
           <v-icon>mdi-magnify</v-icon>
@@ -94,7 +94,7 @@
             </v-btn>
           </template>
           <div
-            style="width: 25px;height: 25px; transform: rotate(45deg); background: #00BFA5;position:absolute;z-index: 6; right: 11px;top: 38px">
+            style="width: 25px;height: 25px; transform: rotate(45deg); background: #00BFA5;position:absolute;z-index: 0; right: 11px;top: 38px">
 
           </div>
           <v-list
@@ -124,6 +124,7 @@
                   <v-list-item
                     v-for="(item,index) in Tag_class"
                     link
+                    @click="_class(Tag_class[index])"
                   >
                     <v-list-item-content>
                       <v-list-item-title class="font-weight-medium text-uppercase">
@@ -180,7 +181,7 @@
                 rounded="lg"
               >
                 <router-view></router-view>
-                <!--  -->
+                <!-- 内容  -->
               </v-sheet>
             </v-col>
           </v-row>
@@ -199,7 +200,6 @@ export default {
     'blog-footer': BlogFooter,
     'blog-body': BlogBody
   },
-  // 箭头函数 (x) => x+6 相当于 function (x) { return x+6 } //
   data () {
     return {
       overlay: false,
@@ -228,9 +228,9 @@ export default {
       Tag_class: [
         'Html',
         'Css',
-        'JS脚本',
-        'JQuery',
-        'Vue.js',
+        'JavaScript',
+        'PHP',
+        'Vue',
       ],
       op: {
         duration: 500,
@@ -259,6 +259,9 @@ export default {
     onResize () {
       this.isMobile = window.innerWidth > 1264;
       this.windowWidth = window.innerWidth
+    },
+    _class (i) {
+      alert (i)
     }
   }
 }

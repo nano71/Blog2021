@@ -43,32 +43,32 @@
               <v-tooltip top>
                 <template v-slot:activator="{ on, attrs }">
                   <span
+                    ref="#/"
                     v-bind="attrs"
                     v-on="on"
                     class="text-decoration-underline soon"
-                    ref="#/"
                   >
                     待实习
                   </span>
                 </template>
-                <span>打算招聘人才？</span>
+                <span>联系信息在下方 &bigtriangledown;</span>
               </v-tooltip>
               <span class="float-right mr-4">2019.09~2022.06</span>
               <br>
-              成绩排名：
-              <v-tooltip top>
-                <template v-slot:activator="{ on, attrs }">
-                  <span
-                    v-bind="attrs"
-                    v-on="on"
-                    class="text-decoration-underline soon"
-                    ref="#/"
-                  >
-                    没某些人厉害
-                  </span>
-                </template>
-                <span>"绩"不如人；班上一堆都啥也不会，作业都是买的 <br>考试作弊有一套，这些人成绩都能排前10，可笑！</span>
-              </v-tooltip>
+              <!--              成绩排名：-->
+              <!--              <v-tooltip top>-->
+              <!--                <template v-slot:activator="{ on, attrs }">-->
+              <!--                  <span-->
+              <!--                    v-bind="attrs"-->
+              <!--                    v-on="on"-->
+              <!--                    class="text-decoration-underline soon"-->
+              <!--                    ref="#/"-->
+              <!--                  >-->
+              <!--                    没某些人厉害-->
+              <!--                  </span>-->
+              <!--                </template>-->
+              <!--                <span>"绩"不如人；班上一堆都啥也不会，作业都是买的 <br>考试作弊有一套，这些人成绩都能排前10，可笑！</span>-->
+              <!--              </v-tooltip>-->
 
             </p>
             <h4 class="my-4">专业技能</h4>
