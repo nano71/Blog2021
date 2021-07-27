@@ -136,7 +136,7 @@ export default {
       this.select = ''
     },
     a: function (r) {
-      console.log(r);
+      // console.log(r);
     },
     input_blog: function () {
       if (this.title == null) {
@@ -170,7 +170,7 @@ export default {
             alert(res.data);
           }
         }).then(error => {
-          console.log(error);
+          // console.log(error);
         })
       }
     }

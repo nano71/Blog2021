@@ -180,7 +180,7 @@
                 min-height="10vh"
                 rounded="lg"
               >
-                <router-view></router-view>
+                <router-view v-if="isRouterAlice"></router-view>
                 <!-- 内容  -->
               </v-sheet>
             </v-col>
@@ -200,8 +200,14 @@ export default {
     'blog-footer': BlogFooter,
     'blog-body': BlogBody
   },
+  provide () {
+    return {
+      reload: this.reload
+    }
+  },
   data () {
     return {
+      isRouterAlice: true,
       overlay: false,
       isMobile: false,
       links: [
@@ -261,7 +267,14 @@ export default {
       this.windowWidth = window.innerWidth
     },
     _class (i) {
-      alert (i)
+      // console.log (this.$route.path);
+      if (this.$route.path !== `/class/${i}`) {
+        this.$router.push ({path: `/class/${i}`})
+        this.isRouterAlice = false
+        this.$nextTick (function () {
+          this.isRouterAlice = true
+        })
+      }
     }
   }
 }

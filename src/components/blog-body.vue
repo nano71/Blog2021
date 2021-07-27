@@ -70,12 +70,14 @@
 
 import axios from "axios";
 import Vue from "vue";
+import notfound from "@/components/notfound";
 
 export default {
   name: 'blog-body',
   data () {
     return {
       page: 5,
+      class: null,
       max_page: 1,
       blog_length: 0,
       blog_list: {},
@@ -88,35 +90,55 @@ export default {
     }
   },
   mounted () {
-    this.page = parseInt (this.$route.params.page)
-    console.log ('当前页数：' + this.page)
-//     mounted ： 在这发起后端请求，拿回数据，配合路由钩子做一些事情（dom渲染完成
-    axios.post ('https://personal-station.cn/php/BLOG.php', {
+    if (this.$route.params.class) {
+      this.class = this.$route.params.class
+      axios.post ('https://personal-station.cn/php/BLOG.php', {
+        type: 6,
+        class: this.class
+      }).then ((response) => {
+        // console.log (response);
+        this.blog_length = Object.keys (response.data).length
+        for (let i = 0; i < this.blog_length - 1; i++) {
+          // this.blog_list[i] = response.data[i + 1]
+          // Vue 不能检测以下数组的变动，也就是说改变数组不会触发重新渲染
+          Vue.set (this.blog_list, i, response.data[i + 1])
+        }
+        this.max_page = Math.ceil (response.data[this.blog_length]["count(*)"] / 6)
+        // console.log ('最大页数：' + this.max_page);
+        // console.log ('处理后的列表:');
+        // console.log (this.blog_list);
+      }).catch ((error) => {
+        // alert (error)
+        alert ("结果为空")
+        window.location.href = "/"
+      })
+    } else {
+      parseInt (this.$route.params.page)
+      this.page = parseInt (this.$route.params.page)
+      // console.log ('当前页数：' + this.page)
+      axios.post ('https://personal-station.cn/php/BLOG.php', {
         type: 0,
         limit_page: this.page,
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json;charset=UTF-8'
-        }
       }).then ((response) => {
-      this.blog_length = Object.keys (response.data).length
-      for (let i = 0; i < this.blog_length - 1; i++) {
-        // this.blog_list[i] = response.data[i + 1]
-        // Vue 不能检测以下数组的变动，也就是说改变数组不会触发重新渲染
-        Vue.set (this.blog_list, i, response.data[i + 1])
-      }
-      this.max_page = Math.ceil (response.data[this.blog_length]["count(*)"] / 6)
-      console.log ('最大页数：' + this.max_page);
-      console.log ('处理后的列表:');
-      console.log (this.blog_list);
-    }).catch ((error) => {
-      alert (error)
-    })
+        this.blog_length = Object.keys (response.data).length
+        for (let i = 0; i < this.blog_length - 1; i++) {
+          // this.blog_list[i] = response.data[i + 1]
+          // Vue 不能检测以下数组的变动，也就是说改变数组不会触发重新渲染
+          Vue.set (this.blog_list, i, response.data[i + 1])
+        }
+        this.max_page = Math.ceil (response.data[this.blog_length]["count(*)"] / 6)
+        // console.log ('最大页数：' + this.max_page);
+        // console.log ('处理后的列表:');
+        // console.log (this.blog_list);
+      }).catch ((error) => {
+        // alert (error)
+        alert ("结果为空")
+        window.location.href = "/"
+      })
+    }
+
   },
   methods: {
-
-
     removeHTMLTag (str) {
       str = str.replace (/<\/?[^>]*>/g, ''); //去除HTML tag
       str = str.replace (/[ | ]*\n/g, '\n'); //去除行尾空白
@@ -132,11 +154,6 @@ export default {
       axios.post ('https://personal-station.cn/php/BLOG.php', {
           type: 0,
           limit_page: this.page,
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json;charset=UTF-8'
-          }
         }).then ((response) => {
         // console.log(response.data)
         this.blog_length = Object.keys (response.data).length
@@ -146,8 +163,8 @@ export default {
           Vue.set (this.blog_list, i, response.data[i + 1])
         }
         this.max_page = Math.ceil (response.data[this.blog_length]["count(*)"] / 6)
-        console.log ('最大页数：' + this.max_page);
-        console.log ('处理后的列表:');
+        // console.log ('最大页数：' + this.max_page);
+        // console.log ('处理后的列表:');
       }).catch ((error) => {
         alert (error)
       })

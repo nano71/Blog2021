@@ -65,6 +65,16 @@ const routes = [
     ]
   },
   {
+    path: '/class/:class',
+    component: BlogIndex,
+    children: [
+      {
+        path: '/',
+        component: BlogBody
+      },
+    ]
+  },
+  {
     path: '/bbs',
     component: BlogBackStage,
   },

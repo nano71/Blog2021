@@ -126,7 +126,7 @@ export default {
       type: 4,
       limit_page: 1
     }).then((response) => {
-      console.log(response);
+      // console.log(response);
       this.blog_length = Object.keys(response.data).length
       for (let i = 0; i < this.blog_length - 1; i++) {
         // this.blog_list[i] = response.data[i + 1]
@@ -145,11 +145,11 @@ export default {
 
       }
       this.max_page = Math.ceil (response.data[this.blog_length]["count(*)"] / 15)
-      console.log ('最大页数：' + this.max_page);
-      console.log ('处理后的列表:');
-      console.log (this.blog_list);
+      // console.log ('最大页数：' + this.max_page);
+      // console.log ('处理后的列表:');
+      // console.log (this.blog_list);
     }).catch ((error) => {
-      console.log (error)
+      // console.log (error)
     })
     this.tags = [this.blog_list[i].tag, this.blog_list[i].tag2, this.blog_list[i].tag3]
   },
@@ -167,7 +167,7 @@ export default {
       this.selected_bid = []
       n.forEach ((e) => {
         this.selected_bid.push (e.Bid)
-        console.log (this.selected_bid);
+        // console.log (this.selected_bid);
       })
     }
   }
