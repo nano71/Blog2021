@@ -180,7 +180,7 @@
                 min-height="10vh"
                 rounded="lg"
               >
-                <router-view v-if="isRouterAlice"></router-view>
+                <router-view v-if="isRouterAlice" @back="reload"></router-view>
                 <!-- 内容  -->
               </v-sheet>
             </v-col>
@@ -256,6 +256,12 @@ export default {
   },
 
   methods: {
+    reload () {
+      this.isRouterAlice = false
+      this.$nextTick (() => {
+        this.isRouterAlice = true
+      })
+    },
     top () {
       this.$vuetify.goTo (400, this.op)
     },
@@ -267,15 +273,11 @@ export default {
       this.windowWidth = window.innerWidth
     },
     _class (i) {
-      // console.log (this.$route.path);
       if (this.$route.path !== `/class/${i}`) {
         this.$router.push ({path: `/class/${i}`})
-        this.isRouterAlice = false
-        this.$nextTick (function () {
-          this.isRouterAlice = true
-        })
+        this.reload ()
       }
-    }
+    },
   }
 }
 

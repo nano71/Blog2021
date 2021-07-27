@@ -76,6 +76,7 @@ export default {
   name: 'blog-body',
   data () {
     return {
+      isRouterAlice: true,
       page: 5,
       class: null,
       max_page: 1,
@@ -110,7 +111,7 @@ export default {
       }).catch ((error) => {
         // alert (error)
         alert ("结果为空")
-        window.location.href = "/"
+        this.back ()
       })
     } else {
       parseInt (this.$route.params.page)
@@ -133,7 +134,7 @@ export default {
       }).catch ((error) => {
         // alert (error)
         alert ("结果为空")
-        window.location.href = "/"
+        this.back ()
       })
     }
 
@@ -152,9 +153,9 @@ export default {
       this.$router.push ({path: `/page/${this.page}`})
       this.blog_list = []
       axios.post ('https://personal-station.cn/php/BLOG.php', {
-          type: 0,
-          limit_page: this.page,
-        }).then ((response) => {
+        type: 0,
+        limit_page: this.page,
+      }).then ((response) => {
         // console.log(response.data)
         this.blog_length = Object.keys (response.data).length
         for (let i = 0; i < this.blog_length - 1; i++) {
@@ -167,7 +168,14 @@ export default {
         // console.log ('处理后的列表:');
       }).catch ((error) => {
         alert (error)
+        this.back ()
       })
+    },
+    back () {
+      this.$router.back (-1)
+      setTimeout (() => {
+        this.$emit ("back");
+      }, 500)
     }
   }
 }
