@@ -46,12 +46,21 @@
           <v-responsive max-width="260">
             <!--文本框-->
             <v-text-field
+              v-model="search"
               dense
               flat
               hide-details
               rounded
               solo-inverted
-            ></v-text-field>
+              color="teal"
+              id="search"
+              @keyup="searchKeyup"
+              @change="search=null"
+            >
+              <template v-slot:label>
+                Click here to search all...
+              </template>
+            </v-text-field>
           </v-responsive>
         </v-container>
       </v-app-bar>
@@ -132,6 +141,18 @@
                       </v-list-item-title>
                     </v-list-item-content>
                   </v-list-item>
+                  <v-divider class="my-0"></v-divider>
+                  <v-list-item
+                    link
+                    color="grey lighten-4"
+                    @click="_all"
+                  >
+                    <v-list-item-content>
+                      <v-list-item-title>
+                        全部
+                      </v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
                 </v-list>
               </v-sheet>
 
@@ -140,7 +161,7 @@
                   <v-list-item-title
                     class="mt-3 mb-3 Body-2 font-weight-light"
                     style="color: #666666">
-                    歪门邪道
+                    即将上线 歪门邪道
                   </v-list-item-title>
                   <v-list-item
                     class="font-weight-medium text-uppercase"
@@ -150,7 +171,7 @@
                   >
                     <v-list-item-content>
                       <v-list-item-title>
-                        List Item {{ n }}
+                        即将上线 {{ n }}
                       </v-list-item-title>
                     </v-list-item-content>
                   </v-list-item>
@@ -160,11 +181,10 @@
                   <v-list-item
                     link
                     color="grey lighten-4"
-                    @click="top"
                   >
                     <v-list-item-content>
                       <v-list-item-title>
-                        你的提议
+                        即将上线 你的提议
                       </v-list-item-title>
                     </v-list-item-content>
                   </v-list-item>
@@ -180,14 +200,14 @@
                 min-height="10vh"
                 rounded="lg"
               >
-                <router-view v-if="isRouterAlice" @back="reload"></router-view>
+                <router-view v-if="isRouterAlice" ref="child" @back="reload"></router-view>
                 <!-- 内容  -->
               </v-sheet>
             </v-col>
           </v-row>
         </v-container>
       </v-main>
-      <blog-footer @top="top"/>
+      <blog-footer/>
     </v-app>
   </div>
 </template>
@@ -207,6 +227,7 @@ export default {
   },
   data () {
     return {
+      search: null,
       isRouterAlice: true,
       overlay: false,
       isMobile: false,
@@ -232,11 +253,11 @@ export default {
       v_toolbar: "<style>.v-menu__content{box-shadow:none !important;}</style>",
       windowWidth: null,
       Tag_class: [
-        'Html',
-        'Css',
+        'HTML&CSS',
         'JavaScript',
         'PHP',
         'Vue',
+        '日志',
       ],
       op: {
         duration: 500,
@@ -278,11 +299,26 @@ export default {
         this.reload ()
       }
     },
+    _all () {
+      this.$router.push ({path: `/page/1`})
+      this.reload ()
+    },
+    searchKeyup () {
+      // console.log (this.search);
+      console.log (this.$route.path.slice (1, 2));
+      if (this.$route.path.slice (1, 2) != 'p' || this.$route.path.slice (1, 2) != 'c') {
+        this.$router.push ({path: `/page/1`})
+      }
+      this.$refs.child.search (this.search)
+    }
   }
 }
 
 </script>
 <style scoped lang="less">
+#search {
+
+}
 
 .point {
   cursor: pointer;

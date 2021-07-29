@@ -20,7 +20,7 @@
           width="285"
           src="https://picsum.photos/id/11/500/300"
         ></v-img>
-        <div>{{ blog_list[index]['CreateTime'] }}</div>
+        <div>{{ blog_list[index]['CreateTime'] }} <span class="ml-2">ID: {{ blog_list[index]['Bid'] }}</span></div>
         <p class="display-1 text--primary">
           {{ blog_list[index]['title'] }}
         </p>
@@ -76,6 +76,8 @@ export default {
   name: 'blog-body',
   data () {
     return {
+      timer_axios: null,
+      _if: true,
       isRouterAlice: true,
       page: 5,
       class: null,
@@ -87,13 +89,14 @@ export default {
               box-shadow: unset !important;
               background-color: #f0f0f0 ;
       }
-    </style>`
+    </style>`,
+      url: "https://personal-station.cn/php/BLOG.php",
     }
   },
   mounted () {
     if (this.$route.params.class) {
       this.class = this.$route.params.class
-      axios.post ('https://personal-station.cn/php/BLOG.php', {
+      axios.post (this.url, {
         type: 6,
         class: this.class
       }).then ((response) => {
@@ -117,7 +120,7 @@ export default {
       parseInt (this.$route.params.page)
       this.page = parseInt (this.$route.params.page)
       // console.log ('当前页数：' + this.page)
-      axios.post ('https://personal-station.cn/php/BLOG.php', {
+      axios.post (this.url, {
         type: 0,
         limit_page: this.page,
       }).then ((response) => {
@@ -152,7 +155,7 @@ export default {
     next: function () {
       this.$router.push ({path: `/page/${this.page}`})
       this.blog_list = []
-      axios.post ('https://personal-station.cn/php/BLOG.php', {
+      axios.post (this.url, {
         type: 0,
         limit_page: this.page,
       }).then ((response) => {
@@ -176,6 +179,28 @@ export default {
       setTimeout (() => {
         this.$emit ("back");
       }, 500)
+    },
+    search (i) {
+      //防抖
+      this.timer_axios && clearTimeout (this.timer_axios)
+      this.timer_axios = setTimeout (() => {
+
+        this.blog_list = []
+        axios.get (this.url + '?search=' + i + '&type=7')
+          .then ((response) => {
+            console.log (response.data)
+            this.blog_length = Object.keys (response.data).length
+            for (let i = 0; i < this.blog_length - 1; i++) {
+              Vue.set (this.blog_list, i, response.data[i + 1])
+            }
+            this.max_page = Math.ceil (response.data[this.blog_length]["count(*)"] / 6)
+          }).catch ((error) => {
+          alert (error)
+          this.back ()
+        })
+      }, 1000)
+
+
     }
   }
 }

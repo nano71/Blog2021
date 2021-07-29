@@ -23,9 +23,9 @@
           <v-list-item three-line>
 
             <v-list-item-content>
-              <div class="overline mb-4">名片</div>
+              <div class="overline mb-4">线性名片</div>
               <v-list-item-title class="headline mb-1">梁 皓</v-list-item-title>
-              <v-list-item-subtitle>计算机-前端行业</v-list-item-subtitle>
+              <v-list-item-subtitle>计算机行业-前端</v-list-item-subtitle>
             </v-list-item-content>
 
             <v-list-item-avatar
@@ -73,8 +73,8 @@
             </p>
             <h4 class="my-4">专业技能</h4>
             <p class="ml-4 font-weight-medium text-subtitle-2 text-capitalize text-wrap">
-              主要使用：前端大三件、JQuery.DOM、JQuery.AJAX、bootstrap、ES6语法<br>
-              还在挣扎：Vue.js、markdown <br>
+              主要使用：前端大三件、JQuery.DOM、JQuery.AJAX、Bootstrap、Less、ES6<br>
+              还在挣扎：Vue.js <br>
               辅助技能：CAD、C4D、3Dsmax、ps、pr、ai、xd<br>
               另寻出路：计算机网络管理员(中级)职业资格证书、计算机三级网络技术
             </p>

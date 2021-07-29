@@ -96,6 +96,7 @@
                 dark
                 v-bind="attrs"
                 v-on="isNull?null:on"
+                depressed
                 @click="isNull?snackbar=true:console.log()"
               >
                 {{ isMobile ? '进行评论' : '评论' }}
@@ -107,7 +108,7 @@
                 请悉知：
               </v-card-title>
               <v-card-text class="pa-0">
-                如果进行评论请在下方输入你的邮箱地址，请放心，我会将你输入的邮箱地址进行部分加密处理
+                如果进行评论请在下方输入你的邮箱地址，默认空白匿名
               </v-card-text>
               <v-row>
                 <v-col>
