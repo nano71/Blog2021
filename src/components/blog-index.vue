@@ -71,18 +71,34 @@
         app
         v-if="!isMobile"
         :width="windowWidth"
+
       >
         <span v-html="v_toolbar"></span>
         <v-toolbar-title @click="to_blog" class="point">BLO<span class="teal--text">G</span><small>vue</small>
         </v-toolbar-title>
 
         <v-spacer></v-spacer>
+        <v-responsive max-width="260" class="d-none d-sm-block">
+          <!--文本框-->
+          <v-text-field
+            v-model="search"
+            dense
+            flat
+            hide-details
+            rounded
+            solo-inverted
+            color="teal"
+            id="search"
+            @keyup="searchKeyup"
+            @change="search=null"
+          >
+            <template v-slot:label>
+              Click here to search all...
+            </template>
+          </v-text-field>
+        </v-responsive>
 
-        <!--        <v-btn color="black" plain icon>-->
-        <!--          <v-icon>mdi-heart</v-icon>-->
-        <!--        </v-btn>-->
-
-        <v-btn plain color="black" icon>
+        <v-btn plain color="black" v-if="windowWidth<600" @click="mobile_search_show=!mobile_search_show" icon>
           <v-icon>mdi-magnify</v-icon>
         </v-btn>
 
@@ -98,13 +114,13 @@
               plain
               v-bind="attrs"
               v-on="on"
+
             >
               <v-icon>mdi-dots-vertical</v-icon>
             </v-btn>
           </template>
           <div
             style="width: 25px;height: 25px; transform: rotate(45deg); background: #00BFA5;position:absolute;z-index: 0; right: 11px;top: 38px">
-
           </div>
           <v-list
             class="mt-12"
@@ -118,8 +134,68 @@
           </v-list>
         </v-menu>
       </v-app-bar>
+      <div id="mobile_more"
+           v-if="!isMobile"
+           class="overflow-hidden d-sm-none"
+           :style="!isMobile&&mobile_search_show&&windowWidth<550?'height:166px':!isMobile&&mobile_search_show&&windowWidth>600?'height:0':!isMobile&&mobile_search_show&&windowWidth>550?'height:108px':''"
+      >
+        <v-row class="px-4">
+          <v-col cols="12">
+            <v-responsive class="d-sm-none">
+              <!--文本框-->
+              <v-text-field
+                v-model="search"
+                dense
+                flat
+                hide-details
+                rounded
+                solo-inverted
+                color="teal"
+                id="search"
+                @keyup="searchKeyup"
+                @change="search=null"
+              >
+                <template v-slot:label>
+                  Click here to search all...
+                </template>
+              </v-text-field>
+            </v-responsive>
+          </v-col>
+          <v-col class="pt-0 overflow-x-auto float-left justify-center" cols="12">
+            <v-list-item
+              class="float-left"
+              v-for="(item,index) in Tag_class"
+              link
+              @click="_class(Tag_class[index])"
+            >
+              <v-list-item-content>
+                <v-list-item-title
+                  class="font-weight-medium text-uppercase">
+                  {{ Tag_class[index] }}
+                </v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item
+              class="float-left"
+              link
+              color="grey lighten-4"
+              @click="_all"
+            >
+              <v-list-item-content>
+                <v-list-item-title>
+                  浏览全部
+                </v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-col>
+        </v-row>
 
-      <v-main class="grey lighten-3">
+
+      </div>
+      <v-main
+        :style="!isMobile&&mobile_search_show&&windowWidth<550?'margin-top:166px':!isMobile&&mobile_search_show&&windowWidth>550?'margin-top:108px':windowWidth>600?'margin-top:unset':''"
+        class="grey lighten-3"
+      >
         <v-container>
           <v-row class="justify-center">
             <v-col class="col-sm-4 d-none d-sm-block  col-md-3 col-lg-2 text-center" min-width="128">
@@ -227,6 +303,8 @@ export default {
   },
   data () {
     return {
+      mobile_search_show: false,
+      mobile_bar_height: 56,
       search: null,
       isRouterAlice: true,
       overlay: false,
@@ -277,6 +355,9 @@ export default {
   },
 
   methods: {
+    mobile_search_show () {
+
+    },
     reload () {
       this.isRouterAlice = false
       this.$nextTick (() => {
@@ -292,6 +373,7 @@ export default {
     onResize () {
       this.isMobile = window.innerWidth > 1264;
       this.windowWidth = window.innerWidth
+      this.windowWidth > 600 ? this.mobile_search_show = false : ''
     },
     _class (i) {
       if (this.$route.path !== `/class/${i}`) {
@@ -316,8 +398,14 @@ export default {
 
 </script>
 <style scoped lang="less">
-#search {
-
+#mobile_more {
+  position: fixed;
+  top: 56px;
+  height: 0;
+  width: 100vw;
+  z-index: 99;
+  background-color: white;
+  transition: .2s;
 }
 
 .point {

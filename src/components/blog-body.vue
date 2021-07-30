@@ -111,6 +111,7 @@ export default {
         // console.log ('最大页数：' + this.max_page);
         // console.log ('处理后的列表:');
         // console.log (this.blog_list);
+        this.page = 1
       }).catch ((error) => {
         // alert (error)
         alert ("结果为空")
@@ -184,7 +185,6 @@ export default {
       //防抖
       this.timer_axios && clearTimeout (this.timer_axios)
       this.timer_axios = setTimeout (() => {
-
         this.blog_list = []
         axios.get (this.url + '?search=' + i + '&type=7')
           .then ((response) => {
@@ -194,6 +194,7 @@ export default {
               Vue.set (this.blog_list, i, response.data[i + 1])
             }
             this.max_page = Math.ceil (response.data[this.blog_length]["count(*)"] / 6)
+            this.page = 1
           }).catch ((error) => {
           alert (error)
           this.back ()
