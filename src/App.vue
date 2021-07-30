@@ -18,7 +18,7 @@ export default {}
 
 //滚动条整体部分
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 10px;
   background-color: unset;
 }
 

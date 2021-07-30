@@ -32,8 +32,8 @@ const routes = [
   {
     path: '/document',
     component: () => {
-      alert('404 NOT FOUND')
-      window.location='/'
+      alert ('404 NOT FOUND')
+      window.location = 'https://personal-station.cn/blog/'
     }
   },
   {
@@ -56,6 +56,16 @@ const routes = [
   },
   {
     path: '/page/:page',
+    component: BlogIndex,
+    children: [
+      {
+        path: '/',
+        component: BlogBody
+      },
+    ]
+  },
+  {
+    path: '/class/:class/:page',
     component: BlogIndex,
     children: [
       {

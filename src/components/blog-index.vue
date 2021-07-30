@@ -198,7 +198,7 @@
       >
         <v-container>
           <v-row class="justify-center">
-            <v-col class="col-sm-4 d-none d-sm-block  col-md-3 col-lg-2 text-center" min-width="128">
+            <v-col class="col-sm-4 d-none d-sm-block  col-md-3 col-lg-2 text-center pr-0" min-width="128">
               <v-sheet rounded="lg">
                 <v-list color="transparent">
                   <v-list-item-title
@@ -232,7 +232,7 @@
                 </v-list>
               </v-sheet>
 
-              <v-sheet rounded="lg" class="mt-6">
+              <v-sheet rounded="lg" class="mt-3">
                 <v-list color="transparent">
                   <v-list-item-title
                     class="mt-3 mb-3 Body-2 font-weight-light"
@@ -257,6 +257,7 @@
                   <v-list-item
                     link
                     color="grey lighten-4"
+                    @click="top"
                   >
                     <v-list-item-content>
                       <v-list-item-title>
@@ -272,7 +273,7 @@
               class="col-sm-8 col-12 col-md-9 col-lg-8 col-xl-5"
             >
               <v-sheet
-                class="pt-4 mb-16"
+                class="py-4"
                 min-height="10vh"
                 rounded="lg"
               >
@@ -283,7 +284,7 @@
           </v-row>
         </v-container>
       </v-main>
-      <blog-footer/>
+      <blog-footer @top="top"/>
     </v-app>
   </div>
 </template>
@@ -338,9 +339,9 @@ export default {
         '日志',
       ],
       op: {
-        duration: 500,
+        duration: 200,
         offset: 500,
-        easing: 'easeInOutCubic',
+        easing: 'linear',
       }
     }
   },
@@ -355,9 +356,6 @@ export default {
   },
 
   methods: {
-    mobile_search_show () {
-
-    },
     reload () {
       this.isRouterAlice = false
       this.$nextTick (() => {
@@ -365,7 +363,7 @@ export default {
       })
     },
     top () {
-      this.$vuetify.goTo (400, this.op)
+      this.$vuetify.goTo (0, this.op)
     },
     to_blog () {
       this.$router.push ({path: '/'})
@@ -376,8 +374,8 @@ export default {
       this.windowWidth > 600 ? this.mobile_search_show = false : ''
     },
     _class (i) {
-      if (this.$route.path !== `/class/${i}`) {
-        this.$router.push ({path: `/class/${i}`})
+      if (this.$route.path !== `/class/${i}` || this.$route.path !== `/class/${i}/1`) {
+        this.$router.push ({path: `/class/${i}/1`})
         this.reload ()
       }
     },
@@ -388,7 +386,7 @@ export default {
     searchKeyup () {
       // console.log (this.search);
       console.log (this.$route.path.slice (1, 2));
-      if (this.$route.path.slice (1, 2) != 'p' || this.$route.path.slice (1, 2) != 'c') {
+      if (this.$route.path.slice (1, 2) !== 'p' || this.$route.path.slice (1, 2) !== 'c') {
         this.$router.push ({path: `/page/1`})
       }
       this.$refs.child.search (this.search)

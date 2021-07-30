@@ -39,6 +39,7 @@
           xl="3"
         >
           <v-form
+            id="back_stage_from"
             ref="form"
             v-model="valid"
             :lazy-validation="lazy"
@@ -57,6 +58,7 @@
               label="在线密钥"
               required
               autofocus
+              :error="!Key"
             ></v-text-field>
 
 
@@ -69,14 +71,14 @@
 
             <v-btn
               color="info"
-              class="float-right"
+              class="float-right elevation-0"
               @click="next"
             >
               DEMO
             </v-btn>
             <v-btn
               color="error"
-              class="float-right mr-4"
+              class="float-right mr-4 elevation-0"
               @click="reset"
             >
               重置
@@ -84,7 +86,7 @@
             <v-btn
               :disabled="!valid"
               color="success"
-              class="mr-4 float-right"
+              class="mr-4 float-right elevation-0"
               @click="validate"
             >
               验证
@@ -111,7 +113,7 @@ export default {
     // 'mdi' || 'mdiSvg' || 'md' || 'fa' || 'fa4' || 'faSvg'
     iconfont: 'mdiSvg',
   },
-  data() {
+  data () {
     return {
       style: '<style>.v-messages__message{\n' +
         '  margin-top: 2px;\n' +
@@ -123,7 +125,7 @@ export default {
       // ],
       OnlineKey: '',
       OnlineKeyRes: [
-        v => !!v || '在线密钥是必须的',
+        v => !!v || 'ERROR',
         v => v && v.length <= 8 || '格式错误',
       ],
       valid: true,
@@ -133,11 +135,11 @@ export default {
       Key: true,
     };
   },
-  mounted() {
+  mounted () {
     // console.log(window.innerHeight);
   },
   methods: {
-    validate() {
+    validate () {
       if (this.$refs.form.validate () && this.OnlineKey == '1742') {
         this.MainShow = true
       } else {
@@ -148,19 +150,23 @@ export default {
         }, 3000)
       }
     },
-    reset() {
-      this.$refs.form.reset()
+    reset () {
+      this.$refs.form.reset ()
     },
-    next() {
-      this.$router.push({path: `/bbs/demo`})
+    next () {
+      this.$router.push ({path: `/bbs/demo`})
     }
   },
 
 }
 </script>
 
-<style scoped>
+<style scoped lang="less">
 #v-parallax {
   transition: .5s;
+}
+
+::selection {
+  background-color: unset;
 }
 </style>

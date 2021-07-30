@@ -13,16 +13,7 @@
       justify="center"
       no-gutters
     >
-      <v-btn
-        id="top"
-        color="white"
-        text
-        rounded
-        class="my-2"
-        @click="top()"
-      >
-        TOP
-      </v-btn>
+
       <v-btn
 
         v-for="(item,link) in links"
@@ -33,6 +24,16 @@
         :href="'#/'+links[link]"
       >
         {{ links[link] }}
+      </v-btn>
+      <v-btn
+        id="top"
+        color="white"
+        text
+        rounded
+        class="my-2"
+        @click="top()"
+      >
+        TOP
       </v-btn>
       <v-col
         class="teal accent-4 py-4 text-center white--text"
@@ -54,11 +55,23 @@ export default {
       'index',
       'About',
     ],
+    _if: true
   }),
   methods: {
+
     top () {
-      // this.$parent.top ();
-      // this.$emit ('top')
+      this.$emit ("top");
+      setTimeout (() => {
+        this.$emit ("top");
+      }, 50)
+      if (this._if) {
+        alert (1)
+        this._if = false
+
+        setTimeout (() => {
+          this._if = true
+        }, 1500)
+      }
     }
   }
 }

@@ -6,7 +6,8 @@
 
 <template>
   <v-app id="blog-body-content">
-    <v-main class="pt-4 pa-4"
+    <v-main
+      class="pt-4 pa-4"
     >
       <!--      头-->
       <div class="v-heading text-h5 mb-4">
@@ -154,8 +155,19 @@
       <div
         class="my-10"
         v-for="(item,index) in comments">
-        <h3>#游客 : {{ comments[index]['Email'] }}</h3>
-        <p>{{ comments[index]['comment'] }}</p>
+        <h3
+          class="letter-spacing-1"
+          :style="comments[index]['Email']==='1742968988@qq.com' ? 'color:#4DB6AC' : comments[index]['Email']==='' ? ' color:#888':''">
+          {{
+            comments[index]['Email'] === '1742968988@qq.com' ? '#我不是站长' : comments[index]['Email'] === '' ? '#匿名游客 ' : '#游客 : '
+          }}<span
+          class="subtitle-2">{{
+            comments[index]['Email'] === '1742968988@qq.com' ? '' : comments[index]['Email']
+          }} </span><span
+          class="subtitle-2 float-right"> {{ comments[index]['CreateTime'] }}</span></h3>
+        <p
+          :style="comments[index]['Email']==='1742968988@qq.com'?'color:#4DB6AC':comments[index]['Email'] === '' ? ' color:#888' : ''">
+          {{ comments[index]['comment'] }}</p>
       </div>
       <v-snackbar
         v-model="snackbar"
@@ -175,7 +187,7 @@ import axios from "axios";
 
 export default {
   name: "blog-body-content",
-  data() {
+  data () {
     return {
       isMobile: false,
       isNull: true,
@@ -192,7 +204,7 @@ export default {
         },
         email: value => {
           const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-          return pattern.test(value) || 'Invalid e-mail.'
+          return pattern.test (value) || 'Invalid e-mail.'
         },
       },
       style: '<style>.v-messages__message{\n' +
@@ -204,15 +216,15 @@ export default {
     }
   },
   watch: {
-    comment(newVal, oldVal) {
+    comment (newVal, oldVal) {
       newVal == '' ? this.isNull = true : this.isNull = false;
     }
   },
-  mounted() {
+  mounted () {
     const url = this.url
-    axios.all([
+    axios.all ([
       //请求内容
-      axios.post(url, {
+      axios.post (url, {
           type: 1,
           bid: this.$route.params.bid,
         },
@@ -222,7 +234,7 @@ export default {
           }
         }),
       //请求评论
-      axios.post(url, {
+      axios.post (url, {
           type: 2,
           bid: this.$route.params.bid,
         },
@@ -231,44 +243,44 @@ export default {
             'Content-Type': 'application/json;charset=UTF-8'
           }
         }),
-    ]).then(axios.spread((reslistdata, rescomments) => {
+    ]).then (axios.spread ((reslistdata, rescomments) => {
       // 上面两个请求都完成后，才执行这个回调方法
       this.content_list = reslistdata.data[1]
       this.tags = [this.content_list.tag, this.content_list.tag2, this.content_list.tag3]
       for (let i = 0; i < this.tags.length; i++) {
         if (this.tags[i] == '') {
-          this.tags.splice(i, this.tags.length - i)
+          this.tags.splice (i, this.tags.length - i)
         }
       }
       this.comments = rescomments.data
       // console.log('re_two', this.comments)
     }))
-    this.onResize()
-    window.addEventListener('resize', this.onResize, {passive: true})
+    this.onResize ()
+    window.addEventListener ('resize', this.onResize, {passive: true})
 
   },
-  beforeDestroy() {
+  beforeDestroy () {
     if (typeof window === 'undefined') return
-    window.removeEventListener('resize', this.onResize, {passive: true})
+    window.removeEventListener ('resize', this.onResize, {passive: true})
   },
   methods: {
-    onResize() {
+    onResize () {
       this.isMobile = window.innerWidth > 1264;
     },
-    submitComment() {
-      axios.post('https://personal-station.cn/php/BLOG.php',
+    submitComment () {
+      axios.post ('https://personal-station.cn/php/BLOG.php',
         {
           type: 5,
           bid: this.$route.params.bid,
           email: this.email,
           content: this.comment,
         }
-      ).then(res => {
+      ).then (res => {
         //成功
-        alert(res.data)
+        alert (res.data)
         this.dialog = false
         this.comment = ''
-        axios.post(this.url, {
+        axios.post (this.url, {
             type: 2,
             bid: this.$route.params.bid,
           },
@@ -277,7 +289,7 @@ export default {
               'Content-Type': 'application/json;charset=UTF-8'
             }
           })
-          .then(res => {
+          .then (res => {
             this.comments = res.data
           })
       })
@@ -298,6 +310,10 @@ export default {
 #v-html >>> code {
   background: #f6f6f6 !important;
 
+}
+
+.letter-spacing-1 {
+  letter-spacing: 1px;
 }
 
 #v-html >>> a {
