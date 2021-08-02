@@ -38,8 +38,9 @@
       <v-col
         class="teal accent-4 py-4 text-center white--text"
         cols="12"
-      >
-        Copyright © LiangHao {{ new Date ().getFullYear () }} - <strong>桂ICP备2021003184号</strong> - Vue技术 VuetifyUI
+        :style="isMobile?'font-size:14px':''"
+      > Copyright © {{ new Date ().getFullYear () }} LiangHao. All Rights Reserved. <br v-if="isMobile"/> <strong>桂ICP备2021003184号</strong>
+        Use Vue.js & Vuetify
       </v-col>
     </v-row>
   </v-footer>
@@ -49,16 +50,30 @@
 <script>
 
 export default {
+  // props: ['windowWidth'],
   data: () => ({
     links: [
       'resume',
       'index',
       'About',
     ],
-    _if: true
+    _if: true,
+    isMobile: false,
   }),
-  methods: {
+  beforeDestroy () {
+    if (typeof window === 'undefined') return
+    window.removeEventListener ('resize', this.onResize, {passive: true})
+  },
 
+  mounted () {
+    this.onResize ()
+    window.addEventListener ('resize', this.onResize, {passive: true})
+  },
+  methods: {
+    onResize () {
+      this.isMobile = window.innerWidth < 700;
+      this.windowWidth = window.innerWidth
+    },
     top () {
       this.$emit ("top");
       setTimeout (() => {
@@ -67,7 +82,6 @@ export default {
       if (this._if) {
         alert (1)
         this._if = false
-
         setTimeout (() => {
           this._if = true
         }, 1500)

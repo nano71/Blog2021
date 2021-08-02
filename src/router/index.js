@@ -18,8 +18,8 @@ const routes = [
   {
     path: '/index',
     component: () => {
-      // window.location='https://personal-station.cn'
-      window.scrollTo(0,0);
+      window.location = 'https://personal-station.cn'
+      // window.scrollTo(0,0);
     }
   },
   {

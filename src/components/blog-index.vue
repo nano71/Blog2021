@@ -257,7 +257,6 @@
                   <v-list-item
                     link
                     color="grey lighten-4"
-                    @click="top"
                   >
                     <v-list-item-content>
                       <v-list-item-title>
@@ -284,7 +283,7 @@
           </v-row>
         </v-container>
       </v-main>
-      <blog-footer @top="top"/>
+      <blog-footer :window-width="windowWidth" @top="top"/>
     </v-app>
   </div>
 </template>
