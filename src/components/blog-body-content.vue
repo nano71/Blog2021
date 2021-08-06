@@ -212,7 +212,7 @@ export default {
         '}</style>',
       content_list: null,
       comments: null,
-      url: 'https://personal-station.cn/php/BLOG.php',
+      url: '',
     }
   },
   watch: {
@@ -268,7 +268,7 @@ export default {
       this.isMobile = window.innerWidth > 1264;
     },
     submitComment () {
-      axios.post ('https://personal-station.cn/php/BLOG.php',
+      axios.post (this.url,
         {
           type: 5,
           bid: this.$route.params.bid,

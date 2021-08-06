@@ -151,15 +151,15 @@ export default {
         if (this.select[2] == null) {
           this.select[2] = '1'
         }
-        axios.post('https://personal-station.cn/php/BLOG.php', {
+        axios.post (this.url, {
           type: 3,
           title: this.title,
           time: this.picker + ' ' + this.time_picker,
           content: this.$refs.md.d_render,
           url: 'test',
-          tag1: this.select[0].toString(),
-          tag2: this.select[1].toString(),
-          tag3: this.select[2].toString(),
+          tag1: this.select[0].toString (),
+          tag2: this.select[1].toString (),
+          tag3: this.select[2].toString (),
           last_time: this.picker + ' ' + this.time_picker
         }).then(res => {
           //成功
@@ -198,10 +198,11 @@ export default {
     {
       return {
         title: null,
+        url: '',
         date_dialog: false,
         time_dialog: false,
         //日期选择器
-        picker: new Date().toISOString().substr(0, 10),
+        picker: new Date ().toISOString ().substr (0, 10),
         time_picker: null,
         context: null,//输入的数据
         toolbars: {

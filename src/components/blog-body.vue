@@ -89,7 +89,7 @@ export default {
               background-color: #f0f0f0 ;
       }
     </style>`,
-      url: "https://personal-station.cn/php/BLOG.php",
+      url: "",
     }
   },
   mounted () {

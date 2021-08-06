@@ -133,6 +133,8 @@ export default {
       checkbox: false,
       MainShow: false,
       Key: true,
+      //key
+      passwd: "1742"
     };
   },
   mounted () {
@@ -140,7 +142,7 @@ export default {
   },
   methods: {
     validate () {
-      if (this.$refs.form.validate () && this.OnlineKey == '1742') {
+      if (this.$refs.form.validate () && this.OnlineKey == this.passwd) {
         this.MainShow = true
       } else {
         this.Key = false

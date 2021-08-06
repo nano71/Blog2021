@@ -118,11 +118,12 @@ export default {
           carbs: 24,
           protein: 4.0,
           iron: '1%',
-        },]
+        },],
+      url: ''
     }
   },
   mounted() {
-    axios.post('https://personal-station.cn/php/BLOG.php', {
+    axios.post (this.url, {
       type: 4,
       limit_page: 1
     }).then((response) => {
@@ -156,7 +157,7 @@ export default {
   methods: {
     del () {
       if (this.selected) {
-        axios.post ('https://personal-station.cn/php/BLOG.php', {
+        axios.post (this.url, {
           type: 6,
         })
       }
