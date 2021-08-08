@@ -6,14 +6,17 @@
 */
 <template>
   <router-view></router-view>
+
 </template>
 <script>
 export default {}
 </script>
-<style lang="less">
+<style scoped lang="less">
+
 ::selection {
   background: #00BFA5;
   color: white;
+
 }
 
 //滚动条整体部分

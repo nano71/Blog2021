@@ -286,13 +286,16 @@
       <blog-footer :window-width="windowWidth" @top="top"/>
     </v-app>
   </div>
+
 </template>
 <script>
 import BlogFooter from './blog-footer'
 import BlogBody from './blog-body'
+import About from "@/components/about";
 
 export default {
   components: {
+    About,
     'blog-footer': BlogFooter,
     'blog-body': BlogBody
   },

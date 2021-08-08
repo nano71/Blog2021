@@ -20,6 +20,7 @@
         prominent
         text
         color="teal"
+        :style="isMobile?'font-size:14px':''"
       >
         <v-avatar
           class="mr-5 float-left"

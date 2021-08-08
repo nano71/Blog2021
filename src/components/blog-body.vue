@@ -48,7 +48,7 @@
     <!--分页-->
     <v-container>
       <v-row align="end" justify="center">
-        <v-col cols="8">
+        <v-col>
           <v-container class="max-width">
             <v-pagination
               id="pagination"
