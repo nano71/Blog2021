@@ -1,22 +1,15 @@
-/**
-* Created with IntelliJ IDEA.
-* @Author: Liang-Hao
-* @Date: 2021/5/20 12:25
-* @Description:  unset
-*/
+/** * Created with IntelliJ IDEA. * @Author: Liang-Hao * @Date: 2021/5/20 12:25
+* @Description: unset */
 <template>
   <router-view></router-view>
-
 </template>
 <script>
-export default {}
+export default {};
 </script>
 <style scoped lang="less">
-
 ::selection {
-  background: #00BFA5;
+  background: #00bfa5;
   color: white;
-
 }
 
 //滚动条整体部分
@@ -27,11 +20,10 @@ export default {}
 
 //滚动条里面的小方块
 ::-webkit-scrollbar-thumb {
-  background-color: #00BFA5;
+  background-color: #00bfa5;
 }
 
 //内层轨道，滚动条中间部分
 ::-webkit-scrollbar-track {
-
 }
 </style>

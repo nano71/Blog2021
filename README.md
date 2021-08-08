@@ -18,10 +18,13 @@ npm run serve
 npm run build
 ```
 
-### 组件里的url
+### 后端url和后台key
+
+在 vuex设置 , src/store/index.js -> store.state
 
 ```
-url: '', 自行设置-> url: 'your host'
+url: '', 
+key: ''
 ```
 
 ---
