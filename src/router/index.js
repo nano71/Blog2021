@@ -33,7 +33,6 @@ const routes = [
     path: "/document",
     component: () => {
       alert("404 NOT FOUND");
-      window.location = "https://personal-station.cn/blog/";
     },
   },
   {

@@ -8,12 +8,12 @@
           </h1>
           <p>Thank you for your visit my website</p>
 
-          <!--          <a href="/" class="v-btn v-btn&#45;&#45;outlined v-btn&#45;&#45;router theme&#45;&#45;light v-size&#45;&#45;default primary&#45;&#45;text">-->
+          <!--          <a href="/" class="v-btn v-btn--outlined v-btn--router theme--light v-size--default primary--text">-->
           <!--            <span class="v-btn__content"> Get me out of here! </span></a>-->
         </v-col>
       </v-row>
       <v-row>
-        <v-card class="mx-auto mb-16" min-width="600" outlined>
+        <v-card class="mx-auto mb-16" outlined>
           <v-list-item three-line>
             <v-list-item-content>
               <div class="overline mb-4">线性名片</div>
@@ -29,7 +29,7 @@
           <div id="_content" class="ml-4 mt-4">
             <h4 class="my-4">教育经历</h4>
             <p class="ml-4 font-weight-medium text-subtitle-2">
-              桂林理工大学-南宁分校 专科 大二
+              桂林理工大学 专科 大三
               <v-tooltip top>
                 <template v-slot:activator="{ on, attrs }">
                   <span
@@ -38,7 +38,7 @@
                     class="text-decoration-underline soon"
                     v-on="on"
                   >
-                    待实习
+                    正实习
                   </span>
                 </template>
                 <span>联系信息在下方 &bigtriangledown;</span>
@@ -68,10 +68,11 @@
                 text-subtitle-2 text-capitalize text-wrap
               "
             >
-              主要使用：前端大三件、JQuery.DOM、JQuery.AJAX、Bootstrap、Less、ES6<br />
-              还在挣扎：Vue.js <br />
-              辅助技能：PS、PR、AI、XD<br />
-              另寻出路：计算机网络管理员(中级)职业资格证书、计算机三级网络技术
+              编程语言: JavaScript, HTML+CSS, PHP
+              <br />
+              框架和库: Vue.js, Bootstrap, JQuery
+              <br />
+              辅助技能: Photoshop, UI界面原型图绘制
             </p>
 
             <h4 class="my-4">社交关注</h4>

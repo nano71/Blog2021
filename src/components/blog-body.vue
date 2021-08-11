@@ -222,7 +222,12 @@ export default {
         this.blog_list = [];
         axios
           .get(
-            this.url + "?search=" + i + "&type=7" + "&limit_page" + this.page
+            this.$store.state.url +
+              "?search=" +
+              i +
+              "&type=7" +
+              "&limit_page" +
+              this.page
           )
           .then((response) => {
             // console.log (response.data)
@@ -236,7 +241,12 @@ export default {
             this.page = 1;
           })
           .catch((error) => {
-            alert(error);
+            if (
+              error == "TypeError: Cannot read property 'count(*)' of undefined"
+            ) {
+              alert("结果为空");
+            }
+
             this.back();
           });
       }, 1000);
