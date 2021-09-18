@@ -11,13 +11,6 @@
       elevation="0"
     >
       <v-card-text>
-        <v-img
-          class="float-right d-sm-none d-md-flex d-none v-card-absolute"
-          lazy-src="https://picsum.photos/id/11/10/6"
-          :aspect-ratio="7 / 6"
-          width="285"
-          src="https://picsum.photos/id/11/500/300"
-        ></v-img>
         <div>
           {{ blog_list[index]["CreateTime"] }}
           <span class="ml-2">ID: {{ blog_list[index]["Bid"] }}</span>

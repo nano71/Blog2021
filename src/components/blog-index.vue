@@ -15,7 +15,8 @@
             tile
             size="50"
             @click="to_blog"
-            ><span class="white--text headline">LH</span>
+          >
+            <span class="white--text headline">LH</span>
           </v-avatar>
           <span class="text-h4 font-weight-thin ml-3 mr-3">|</span>
           <span class="mr-10 text-h5 text-uppercase point" @click="to_blog">
@@ -56,7 +57,9 @@
       <v-app-bar v-if="!isMobile" color="white" flat app :width="windowWidth">
         <div v-html="style"></div>
         <v-toolbar-title class="point" @click="to_blog"
-          >BLO<span class="teal--text">G</span><small>vue</small>
+          >BLO
+          <span class="teal--text">G</span>
+          <small>vue</small>
         </v-toolbar-title>
 
         <v-spacer></v-spacer>
@@ -207,7 +210,7 @@
               "
               min-width="128"
             >
-              <v-sheet rounded="lg">
+              <v-sheet rounded="lg" class="sticky">
                 <v-list color="transparent">
                   <v-list-item-title
                     class="mt-3 mb-3 Body-2 font-weight-light"
@@ -399,5 +402,9 @@ export default {
       }
     }
   }
+}
+
+.sticky {
+  position: sticky;
 }
 </style>

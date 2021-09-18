@@ -85,7 +85,7 @@ export default {
     // 'mdi' || 'mdiSvg' || 'md' || 'fa' || 'fa4' || 'faSvg'
     iconfont: "mdiSvg",
   },
-  data () {
+  data() {
     return {
       style:
         "<style>.v-messages__message{\n" + "  margin-top: 2px;\n" + "}</style>",
@@ -104,28 +104,36 @@ export default {
       checkbox: false,
       MainShow: false,
       Key: true,
+      // email: "",
+      // emailRules: [
+      //   (v) => !!v || "E-mail is required",
+      //   (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
+      // ],
     };
   },
-  mounted () {
+  mounted() {
     // console.log(window.innerHeight);
   },
   methods: {
-    validate () {
-      if (this.$refs.form.validate () && this.OnlineKey === this.$store.state.key) {
+    validate() {
+      if (
+        this.$refs.form.validate() &&
+        this.OnlineKey === this.$store.state.key
+      ) {
         this.MainShow = true;
       } else {
         this.Key = false;
-        this.reset ();
-        setTimeout (() => {
+        this.reset();
+        setTimeout(() => {
           this.Key = true;
         }, 3000);
       }
     },
-    reset () {
-      this.$refs.form.reset ();
+    reset() {
+      this.$refs.form.reset();
     },
-    next () {
-      this.$router.push ({path: `/bbs/demo`});
+    next() {
+      this.$router.push({ path: `/bbs/demo` });
     },
   },
 };
