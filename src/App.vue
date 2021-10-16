@@ -7,6 +7,10 @@
 export default {};
 </script>
 <style lang="less">
+pre {
+  padding: 1rem;
+}
+
 ::selection {
   background: #00bfa5;
   color: white;

@@ -37,7 +37,10 @@ const routes = [
   },
   {
     path: "/about",
-    component: About,
+    component: () => {
+      window.location = "https://personal-station.cn/resume_doc";
+    },
+    // component: About,
   },
   {
     path: "/copyright",

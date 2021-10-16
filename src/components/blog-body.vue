@@ -5,6 +5,7 @@
     <!--suppress JSUnusedLocalSymbols -->
     <v-card
       v-for="(item, index) in blog_list"
+      v-show="blog_list[index]['title'].indexOf('面试') === -1"
       :key="index"
       class="mx-auto col-10 py-0"
       max-width="768"
@@ -19,14 +20,7 @@
           {{ blog_list[index]["title"] }}
         </p>
         <p>{{ blog_list[index]["tag"] }}</p>
-        <div
-          style="max-height: 75px"
-          class="
-            text--primary
-            col-lg-7 col-xl-7 col-md-6 col-sm-12 col-12
-            overflow-hidden
-          "
-        >
+        <div class="text--primary overflow-hidden line-3">
           {{ removeHTMLTag(blog_list[index]["content"]) }}
         </div>
       </v-card-text>
@@ -235,7 +229,7 @@ export default {
           })
           .catch((error) => {
             if (
-              error == "TypeError: Cannot read property 'count(*)' of undefined"
+              error === "TypeError: Cannot read property 'count(*)' of undefined"
             ) {
               alert("结果为空");
             }
@@ -253,5 +247,15 @@ export default {
   position: absolute;
   right: 3%;
   top: 5%;
+}
+
+.line-3 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  word-break: break-all;
+  letter-spacing: 1px;
 }
 </style>

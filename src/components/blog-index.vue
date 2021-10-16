@@ -271,7 +271,7 @@
               </v-sheet>
             </v-col>
 
-            <v-col class="col-sm-8 col-12 col-md-9 col-lg-8 col-xl-5">
+            <v-col class="col-sm-8 col-12 col-md-9 col-lg-8 col-xl-7">
               <v-sheet class="py-4" min-height="10vh" rounded="lg">
                 <router-view
                   v-if="isRouterAlice"
@@ -385,7 +385,7 @@ export default {
   top: 56px;
   height: 0;
   width: 100vw;
-  z-index: 99;
+  z-index: 8;
   background-color: white;
   transition: 0.2s;
 }
