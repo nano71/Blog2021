@@ -1,0 +1,68 @@
+pre {
+    padding: 1rem;
+}
+
+.fs-14 {
+    font-size: 14px;
+}
+
+.fs-12 {
+    font-size: 12px;
+}
+
+.fs-18 {
+    font-size: 18px;
+}
+
+.text-888 {
+    color: #888888;
+}
+
+.text-666 {
+    color: #888888;
+}
+
+::selection {
+    background: #00bfa5;
+    color: white;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    background-color: unset;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #00bfa5;
+}
+
+::-webkit-scrollbar-track {
+}
+
+.border-all {
+    border: solid;
+}
+
+.border-right {
+    border-right: 1px solid;
+}
+
+.border-4 {
+    border-width: 4px;
+}
+
+.border-tel {
+    border-color: #00bfa5;
+}
+.absolute{
+    position: absolute;
+}
+.relative {
+    position: relative;
+}
+.w-100{
+    width: 100%;
+}
+.justify-space-evenly{
+    justify-content: space-evenly;
+}

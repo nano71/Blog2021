@@ -108,8 +108,8 @@
   </v-app>
 </template>
 <script>
-import blog from "./blog-back-stage-blog";
-import blogList from "./blog-back-stage-list";
+import blog from "./backStageBlogEdit";
+import blogList from "./backStageBlogList";
 
 export default {
   name: "BlogBackStageMain",

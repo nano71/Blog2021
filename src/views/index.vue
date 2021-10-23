@@ -200,77 +200,6 @@
       >
         <v-container>
           <v-row class="justify-center">
-            <v-col
-              class="
-                col-sm-4
-                d-none d-sm-block
-                col-md-3 col-lg-2
-                text-center
-                pr-0
-              "
-              min-width="128"
-            >
-              <v-sheet rounded="lg" class="sticky">
-                <v-list color="transparent">
-                  <v-list-item-title
-                    class="mt-3 mb-3 Body-2 font-weight-light"
-                    style="color: #666666"
-                  >
-                    技术分类
-                  </v-list-item-title>
-                  <v-list-item
-                    v-for="(item, index) in Tag_class"
-                    :key="index"
-                    link
-                    @click="_class(Tag_class[index])"
-                  >
-                    <v-list-item-content>
-                      <v-list-item-title
-                        class="font-weight-medium text-uppercase"
-                      >
-                        {{ Tag_class[index] }}
-                      </v-list-item-title>
-                    </v-list-item-content>
-                  </v-list-item>
-                  <v-divider class="my-0"></v-divider>
-                  <v-list-item link color="grey lighten-4" @click="_all">
-                    <v-list-item-content>
-                      <v-list-item-title> 全部</v-list-item-title>
-                    </v-list-item-content>
-                  </v-list-item>
-                </v-list>
-              </v-sheet>
-
-              <v-sheet rounded="lg" class="mt-3">
-                <v-list color="transparent">
-                  <v-list-item-title
-                    class="mt-3 mb-3 Body-2 font-weight-light"
-                    style="color: #666666"
-                  >
-                    即将上线 歪门邪道
-                  </v-list-item-title>
-                  <v-list-item
-                    v-for="n in 5"
-                    :key="n"
-                    class="font-weight-medium text-uppercase"
-                    link
-                  >
-                    <v-list-item-content>
-                      <v-list-item-title> 即将上线 {{ n }}</v-list-item-title>
-                    </v-list-item-content>
-                  </v-list-item>
-
-                  <v-divider class="my-2"></v-divider>
-
-                  <v-list-item link color="grey lighten-4">
-                    <v-list-item-content>
-                      <v-list-item-title> 即将上线 你的提议</v-list-item-title>
-                    </v-list-item-content>
-                  </v-list-item>
-                </v-list>
-              </v-sheet>
-            </v-col>
-
             <v-col class="col-sm-8 col-12 col-md-9 col-lg-8 col-xl-7">
               <v-sheet class="py-4" min-height="10vh" rounded="lg">
                 <router-view
@@ -281,6 +210,79 @@
                 <!-- 内容  -->
               </v-sheet>
             </v-col>
+            <v-col
+              class="
+                col-sm-4
+                d-none d-sm-block
+                col-md-3 col-lg-2
+                text-center
+                pl-0
+                relative
+              "
+              min-width="128"
+            >
+              <v-sheet rounded="lg" class="sticky" style="top: 76px">
+                <v-list color="transparent">
+                  <v-list-item
+                    class="
+                      mt-3
+                      font-weight-bold
+                      border-right border-4 border-tel
+                    "
+                  >
+                    技术分类
+                  </v-list-item>
+                  <v-list-item
+                    v-for="(item, index) in Tag_class"
+                    :key="index"
+                    link
+                    class="fs-14 text-uppercase"
+                    @click="_class(Tag_class[index])"
+                  >
+                    {{ Tag_class[index] }}
+                  </v-list-item>
+                  <v-list-item link class="fs-14" @click="_all">
+                    全部
+                  </v-list-item>
+                </v-list>
+              </v-sheet>
+
+              <div class="mt-3 text-left fs-14 text-888 pa-2">
+                <div>今日访问数据: NULL</div>
+                <div>一周访问数据: NULL</div>
+                <div>累计访问数据: NULL</div>
+                <div>文章存量数据: 034</div>
+                <div>面试日志显示: FALSE</div>
+              </div>
+              <div class="absolute pr-3 pb-3 w-100" style="bottom: 0">
+                <img
+                  v-show="QR === 'qq'"
+                  src="https://personal-station.cn/QQ_QR.jpg"
+                  class="w-100 pa-2"
+                  alt=""
+                />
+                <img
+                  v-show="QR === 'wx'"
+                  src="https://personal-station.cn/WX_QR.png"
+                  class="w-100 pa-2"
+                  alt=""
+                />
+                <div class="d-flex justify-space-between px-2">
+                  <v-btn
+                    elevation="0"
+                    :color="QR === 'qq' ? 'white' : ''"
+                    @click="QR = 'qq'"
+                    >QQ</v-btn
+                  >
+                  <v-btn
+                    elevation="0"
+                    :color="QR === 'wx' ? 'white' : ''"
+                    @click="QR = 'wx'"
+                    >Wechat</v-btn
+                  >
+                </div>
+              </div>
+            </v-col>
           </v-row>
         </v-container>
       </v-main>
@@ -289,7 +291,7 @@
   </div>
 </template>
 <script>
-import BlogFooter from "./blog-footer";
+import BlogFooter from "../components/footer";
 
 export default {
   components: {
@@ -302,6 +304,7 @@ export default {
   },
   data() {
     return {
+      QR: "qq",
       mobile_search_show: false,
       mobile_bar_height: 56,
       search: null,

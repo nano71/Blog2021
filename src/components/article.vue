@@ -20,11 +20,11 @@
         :style="!isMobile ? 'font-size:14px' : ''"
       >
         <v-avatar class="mr-5 float-left" color="teal accent-4" tile size="48"
-        ><span class="white--text headline">LH</span></v-avatar
+          ><span class="white--text headline">LH</span></v-avatar
         >
         <div>
           <span>创作者 : Mr.Liang</span>
-          <br/>
+          <br />
           <span>发布于 : {{ content_list["CreateTime"] }}</span>
         </div>
       </v-alert>
@@ -36,7 +36,7 @@
           :key="index"
           color="teal accent-4"
           class="white--text mr-3"
-        >#{{ tags[index] }}
+          >#{{ tags[index] }}
         </v-chip>
       </div>
 
@@ -135,14 +135,14 @@
               ? "#匿名游客 "
               : "#游客 : "
           }}<span class="subtitle-2"
-        >{{
-            comments[index]["Email"] === "1742968988@qq.com"
-              ? ""
-              : comments[index]["Email"]
-          }} </span
-        ><span class="subtitle-2 float-right">
+            >{{
+              comments[index]["Email"] === "1742968988@qq.com"
+                ? ""
+                : comments[index]["Email"]
+            }} </span
+          ><span class="subtitle-2 float-right">
             {{ comments[index]["CreateTime"] }}</span
-        >
+          >
         </h3>
         <p
           :style="
@@ -168,7 +168,7 @@ import axios from "axios";
 
 export default {
   name: "BlogBodyContent",
-  data () {
+  data() {
     return {
       isMobile: false,
       isNull: true,
@@ -186,7 +186,7 @@ export default {
         email: (value) => {
           const pattern =
             /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-          return pattern.test (value) || "Invalid e-mail.";
+          return pattern.test(value) || "Invalid e-mail.";
         },
       },
       style:
@@ -196,15 +196,15 @@ export default {
     };
   },
   watch: {
-    comment (newVal) {
+    comment(newVal) {
       newVal == "" ? (this.isNull = true) : (this.isNull = false);
     },
   },
-  mounted () {
+  mounted() {
     axios
-      .all ([
+      .all([
         //请求内容
-        axios.post (
+        axios.post(
           this.$store.state.url,
           {
             type: 1,
@@ -217,7 +217,7 @@ export default {
           }
         ),
         //请求评论
-        axios.post (
+        axios.post(
           this.$store.state.url,
           {
             type: 2,
@@ -230,8 +230,8 @@ export default {
           }
         ),
       ])
-      .then (
-        axios.spread ((reslistdata, rescomments) => {
+      .then(
+        axios.spread((reslistdata, rescomments) => {
           // 上面两个请求都完成后，才执行这个回调方法
           this.content_list = reslistdata.data[1];
           this.tags = [
@@ -241,39 +241,39 @@ export default {
           ];
           for (let i = 0; i < this.tags.length; i++) {
             if (this.tags[i] == "") {
-              this.tags.splice (i, this.tags.length - i);
+              this.tags.splice(i, this.tags.length - i);
             }
           }
           this.comments = rescomments.data;
           // console.log('re_two', this.comments)
         })
       );
-    this.onResize ();
-    window.addEventListener ("resize", this.onResize, {passive: true});
+    this.onResize();
+    window.addEventListener("resize", this.onResize, { passive: true });
   },
-  beforeDestroy () {
+  beforeDestroy() {
     if (typeof window === undefined) return;
-    window.removeEventListener ("resize", this.onResize, {passive: true});
+    window.removeEventListener("resize", this.onResize, { passive: true });
   },
   methods: {
-    onResize () {
+    onResize() {
       this.isMobile = window.innerWidth > 1264;
     },
-    submitComment () {
+    submitComment() {
       axios
-        .post (this.$store.state.url, {
+        .post(this.$store.state.url, {
           type: 5,
           bid: this.$route.params.bid,
           email: this.email,
           content: this.comment,
         })
-        .then ((res) => {
+        .then((res) => {
           //成功
-          alert (res.data);
+          alert(res.data);
           this.dialog = false;
           this.comment = "";
           axios
-            .post (
+            .post(
               this.$store.state.url,
               {
                 type: 2,
@@ -285,7 +285,7 @@ export default {
                 },
               }
             )
-            .then ((res) => {
+            .then((res) => {
               this.comments = res.data;
             });
         });

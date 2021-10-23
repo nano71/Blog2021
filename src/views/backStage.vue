@@ -74,7 +74,7 @@
   <blog-back-stage-main v-else-if="MainShow"></blog-back-stage-main>
 </template>
 <script>
-import BlogBackStageMain from "./blog-back-stage-main";
+import BlogBackStageMain from "../components/backStageMain";
 
 export default {
   //comments 和 components 区别很重要！

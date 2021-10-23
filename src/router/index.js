@@ -1,12 +1,12 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import BlogBodyContent from "../components/blog-body-content";
-import BlogBody from "../components/blog-body.vue";
-import NotFound from "../components/notfound";
-import BlogIndex from "../components/blog-index";
-import BlogBackStage from "../components/blog-back-stage";
-import About from "../components/about";
-import CopyRight from "../components/copyright";
+import BlogBodyContent from "../components/article";
+import BlogBody from "../components/blogList.vue";
+import NotFound from "../views/notfound";
+import BlogIndex from "../views";
+import BlogBackStage from "../views/backStage";
+import About from "../views/about";
+import CopyRight from "../views/copyright";
 
 Vue.use(VueRouter);
 

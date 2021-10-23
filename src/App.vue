@@ -7,27 +7,5 @@
 export default {};
 </script>
 <style lang="less">
-pre {
-  padding: 1rem;
-}
-
-::selection {
-  background: #00bfa5;
-  color: white;
-}
-
-//滚动条整体部分
-::-webkit-scrollbar {
-  width: 10px;
-  background-color: unset;
-}
-
-//滚动条里面的小方块
-::-webkit-scrollbar-thumb {
-  background-color: #00bfa5;
-}
-
-//内层轨道，滚动条中间部分
-::-webkit-scrollbar-track {
-}
+@import "plugins/style.css";
 </style>
