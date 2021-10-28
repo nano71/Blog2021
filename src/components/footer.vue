@@ -10,7 +10,7 @@
         text
         rounded
         class="my-2"
-        :href="'#/' + links[index]"
+        @click="$router.push({ path: '/' + links[index] })"
       >
         {{ links[index] }}
       </v-btn>

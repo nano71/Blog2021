@@ -1,0 +1,156 @@
+@keyframes start {
+  0% {
+    opacity: 1;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    display: none;
+  }
+}
+
+@keyframes start2 {
+  20% {
+    transform: scale(0.8);
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(200) rotate(90deg);
+    opacity: 0;
+    display: none;
+  }
+}
+
+.QRBox {
+  overflow: hidden;
+  display: flex;
+  //border-radius: 4px;
+
+  img {
+    width: 100%;
+    transition: .2s;
+  }
+}
+
+.QRBox.state-2 img {
+  transform: translateX(-100%);
+}
+
+.end {
+  animation: start 2s ease-in-out;
+  opacity: 0;
+}
+
+pre {
+  padding: 1rem;
+}
+
+.fs-14 {
+  font-size: 14px;
+}
+
+.fs-12 {
+  font-size: 12px;
+}
+
+.fs-18 {
+  font-size: 18px;
+}
+
+.text-888 {
+  color: #888888 !important;
+}
+
+.text-666 {
+  color: #666;
+}
+
+::selection {
+  background: #00bfa5;
+  color: white;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  background-color: unset;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #00bfa5;
+}
+
+::-webkit-scrollbar-track {
+}
+
+.border-all {
+  border: solid;
+}
+.border-left{
+  border-left: 1px solid;
+}
+.border-right {
+  border-right: 1px solid;
+}
+.border-bottom{
+  border-bottom: 1px solid;
+}
+.border-4 {
+  border-width: 4px;
+}
+
+.border-tel {
+  border-color: #00bfa5;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.relative {
+  position: relative;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.justify-space-evenly {
+  justify-content: space-evenly;
+}
+
+.v-menu__content {
+  box-shadow: none !important;
+}
+
+
+#pagination .v-pagination__navigation,
+#pagination .v-pagination__item--active,
+#pagination .v-pagination__item {
+  box-shadow: unset !important;
+  background-color: #f0f0f0;
+}
+
+.link:hover{
+  //color: #2196f3 !important;
+  background-color: #efefef30;
+  cursor: pointer;
+}
+
+.teal--text.accent-4{
+  color: #00bfa5 !important;
+}
+.teal.lighten-6{
+  background-color: #e0f2f150 !important;
+  border: #e0f2f150 !important;
+}
+
+.rounded-lg-no,button,.v-sheet.v-snack__wrapper,.v-dialog{
+  border-radius: 0!important;
+}
+.v-snack__content{
+  text-align: center ;
+}

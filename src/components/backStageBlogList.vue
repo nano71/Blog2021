@@ -1,6 +1,3 @@
-<!--suppress ALL, CssFloatPxLength -->
-sFloatPxLength -->
-
 <template>
   <v-row class="white ma-4 pa-4 rounded">
     <v-btn elevation="0" dark color="teal">
@@ -33,7 +30,7 @@ sFloatPxLength -->
       style="border: 0.5px solid"
     />
     <h4 class="pt-1 ml-4">标签：</h4>
-    <input type="text" class="pl-2" style="border: 0.5px solid"/>
+    <input type="text" class="pl-2" style="border: 0.5px solid" />
     <!--    <v-btn-->
     <!--      elevation="0"-->
     <!--      dark-->
@@ -52,7 +49,7 @@ sFloatPxLength -->
         class="elevation-0"
         :items-per-page="15"
         :footer-props="{
-          itemsPerPageOptions: [15, 15],
+          itemsPerPageOptions: [15, 20, 25, 100],
         }"
         :search="search"
       ></v-data-table>
@@ -67,7 +64,7 @@ import Vue from "vue";
 
 export default {
   name: "BlogBackStageList",
-  data () {
+  data() {
     return {
       style: `<style>
   table {
@@ -97,11 +94,11 @@ export default {
           sortable: false,
           value: "title",
         },
-        {text: "Bid", value: "Bid"},
-        {text: "标签", value: "tags"},
-        {text: "内容", value: "content"},
-        {text: "博客发布时间", value: "LastTime"},
-        {text: "最后一次编辑", value: "LastTime"},
+        { text: "Bid", value: "Bid" },
+        { text: "标签", value: "tags" },
+        { text: "内容", value: "content" },
+        { text: "博客发布时间", value: "LastTime" },
+        { text: "最后一次编辑", value: "LastTime" },
       ],
       desserts: [
         {
@@ -116,43 +113,48 @@ export default {
     };
   },
   watch: {
-    selected (n) {
+    selected(n) {
       this.selected_bid = [];
-      n.forEach ((e) => {
-        this.selected_bid.push (e["Bid"]);
+      n.forEach((e) => {
+        this.selected_bid.push(e["Bid"]);
         // console.log (this.selected_bid);
       });
     },
   },
-  mounted () {
+  mounted() {
     axios
-      .post (this.$store.state.url, {
+      .post(this.$store.state.url, {
         type: 4,
         limit_page: 1,
       })
-      .then ((response) => {
+      .then((response) => {
         // console.log(response);
-        this.blog_length = Object.keys (response.data).length;
+        this.blog_length = Object.keys(response.data).length;
         for (let i = 0; i < this.blog_length - 1; i++) {
           // this.blog_list[i] = response.data[i + 1]
           // Vue 不能检测以下数组的变动，也就是说改变数组不会触发重新渲染
-          Vue.set (this.blog_list, i, response.data[i + 1]);
-          if (this.blog_list[i].tag != "") {
-            this.blog_list[i].tags = "#" + this.blog_list[i].tag;
+          Vue.set(this.blog_list, i, response.data[i + 1]);
+          if (this.blog_list[i].tag !== "") {
+            this.blog_list[i].tags = "#" + this.blog_list[i].tag.toUpperCase();
           }
-          if (this.blog_list[i].tag2 != "") {
+          if (this.blog_list[i].tag2 !== "") {
             this.blog_list[i].tags =
-              this.blog_list[i].tags + " #" + this.blog_list[i].tag2;
+              this.blog_list[i].tags.toUpperCase() +
+              " #" +
+              this.blog_list[i].tag2.toUpperCase();
           }
-          if (this.blog_list[i].tag3 != "") {
+          if (this.blog_list[i].tag3 !== "") {
             this.blog_list[i].tags =
-              this.blog_list[i].tags + " #" + this.blog_list[i].tag3;
+              this.blog_list[i].tags.toUpperCase() +
+              " #" +
+              this.blog_list[i].tag3.toUpperCase();
           }
           // this.blog_list[i].tags = '#' + this.blog_list[i].tag + ' #' + this.blog_list[i].tag2 + ' #' + this.blog_list[i].tag3
         }
-        this.max_page = Math.ceil (
+        this.max_page = Math.ceil(
           response.data[this.blog_length]["count(*)"] / 15
         );
+        // console.log(response.data[this.blog_length]["count(*)"]);
         // console.log ('最大页数：' + this.max_page);
         // console.log ('处理后的列表:');
         // console.log (this.blog_list);
@@ -162,9 +164,9 @@ export default {
     // });
   },
   methods: {
-    del () {
+    del() {
       if (this.selected) {
-        axios.post (this.$store.state.url, {
+        axios.post(this.$store.state.url, {
           type: 6,
         });
       }

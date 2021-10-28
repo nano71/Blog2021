@@ -9,6 +9,7 @@ import VuetifyIcon from "vuetify/lib";
 import mavonEditor from "mavon-editor";
 import "mavon-editor/dist/css/index.css";
 import VueDOMPurifyHTML from "vue-dompurify-html";
+import "./public/style.less";
 
 Vue.use(VueDOMPurifyHTML);
 Vue.use(VuetifyIcon);

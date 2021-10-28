@@ -1,25 +1,24 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import BlogBodyContent from "../components/article";
-import BlogBody from "../components/blogList.vue";
-import NotFound from "../views/notfound";
-import BlogIndex from "../views";
-import BlogBackStage from "../views/backStage";
-import About from "../views/about";
-import CopyRight from "../views/copyright";
+import article from "../components/article";
+import blogList from "../components/blogList.vue";
+import notFound from "../views/notfound";
+import index from "../views";
+import backStage from "../views/backStage";
+// import About from "../views/about";
+import copyRight from "../views/copyright";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
-    redirect: "/page/1",
+    redirect: "/1",
   },
   {
     path: "/index",
     component: () => {
       window.location = "https://personal-station.cn";
-      // window.scrollTo(0,0);
     },
   },
   {
@@ -32,7 +31,7 @@ const routes = [
   {
     path: "/document",
     component: () => {
-      alert("404 NOT FOUND");
+      alert("暂时隐藏");
     },
   },
   {
@@ -44,56 +43,57 @@ const routes = [
   },
   {
     path: "/copyright",
-    component: CopyRight,
+    component: copyRight,
   },
   {
-    path: "/content",
-    component: BlogIndex,
+    path: "/article",
+    component: index,
     children: [
       {
         path: ":bid",
-        component: BlogBodyContent,
+        component: article,
       },
     ],
   },
   {
-    path: "/page/:page",
-    component: BlogIndex,
+    path: "/admin",
+    name: "backStage",
+    component: backStage,
+  },
+  {
+    path: "/404",
+    name: "notFound",
+    component: notFound,
+  },
+  {
+    path: "/:page",
+    component: index,
     children: [
       {
         path: "/",
-        component: BlogBody,
+        component: blogList,
       },
     ],
   },
   {
     path: "/class/:class/:page",
-    component: BlogIndex,
+    component: index,
     children: [
       {
         path: "/",
-        component: BlogBody,
+        component: blogList,
       },
     ],
   },
   {
     path: "/class/:class",
-    component: BlogIndex,
+    component: index,
     children: [
       {
         path: "/",
-        component: BlogBody,
+        component: blogList,
       },
     ],
-  },
-  {
-    path: "/bbs",
-    component: BlogBackStage,
-  },
-  {
-    path: "/404",
-    name: "notFound",
-    component: NotFound,
   },
   {
     path: "*", // 此处需特别注意置于最底部
@@ -103,6 +103,7 @@ const routes = [
 
 const router = new VueRouter({
   mode: "hash",
+  // mode: "history",
   base: process.env.BASE_URL,
   routes,
 });

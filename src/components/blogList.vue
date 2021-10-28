@@ -1,42 +1,67 @@
 /** * Created with IntelliJ IDEA. * @Author: Liang-Hao * @Date: 2021/5/20 12:25
 * @Description: unset */
 <template>
-  <div>
+  <div id="blogList">
     <!--suppress JSUnusedLocalSymbols -->
     <v-card
       v-for="(item, index) in blog_list"
       v-show="blog_list[index]['title'].indexOf('面试') === -1"
+      id="indexList"
       :key="index"
-      class="mx-auto col-10 py-0"
-      max-width="768"
+      class="mx-auto rounded-lg-no pa-3 pa-sm-4 pa-md-6 pb-0 pb-sm-0 pb-md-0"
       elevation="0"
     >
-      <v-card-text>
+      <v-card-text class="pa-0">
         <div>
           {{ blog_list[index]["CreateTime"] }}
           <span class="ml-2">ID: {{ blog_list[index]["Bid"] }}</span>
         </div>
-        <p class="display-1 text--primary">
+        <p
+          :class="`${
+            $store.state.windowWidth > 450
+              ? 'display-1 mt-1'
+              : 'fs-18 font-weight-bold'
+          } black--text link d-inline-block`"
+          @click="
+            reveal = true;
+            $router.push({ path: '/article/' + blog_list[index]['Bid'] });
+          "
+        >
           {{ blog_list[index]["title"] }}
         </p>
-        <p>{{ blog_list[index]["tag"] }}</p>
-        <div class="text--primary overflow-hidden line-3">
+        <p
+          @click="
+            reveal = true;
+            $router.push({ path: '/class/' + blog_list[index]['tag'] + '/1' });
+          "
+        >
+          {{ blog_list[index]["tag"] }}
+        </p>
+        <div
+          class="overflow-hidden line-3 link"
+          @click="
+            reveal = true;
+            $router.push({ path: '/article/' + blog_list[index]['Bid'] });
+          "
+        >
           {{ removeHTMLTag(blog_list[index]["content"]) }}
         </div>
       </v-card-text>
-      <v-card-actions>
+      <v-card-actions class="pa-0 mt-3 d-inline-block">
         <v-btn
           text
           color="teal accent-4"
-          :href="'#/content/' + blog_list[index]['Bid']"
-          @click="reveal = true"
+          class="pb-0 teal lighten-6"
+          @click="
+            reveal = true;
+            $router.push({ path: '/article/' + blog_list[index]['Bid'] });
+          "
         >
-          <!--          :href="blog_list[index].url"-->
           Learn More
         </v-btn>
       </v-card-actions>
 
-      <v-divider class="my-6"></v-divider>
+      <v-divider class="mt-6 mb-2 mb-sm-0"></v-divider>
     </v-card>
     <!--分页-->
     <v-container>
@@ -51,7 +76,6 @@
               :length="max_page"
               @input="next"
             ></v-pagination>
-            <div v-html="pagination_style"></div>
           </v-container>
         </v-col>
       </v-row>
@@ -74,12 +98,6 @@ export default {
       max_page: 1,
       blog_length: 0,
       blog_list: {},
-      pagination_style: `<style>
-      #pagination .v-pagination__navigation ,#pagination .v-pagination__item--active , #pagination .v-pagination__item{
-              box-shadow: unset !important;
-              background-color: #f0f0f0 ;
-      }
-    </style>`,
     };
   },
   mounted() {
@@ -103,6 +121,7 @@ export default {
           this.max_page = Math.ceil(
             response.data[this.blog_length]["count(*)"] / 6
           );
+          this.start();
         })
         .catch((error) => {
           alert("结果为空");
@@ -125,6 +144,7 @@ export default {
           this.max_page = Math.ceil(
             response.data[this.blog_length]["count(*)"] / 6
           );
+          this.start();
         })
         .catch((error) => {
           alert("结果为空");
@@ -155,7 +175,7 @@ export default {
               limit_page: this.page,
             })
             .then((response) => {
-              console.log(response);
+              // console.log(response);
               this.blog_length = Object.keys(response.data).length;
               for (let i = 0; i < this.blog_length - 1; i++) {
                 Vue.set(this.blog_list, i, response.data[i + 1]);
@@ -171,7 +191,7 @@ export default {
         }
       } else if (!this.$route.params.class && this.$route.params.page) {
         if (this.$route.path.slice(1, 2) === "p") {
-          this.$router.push({ path: `/page/${this.page}` });
+          this.$router.push({ path: `/${this.page}` });
           this.blog_list = [];
           axios
             .post(this.$store.state.url, {
@@ -229,7 +249,8 @@ export default {
           })
           .catch((error) => {
             if (
-              error === "TypeError: Cannot read property 'count(*)' of undefined"
+              error ===
+              "TypeError: Cannot read property 'count(*)' of undefined"
             ) {
               alert("结果为空");
             }
@@ -237,6 +258,14 @@ export default {
             this.back();
           });
       }, 1000);
+    },
+    start() {
+      if (this.$store.state.first === 2) {
+        this.$store.state.first = 1;
+        setTimeout(() => {
+          this.$store.state.first = 0;
+        }, 2000);
+      }
     },
   },
 };

@@ -85,7 +85,14 @@
           <v-list-item-icon>
             <v-icon>mdi-star</v-icon>
           </v-list-item-icon>
-          <v-list-item-title>收藏</v-list-item-title>
+          <v-list-item-title>我的收藏</v-list-item-title>
+        </v-list-item>
+
+        <v-list-item link @click="$router.push({path:'/'})">
+          <v-list-item-icon>
+            <v-icon>mdi-location-exit</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>退出</v-list-item-title>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>

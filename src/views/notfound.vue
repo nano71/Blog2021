@@ -2,24 +2,16 @@
 */
 <template>
   <v-app>
-    <v-main>
+    <v-main class="white">
       <v-row class="text-center" style="margin-top: 40vh">
         <v-col>
           <h1 class="font-weight-light primary--text">
             <span>Whoops, 404 </span>
           </h1>
           <p>The page you were looking for does not exist</p>
-          <a
-            href="#/"
-            class="
-              v-btn v-btn--outlined v-btn--router
-              theme--light
-              v-size--default
-              primary--text
-            "
-          >
-            <span class="v-btn__content"> Get me out of here! </span></a
-          >
+          <v-btn elevation="0" outlined class="primary--text" @click="back">
+            Get me out of here!
+          </v-btn>
         </v-col>
       </v-row>
     </v-main>
@@ -29,6 +21,11 @@
 <script>
 export default {
   name: "Notfound",
+  methods: {
+    back() {
+      this.$router.back();
+    },
+  },
 };
 </script>
 

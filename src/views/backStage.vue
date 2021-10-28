@@ -3,7 +3,7 @@
 <!--suppress ALL -->
 <template>
   <v-app v-if="!MainShow">
-    <v-main>
+    <v-main class="white">
       <v-parallax
         id="v-parallax"
         :style="Key ? 'background: #41B883' : 'background:red'"
@@ -71,7 +71,7 @@
       <div v-html="style"></div>
     </v-main>
   </v-app>
-  <blog-back-stage-main v-else-if="MainShow"></blog-back-stage-main>
+  <blog-back-stage-main v-else></blog-back-stage-main>
 </template>
 <script>
 import BlogBackStageMain from "../components/backStageMain";
@@ -87,8 +87,17 @@ export default {
   },
   data() {
     return {
-      style:
-        "<style>.v-messages__message{\n" + "  margin-top: 2px;\n" + "}</style>",
+      style: `
+<style>.v-messages__message{
+margin-top: 2px;
+}
+::selection {
+  background: unset !important;
+  color: unset;
+}
+::-webkit-scrollbar{
+width: 0;
+}</style>`,
       // name: '',
       // nameRules: [
       //   v => !!v || '离线密钥是必须的',
@@ -96,8 +105,12 @@ export default {
       // ],
       OnlineKey: "",
       OnlineKeyRes: [
-        (v) => !!v || "ERROR",
-        (v) => (v && v.length <= 8) || "格式错误",
+        (v) => {
+          if (v) {
+            return v.length <= 8 || "格式错误";
+          }
+          return true;
+        },
       ],
       valid: true,
       lazy: false,
@@ -142,9 +155,5 @@ export default {
 <style scoped lang="less">
 #v-parallax {
   transition: 0.5s;
-}
-
-::selection {
-  background-color: unset;
 }
 </style>

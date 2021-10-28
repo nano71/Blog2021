@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-main>
+    <v-main class="white">
       <v-row class="text-center" style="margin-top: 10vh">
         <v-col>
           <h1 class="font-weight-light primary--text">
@@ -13,7 +13,12 @@
         </v-col>
       </v-row>
       <v-row>
-        <v-card class="mx-auto mb-16" max-width="575" elevation="0">
+        <v-card
+          class="mx-auto mb-16"
+          max-width="575"
+          elevation="0"
+          style="background: unset"
+        >
           <div class="body-1 text-wrap font-weight-light">
             <p>
               本版权与免责声明系保证本网站的正常发展、规避意外风险而设，其初衷是为了向用户提供不间断的优质服务。本站一向尊重他人的知识产权，同时也注意保护自己的知识产权。因此，建议您在接受本站服务之前，请务必仔细阅读本声明。
@@ -43,17 +48,9 @@
           </div>
 
           <div class="text-center">
-            <a
-              href="#/"
-              class="
-                v-btn v-btn--outlined v-btn--router
-                theme--light
-                v-size--default
-                primary--text
-              "
-            >
-              <span class="v-btn__content"> 返回BLOG </span></a
-            >
+            <v-btn elevation="0" outlined class="primary--text" @click="back">
+              返回BLOG
+            </v-btn>
           </div>
         </v-card>
       </v-row>
@@ -64,6 +61,11 @@
 <script>
 export default {
   name: "Copyright",
+  methods: {
+    back() {
+      this.$router.back();
+    },
+  },
 };
 </script>
 

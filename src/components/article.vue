@@ -5,7 +5,7 @@
 
 <template>
   <v-app id="blog-body-content">
-    <v-main class="pt-4 pa-4">
+    <v-main class="pa-3 pt-md-4 pa-md-4 rounded-lg-no">
       <!--      头-->
       <div class="v-heading text-h5 mb-4">
         <a class="text--accent-4 teal--text font-weight-light"> #Title: </a>
@@ -17,15 +17,16 @@
         prominent
         text
         color="teal"
+        class="rounded-0"
         :style="!isMobile ? 'font-size:14px' : ''"
       >
-        <v-avatar class="mr-5 float-left" color="teal accent-4" tile size="48"
-          ><span class="white--text headline">LH</span></v-avatar
+        <v-avatar class="mr-2 float-left rounded" color="white" tile size="48"
+          ><span class="white--text headline">😅</span></v-avatar
         >
         <div>
-          <span>创作者 : Mr.Liang</span>
+          <span>梁白</span>
           <br />
-          <span>发布于 : {{ content_list["CreateTime"] }}</span>
+          <span>{{ content_list["CreateTime"] }}</span>
         </div>
       </v-alert>
       <div v-html="style"></div>
@@ -35,7 +36,7 @@
           v-for="(item, index) in tags"
           :key="index"
           color="teal accent-4"
-          class="white--text mr-3"
+          class="white--text mr-3 rounded-0"
           >#{{ tags[index] }}
         </v-chip>
       </div>
@@ -75,16 +76,16 @@
                 v-bind="attrs"
                 depressed
                 v-on="isNull ? null : on"
-                @click="isNull ? (snackbar = true) : console.log()"
+                @click="isNull ? (snackbar = true) : ''"
               >
                 {{ isMobile ? "进行评论" : "评论" }}
               </v-btn>
             </template>
 
-            <v-card class="col-12">
+            <v-card class="col-12 rounded-lg-no">
               <v-card-title class="headline pa-0 mb-2"> 请悉知：</v-card-title>
               <v-card-text class="pa-0">
-                如果进行评论请在下方输入你的邮箱地址，默认空白匿名
+                如果进行评论请在下方输入你的邮箱地址，留空默认匿名
               </v-card-text>
               <v-row>
                 <v-col>
@@ -156,7 +157,12 @@
           {{ comments[index]["comment"] }}
         </p>
       </div>
-      <v-snackbar v-model="snackbar" timeout="2000" light>
+      <v-snackbar
+        v-model="snackbar"
+        class="rounded-lg-no text-center"
+        timeout="2000"
+        light
+      >
         {{ text }}
       </v-snackbar>
     </v-main>
@@ -175,9 +181,17 @@ export default {
       dialog: false,
       snackbar: false,
       tags: [],
-      text: `不能为空，多多少少写点吧QAQ`,
+      text: `评论不能为空😅，请多多少少写点吧`,
       comment: null,
-      rules: [(v) => v.length <= 255 || "超出部分会被剔除！"],
+      rules: [
+        (v) => {
+          if (v) {
+            return v.length <= 255 || "超出部分会被剔除！";
+          } else {
+            return true;
+          }
+        },
+      ],
       email: "",
       email_r: {
         counter: (value) => {
@@ -186,13 +200,16 @@ export default {
         email: (value) => {
           const pattern =
             /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-          return pattern.test(value) || "Invalid e-mail.";
+          if (value) {
+            return pattern.test(value) || "注意邮箱格式";
+          } else {
+            return true;
+          }
         },
       },
-      style:
-        "<style>.v-messages__message{\n" + "  margin-top: 2px;\n" + "}</style>",
-      content_list: null,
-      comments: null,
+      style: `<style>.v-messages__message{ margin-top: 2px;}</style>`,
+      content_list: [],
+      comments: [],
     };
   },
   watch: {
@@ -245,7 +262,7 @@ export default {
             }
           }
           this.comments = rescomments.data;
-          // console.log('re_two', this.comments)
+          this.start();
         })
       );
     this.onResize();
@@ -289,6 +306,14 @@ export default {
               this.comments = res.data;
             });
         });
+    },
+    start() {
+      if (this.$store.state.first === 2) {
+        this.$store.state.first = 1;
+        setTimeout(() => {
+          this.$store.state.first = 0;
+        }, 2000);
+      }
     },
   },
 };

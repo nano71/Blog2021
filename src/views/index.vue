@@ -7,16 +7,17 @@
       <!--应用栏-->
       <v-app-bar v-if="isMobile" color="white" flat app>
         <!--内容居中和水平填充-->
-        <v-container class="py-0 fill-height">
+        <v-container class="pa-0 fill-height col-9">
           <!--头像-->
           <v-avatar
             class="point"
             color="teal accent-4"
             tile
-            size="50"
+            height="50"
+            width="auto"
             @click="to_blog"
           >
-            <span class="white--text headline">LH</span>
+            <span class="white--text headline mx-3">N</span>
           </v-avatar>
           <span class="text-h4 font-weight-thin ml-3 mr-3">|</span>
           <span class="mr-10 text-h5 text-uppercase point" @click="to_blog">
@@ -24,12 +25,12 @@
           </span>
           <!--v-btn用作浮动动作按钮-->
           <v-btn
-            v-for="(item, index) in links"
+            v-for="(item, index) in $store.state.links"
             :key="index"
-            :href="links_href[index]"
             text
+            @click="$router.push({ path: $store.state.links_href[index] })"
           >
-            {{ links[index] }}
+            {{ item }}
           </v-btn>
           <!--间隔组件-->
           <v-spacer></v-spacer>
@@ -42,9 +43,9 @@
               dense
               flat
               hide-details
-              rounded
               solo-inverted
               color="teal"
+              class="rounded-lg-no"
               @keyup="searchKeyup"
               @change="search = null"
             >
@@ -54,12 +55,16 @@
         </v-container>
       </v-app-bar>
 
-      <v-app-bar v-if="!isMobile" color="white" flat app :width="windowWidth">
-        <div v-html="style"></div>
-        <v-toolbar-title class="point" @click="to_blog"
-          >BLO
-          <span class="teal--text">G</span>
-          <small>vue</small>
+      <v-app-bar
+        v-if="!isMobile"
+        id="mobileBar"
+        color="white"
+        flat
+        app
+        :width="windowWidth"
+      >
+        <v-toolbar-title class="point font-weight-light" @click="to_blog"
+          >N BLO<span class="teal--text font-weight-bold">G</span>
         </v-toolbar-title>
 
         <v-spacer></v-spacer>
@@ -111,12 +116,12 @@
           ></div>
           <v-list class="mt-12" color="teal accent-4">
             <v-list-item
-              v-for="(item, index) in options"
+              v-for="(item, index) in $store.state.options"
               :key="index"
-              :href="links_href[index]"
+              :href="$store.state.links_href[index]"
             >
               <v-list-item-title class="white--text"
-                >{{ options[index] }}
+                >{{ item }}
               </v-list-item-title>
             </v-list-item>
           </v-list>
@@ -124,7 +129,7 @@
       </v-app-bar>
       <div
         v-if="!isMobile"
-        id="mobile_more"
+        id="mobileMore"
         class="overflow-hidden d-sm-none"
         :style="
           !isMobile && mobile_search_show && windowWidth < 550
@@ -161,15 +166,15 @@
             cols="12"
           >
             <v-list-item
-              v-for="(item, index) in Tag_class"
+              v-for="(item, index) in $store.state.Tag_class"
               :key="index"
               class="float-left"
               link
-              @click="_class(Tag_class[index])"
+              @click="_class(item)"
             >
               <v-list-item-content>
                 <v-list-item-title class="font-weight-medium text-uppercase">
-                  {{ Tag_class[index] }}
+                  {{ item }}
                 </v-list-item-title>
               </v-list-item-content>
             </v-list-item>
@@ -196,12 +201,11 @@
             ? 'margin-top:unset'
             : ''
         "
-        class="grey lighten-3"
       >
-        <v-container>
+        <v-container class="col-md-9">
           <v-row class="justify-center">
-            <v-col class="col-sm-8 col-12 col-md-9 col-lg-8 col-xl-7">
-              <v-sheet class="py-4" min-height="10vh" rounded="lg">
+            <v-col class="pa-0 pa-sm-2 pa-md-3">
+              <v-sheet min-height="10vh" class="rounded-lg-no">
                 <router-view
                   v-if="isRouterAlice"
                   ref="child"
@@ -211,76 +215,138 @@
               </v-sheet>
             </v-col>
             <v-col
+              id="indexRight"
+              ref="QRH"
               class="
-                col-sm-4
+                col-3 col-lg-2
                 d-none d-sm-block
-                col-md-3 col-lg-2
                 text-center
-                pl-0
+                pa-sm-2 pa-md-3
+                pl-0 pl-sm-0 pl-md-0
                 relative
               "
               min-width="128"
+              style="min-height: 800px"
             >
-              <v-sheet rounded="lg" class="sticky" style="top: 76px">
-                <v-list color="transparent">
-                  <v-list-item
+              <div
+                class="sticky"
+                :style="`${
+                  $store.state.windowWidth > 960 ? 'top: 76px;' : 'top: 64px;'
+                } z-index: 4`"
+              >
+                <v-sheet>
+                  <v-list color="transparent">
+                    <div
+                      class="
+                        py-2
+                        pl-3
+                        my-1
+                        mt-lg-2
+                        text-left
+                        font-weight-bold
+                        border-right border-4 border-tel
+                      "
+                    >
+                      技术分类
+                    </div>
+                    <v-list-item
+                      v-for="(item, index) in $store.state.Tag_class"
+                      :key="index"
+                      link
+                      class="fs-14 text-uppercase justify-space-between"
+                      @click="_class(item)"
+                    >
+                      <div class="d-flex justify-space-between w-100">
+                        <span
+                          :class="
+                            item === $store.state.blogListIndex &&
+                            'font-weight-black teal--text accent-4'
+                          "
+                        >
+                          {{ item }}
+                        </span>
+                        <v-icon
+                          v-if="item === $store.state.blogListIndex"
+                          color="#00bfa5"
+                          size="16"
+                          >mdi-chevron-left</v-icon
+                        >
+                      </div>
+                    </v-list-item>
+                    <v-list-item link class="fs-14" @click="_all">
+                      <div class="d-flex justify-space-between w-100">
+                        <span
+                          :class="
+                            !$store.state.blogListIndex &&
+                            'font-weight-black teal--text accent-4'
+                          "
+                        >
+                          全部
+                        </span>
+                        <v-icon
+                          v-if="!$store.state.blogListIndex"
+                          color="#00bfa5"
+                          size="16"
+                          >mdi-chevron-left</v-icon
+                        >
+                      </div>
+                    </v-list-item>
+                  </v-list>
+                </v-sheet>
+                <div :class="windowWidth < 1024 && 'd-none'">
+                  <div
                     class="
-                      mt-3
-                      font-weight-bold
-                      border-right border-4 border-tel
+                      d-block
+                      pa-2
+                      mt-md-3 mt-sm-2
+                      white
+                      rounded-lg-no rounded-b-0
                     "
                   >
-                    技术分类
-                  </v-list-item>
-                  <v-list-item
-                    v-for="(item, index) in Tag_class"
-                    :key="index"
-                    link
-                    class="fs-14 text-uppercase"
-                    @click="_class(Tag_class[index])"
-                  >
-                    {{ Tag_class[index] }}
-                  </v-list-item>
-                  <v-list-item link class="fs-14" @click="_all">
-                    全部
-                  </v-list-item>
-                </v-list>
-              </v-sheet>
-
-              <div class="mt-3 text-left fs-14 text-888 pa-2">
-                <div>今日访问数据: NULL</div>
-                <div>一周访问数据: NULL</div>
-                <div>累计访问数据: NULL</div>
-                <div>文章存量数据: 034</div>
-                <div>面试日志显示: FALSE</div>
-              </div>
-              <div class="absolute pr-3 pb-3 w-100" style="bottom: 0">
-                <img
-                  v-show="QR === 'qq'"
-                  src="https://personal-station.cn/QQ_QR.jpg"
-                  class="w-100 pa-2"
-                  alt=""
-                />
-                <img
-                  v-show="QR === 'wx'"
-                  src="https://personal-station.cn/WX_QR.png"
-                  class="w-100 pa-2"
-                  alt=""
-                />
-                <div class="d-flex justify-space-between px-2">
-                  <v-btn
-                    elevation="0"
-                    :color="QR === 'qq' ? 'white' : ''"
-                    @click="QR = 'qq'"
-                    >QQ</v-btn
-                  >
-                  <v-btn
-                    elevation="0"
-                    :color="QR === 'wx' ? 'white' : ''"
-                    @click="QR = 'wx'"
-                    >Wechat</v-btn
-                  >
+                    <div
+                      :class="`${QR === 'qq' ? 'state-1' : 'state-2'} QRBox`"
+                    >
+                      <img src="https://personal-station.cn/QQ_QR.png" alt="" />
+                      <img src="https://personal-station.cn/WX_QR.png" alt="" />
+                    </div>
+                  </div>
+                  <div class="d-flex justify-space-between">
+                    <v-btn
+                      class="rounded-lg-no rounded-r-0 rounded-t-0 flex-grow-1"
+                      elevation="0"
+                      :color="QR === 'qq' ? 'white' : ''"
+                      @click="QR = 'qq'"
+                      >QQ
+                    </v-btn>
+                    <v-btn
+                      elevation="0"
+                      class="rounded-lg-no rounded-l-0 rounded-t-0 flex-grow-1"
+                      :color="QR === 'wx' ? 'white' : ''"
+                      @click="QR = 'wx'"
+                      >WX
+                    </v-btn>
+                  </div>
                 </div>
+                <v-list-item
+                  class="mt-md-3 mt-sm-2 rounded-lg-no fs-14 white"
+                  link
+                  @click="$router.push({ path: '/document' })"
+                >
+                  <div class="w-100 d-flex justify-space-between">
+                    <span>留言板</span>
+                    <v-icon color="#00bfa5" size="16">mdi-chevron-right</v-icon>
+                  </div>
+                </v-list-item>
+                <v-list-item
+                  class="rounded-lg-no mt-md-3 mt-sm-2 fs-14 white"
+                  link
+                  @click="$router.push({ path: '/document' })"
+                >
+                  <div class="w-100 d-flex justify-space-between">
+                    <span>友情链接</span>
+                    <v-icon color="#00bfa5" size="16">mdi-chevron-right</v-icon>
+                  </div>
+                </v-list-item>
               </div>
             </v-col>
           </v-row>
@@ -311,13 +377,7 @@ export default {
       isRouterAlice: true,
       overlay: false,
       isMobile: false,
-      links: ["本站简介", "版权声明", "关于我", "控制台"],
-      links_href: ["#/document", "#/copyright", "#/about", "#/bbs"],
-      c_btn: "teal accent-4",
-      options: ["本站简介", "版权声明", "关于我", "控制台"],
-      style: "<style>.v-menu__content{box-shadow:none !important;}</style>",
       windowWidth: null,
-      Tag_class: ["HTML&CSS", "JavaScript", "PHP", "Vue", "日志"],
       op: {
         duration: 200,
         offset: 500,
@@ -325,6 +385,7 @@ export default {
       },
     };
   },
+
   beforeDestroy() {
     if (typeof window === undefined) return;
     // noinspection JSCheckFunctionSignatures
@@ -335,7 +396,6 @@ export default {
     this.onResize();
     window.addEventListener("resize", this.onResize, { passive: true });
   },
-
   methods: {
     reload() {
       this.isRouterAlice = false;
@@ -352,38 +412,44 @@ export default {
     onResize() {
       this.isMobile = window.innerWidth > 1264;
       this.windowWidth = window.innerWidth;
+      this.$store.state.windowWidth = window.innerWidth;
       this.windowWidth > 600 ? (this.mobile_search_show = false) : "";
     },
     _class(i) {
       if (
-        this.$route.path !== `/class/${i}` ||
+        this.$route.path !== `/class/${i}` &&
         this.$route.path !== `/class/${i}/1`
       ) {
         this.$router.push({ path: `/class/${i}/1` });
+        this.$store.state.blogListIndex = i;
+        this.top();
         this.reload();
       }
     },
     _all() {
-      this.$router.push({ path: `/page/1` });
-      this.reload();
+      if (this.$route.path !== `/1`) {
+        this.$router.push({ path: `/1` });
+        this.$store.state.blogListIndex = null;
+        this.top();
+        this.reload();
+      }
     },
     searchKeyup() {
       // console.log (this.search);
-      console.log(this.$route.path.slice(1, 2));
+      // console.log(this.$route.path.slice(1, 2));
       if (
-        this.$route.path.slice(1, 2) !== "p" ||
+        this.$route.path.slice(1, 2) < 0 &&
         this.$route.path.slice(1, 2) !== "c"
-      ) {
-        this.$router.push({ path: `/page/1` });
-      }
-      // noinspection JSUnresolvedFunction
+      )
+        this.$router.push({ path: `/1` });
+
       this.$refs.child.search(this.search);
     },
   },
 };
 </script>
 <style scoped lang="less">
-#mobile_more {
+#mobileMore {
   position: fixed;
   top: 56px;
   height: 0;
@@ -391,6 +457,7 @@ export default {
   z-index: 8;
   background-color: white;
   transition: 0.2s;
+  box-shadow: rgba(239, 239, 239, 0.43) 0 9px 9px;
 }
 
 .point {
