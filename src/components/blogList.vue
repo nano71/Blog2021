@@ -5,7 +5,6 @@
     <!--suppress JSUnusedLocalSymbols -->
     <v-card
       v-for="(item, index) in blog_list"
-      v-show="blog_list[index]['title'].indexOf('面试') === -1"
       id="indexList"
       :key="index"
       class="mx-auto rounded-lg-no pa-3 pa-sm-4 pa-md-6 pb-0 pb-sm-0 pb-md-0"
@@ -166,7 +165,7 @@ export default {
     next() {
       if (this.$route.params.class && this.$route.params.page) {
         if (this.$route.path.slice(1, 2) === "c") {
-          this.$router.push({ path: `/class/${this.class}/${this.page}` });
+          this.$router.push({path: `/class/${this.class}/${this.page}`});
           this.blog_list = [];
           axios
             .post(this.$store.state.url, {
@@ -190,7 +189,7 @@ export default {
             });
         }
       } else if (!this.$route.params.class && this.$route.params.page) {
-        if (this.$route.path.slice(1, 2) === "p") {
+        if (this.$route.path.slice(1, 2) > 0) {
           this.$router.push({ path: `/${this.page}` });
           this.blog_list = [];
           axios
@@ -215,6 +214,7 @@ export default {
         }
       }
     },
+
     back() {
       // noinspection JSCheckFunctionSignatures
       this.$router.back(-1);
@@ -230,11 +230,11 @@ export default {
         axios
           .get(
             this.$store.state.url +
-              "?search=" +
-              i +
-              "&type=7" +
-              "&limit_page" +
-              this.page
+            "?search=" +
+            i +
+            "&type=7" +
+            "&limit_page" +
+            this.page
           )
           .then((response) => {
             // console.log (response.data)

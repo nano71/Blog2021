@@ -4,8 +4,8 @@
 <!--suppress ALL -->
 
 <template>
-  <v-app id="blog-body-content">
-    <v-main class="pa-3 pt-md-4 pa-md-4 rounded-lg-no">
+  <div id="blog-body-content">
+    <div class="pa-3 pt-md-4 pa-md-4 rounded-lg-no">
       <!--      头-->
       <div class="v-heading text-h5 mb-4">
         <a class="text--accent-4 teal--text font-weight-light"> #Title: </a>
@@ -165,8 +165,8 @@
       >
         {{ text }}
       </v-snackbar>
-    </v-main>
-  </v-app>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -268,11 +268,26 @@ export default {
     this.onResize();
     window.addEventListener("resize", this.onResize, { passive: true });
   },
+  created() {
+    this.top();
+  },
   beforeDestroy() {
     if (typeof window === undefined) return;
     window.removeEventListener("resize", this.onResize, { passive: true });
   },
   methods: {
+    top() {
+      this.$emit("top");
+      setTimeout(() => {
+        this.$emit("top");
+      }, 50);
+      if (this.throttle) {
+        this.throttle = false;
+        setTimeout(() => {
+          this.throttle = true;
+        }, 1500);
+      }
+    },
     onResize() {
       this.isMobile = window.innerWidth > 1264;
     },

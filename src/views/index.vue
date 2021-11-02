@@ -204,12 +204,13 @@
       >
         <v-container class="col-md-9">
           <v-row class="justify-center">
-            <v-col class="pa-0 pa-sm-2 pa-md-3">
+            <v-col class="pa-0 pa-sm-2 pa-md-3 col-12 col-sm-9 col-lg-10">
               <v-sheet min-height="10vh" class="rounded-lg-no">
                 <router-view
                   v-if="isRouterAlice"
                   ref="child"
                   @back="reload"
+                  @top="top"
                 ></router-view>
                 <!-- 内容  -->
               </v-sheet>
@@ -401,6 +402,7 @@ export default {
       this.isRouterAlice = false;
       this.$nextTick(() => {
         this.isRouterAlice = true;
+        this.top();
       });
     },
     top() {
@@ -422,7 +424,6 @@ export default {
       ) {
         this.$router.push({ path: `/class/${i}/1` });
         this.$store.state.blogListIndex = i;
-        this.top();
         this.reload();
       }
     },
