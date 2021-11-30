@@ -109,8 +109,8 @@ background-color: #eeeeee;
 background: unset !important;
 color: unset;
 }
-::-webkit-scrollbar{
-width: 0;
+::-webkit-scrollbar-thumb{
+background-color: #fff;
 }</style>`,
     };
   },
