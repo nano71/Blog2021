@@ -1,7 +1,8 @@
 # Blog
 The blog for github.com/ChinaGamer | 1742968988@qq.com
 
-[DEMO](https://personal-station.cn/blog)
+[Link1](https://personal-station.cn/blog)  
+[Link2](https://nano71.com/blog)
 
 [配套PHP文件](https://personal-station.cn/blog_php.txt)
 
