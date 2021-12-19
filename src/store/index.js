@@ -6,9 +6,9 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     //要请求的后端地址
-    url: "https://personal-station.cn/php/blog-bk.php",
+    url: "",
     //后台密钥
-    key: "1742",
+    key: "",
     QR: false,
     links: ["本站简介", "版权声明", "关于我", "控制台"],
     links_href: ["/document", "/copyright", "/about", "/admin"],
