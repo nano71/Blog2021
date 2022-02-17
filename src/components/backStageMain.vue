@@ -110,6 +110,7 @@
       <v-content fluid>
         <blog v-if="ifs === 1" ref="blog" />
         <blog-list v-if="ifs === 2" ref="blog_list" />
+        <comment-list v-if="ifs === 3" ref="comment_list" />
       </v-content>
     </v-main>
   </v-app>
@@ -117,12 +118,14 @@
 <script>
 import blog from "./backStageBlogEdit";
 import blogList from "./backStageBlogList";
+import commentList from "./backStageCommentList";
 
 export default {
   name: "BlogBackStageMain",
   components: {
     blog,
     blogList,
+    commentList
   },
   data() {
     return {
