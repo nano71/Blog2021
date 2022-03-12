@@ -15,12 +15,12 @@
               tile
               height="50"
               width="auto"
-              @click="to_blog"
+              @click="toBlog"
           >
             <span class="white--text headline mx-3">N</span>
           </v-avatar>
           <span class="text-h4 font-weight-thin ml-3 mr-3">|</span>
-          <span class="mr-10 text-h5 text-uppercase point" @click="to_blog">
+          <span class="mr-10 text-h5 text-uppercase point" @click="toBlog">
             Blog
           </span>
           <!--v-btn用作浮动动作按钮-->
@@ -63,7 +63,7 @@
           app
           :width="windowWidth"
       >
-        <v-toolbar-title class="point font-weight-light" @click="to_blog"
+        <v-toolbar-title class="point font-weight-light" @click="toBlog"
         >NANO71<span class="text-caption">BLO<span class="info--text font-weight-bold">G</span></span>
         </v-toolbar-title>
 
@@ -416,7 +416,7 @@ export default {
     top() {
       this.$vuetify.goTo(0, this.op);
     },
-    to_blog() {
+    toBlog() {
       this.$router.push({path: "/"});
     },
     onResize() {
@@ -451,7 +451,7 @@ export default {
           this.$route.path.slice(1, 2) !== "c"
       )
         this.$router.push({path: `/1`});
-
+      console.log(this.$refs.child);
       this.$refs.child.search(this.search);
     },
   },

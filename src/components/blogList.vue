@@ -4,7 +4,7 @@
   <div id="blogList">
     <!--suppress JSUnusedLocalSymbols -->
     <v-card
-      v-for="(item, index) in blog_list"
+      v-for="(item, index) in blogList"
       id="indexList"
       :key="index"
       class="mx-auto rounded-lg-no pa-3 pa-sm-4 pa-md-6 pb-0 pb-sm-0 pb-md-0"
@@ -12,8 +12,8 @@
     >
       <v-card-text class="pa-0">
         <div>
-          {{ blog_list[index]["CreateTime"] }}
-          <span class="ml-2">ID: {{ blog_list[index]["Bid"] }}</span>
+          {{ blogList[index]["CreateTime"] }}
+          <span class="ml-2">ID: {{ blogList[index]["Bid"] }}</span>
         </div>
         <p
           :class="`${
@@ -22,28 +22,28 @@
               : 'fs-18 font-weight-bold'
           } black--text link d-inline-block`"
           @click="
-            reveal = true;
-            $router.push({ path: '/article/' + blog_list[index]['Bid'] });
+            // reveal = true;
+            $router.push({ path: '/article/' + blogList[index]['Bid'] });
           "
         >
-          {{ blog_list[index]["title"] }}
+          {{ blogList[index]["title"] }}
         </p>
         <p
           @click="
-            reveal = true;
-            $router.push({ path: '/class/' + blog_list[index]['tag'] + '/1' });
+            // reveal = true;
+            $router.push({ path: '/class/' + blogList[index]['tag'] + '/1' });
           "
         >
-          {{ blog_list[index]["tag"] }}
+          {{ blogList[index]["tag"] }}
         </p>
         <div
           class="overflow-hidden line-3 link"
           @click="
-            reveal = true;
-            $router.push({ path: '/article/' + blog_list[index]['Bid'] });
+            // reveal = true;
+            $router.push({ path: '/article/' + blogList[index]['Bid'] });
           "
         >
-          {{ removeHTMLTag(blog_list[index]["content"]) }}
+          {{ removeHTMLTag(blogList[index]["content"]) }}
         </div>
       </v-card-text>
       <v-card-actions class="pa-0 mt-3 d-inline-block">
@@ -52,8 +52,8 @@
           color="teal accent-4"
           class="pb-0 teal lighten-6"
           @click="
-            reveal = true;
-            $router.push({ path: '/article/' + blog_list[index]['Bid'] });
+            // reveal = true;
+            $router.push({ path: '/article/' + blogList[index]['Bid'] });
           "
         >
           Learn More
@@ -96,7 +96,7 @@ export default {
       class: null,
       max_page: 1,
       blog_length: 0,
-      blog_list: {},
+      blogList: {},
     };
   },
   mounted() {
@@ -115,7 +115,7 @@ export default {
           this.blog_length = Object.keys(response.data).length;
           for (let i = 0; i < this.blog_length - 1; i++) {
             // Vue 不能检测以下数组的变动，也就是说改变数组不会触发重新渲染
-            Vue.set(this.blog_list, i, response.data[i + 1]);
+            Vue.set(this.blogList, i, response.data[i + 1]);
           }
           this.max_page = Math.ceil(
             response.data[this.blog_length]["count(*)"] / 6
@@ -138,7 +138,7 @@ export default {
           this.blog_length = Object.keys(response.data).length;
           for (let i = 0; i < this.blog_length - 1; i++) {
             // Vue 不能检测以下数组的变动，也就是说改变数组不会触发重新渲染
-            Vue.set(this.blog_list, i, response.data[i + 1]);
+            Vue.set(this.blogList, i, response.data[i + 1]);
           }
           this.max_page = Math.ceil(
             response.data[this.blog_length]["count(*)"] / 6
@@ -154,11 +154,14 @@ export default {
   },
   methods: {
     removeHTMLTag(str) {
-      str = str.replace(/<\/?[^>]*>/g, ""); //去除HTML tag
-      str = str.replace(/[ |]*\n/g, "\n"); //去除行尾空白
-      //str = str.replace(/\n[\s| | ]*\r/g,'\n'); 去除多余空行
-      str = str.replace(/&nbsp;/gi, ""); //去掉&nbsp;
-      str = str.replace(/\s/g, ""); //将空格去掉
+      if(str){
+        str = str.replace(/<\/?[^>]*>/g, ""); //去除HTML tag
+        str = str.replace(/[ |]*\n/g, "\n"); //去除行尾空白
+        //str = str.replace(/\n[\s| | ]*\r/g,'\n'); 去除多余空行
+        str = str.replace(/&nbsp;/gi, ""); //去掉&nbsp;
+        str = str.replace(/\s/g, ""); //将空格去掉
+      }
+
       return str;
     },
     //更新下一页
@@ -166,7 +169,7 @@ export default {
       if (this.$route.params.class && this.$route.params.page) {
         if (this.$route.path.slice(1, 2) === "c") {
           this.$router.push({path: `/class/${this.class}/${this.page}`});
-          this.blog_list = [];
+          this.blogList = [];
           axios
             .post(this.$store.state.url, {
               type: 6,
@@ -177,7 +180,7 @@ export default {
               // console.log(response);
               this.blog_length = Object.keys(response.data).length;
               for (let i = 0; i < this.blog_length - 1; i++) {
-                Vue.set(this.blog_list, i, response.data[i + 1]);
+                Vue.set(this.blogList, i, response.data[i + 1]);
               }
               this.max_page = Math.ceil(
                 response.data[this.blog_length]["count(*)"] / 6
@@ -191,7 +194,7 @@ export default {
       } else if (!this.$route.params.class && this.$route.params.page) {
         if (this.$route.path.slice(1, 2) > 0) {
           this.$router.push({ path: `/${this.page}` });
-          this.blog_list = [];
+          this.blogList = [];
           axios
             .post(this.$store.state.url, {
               type: 0,
@@ -201,7 +204,7 @@ export default {
               this.blog_length = Object.keys(response.data).length;
               for (let i = 0; i < this.blog_length - 1; i++) {
                 // Vue 不能检测以下数组的变动，也就是说改变数组不会触发重新渲染
-                Vue.set(this.blog_list, i, response.data[i + 1]);
+                Vue.set(this.blogList, i, response.data[i + 1]);
               }
               this.max_page = Math.ceil(
                 response.data[this.blog_length]["count(*)"] / 6
@@ -226,13 +229,13 @@ export default {
       //防抖
       this.timer_axios && clearTimeout(this.timer_axios);
       this.timer_axios = setTimeout(() => {
-        this.blog_list = [];
+        this.blogList = [];
         axios
           .get(
             this.$store.state.url +
             "?search=" +
             i +
-            "&type=7" +
+            "&type=6" +
             "&limit_page" +
             this.page
           )
@@ -240,7 +243,7 @@ export default {
             // console.log (response.data)
             this.blog_length = Object.keys(response.data).length;
             for (let i = 0; i < this.blog_length - 1; i++) {
-              Vue.set(this.blog_list, i, response.data[i + 1]);
+              Vue.set(this.blogList, i, response.data[i + 1]);
             }
             this.max_page = Math.ceil(
               response.data[this.blog_length]["count(*)"] / 6

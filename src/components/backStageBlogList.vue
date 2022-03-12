@@ -12,7 +12,6 @@
       <v-icon small>mdi-delete</v-icon>
       &nbsp;删除
     </v-btn>
-
     <!--      <v-btn dark color="teal" class="ml-4">-->
     <!--        <v-icon small>mdi-file-export</v-icon>-->
     <!--        &nbsp;导出-->
@@ -75,11 +74,11 @@ export default {
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  tr>td:first-child{
-  overflow: unset;
+  tr > td:first-child{
+    overflow: unset;
   }
-  tr>th:nth-child(3){
-  width: 70px;
+  tr > th:nth-child(3){
+    width: 70px;
   }
   </style>`,
       blogLength: [],
@@ -122,10 +121,10 @@ export default {
     },
   },
   mounted() {
-  this.init()
+    this.init()
   },
   methods: {
-    init(){
+    init() {
       axios
           .post(this.$store.state.url, {
             type: 4,
@@ -167,8 +166,10 @@ export default {
       //   // console.log (error)
       // });
     },
-    add(){},
-    edit(){},
+    add() {
+    },
+    edit() {
+    },
     del() {
       if (this.selected) {
         console.log(this.selected[0]["Bid"])
