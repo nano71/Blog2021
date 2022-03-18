@@ -6,7 +6,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         //要请求的后端地址
-        url: "https://personal-station.cn/php/blog-bk.php",
+        url: "https://nano71.com/php/blog-bk.php",
         //后台密钥
         key: "1742",
         QR: false,

@@ -123,7 +123,7 @@ export default {
           this.start();
         })
         .catch((error) => {
-          alert("结果为空");
+          // alert("结果为空");
           this.back();
           console.log(error);
         });
@@ -135,6 +135,7 @@ export default {
           limit_page: this.page,
         })
         .then((response) => {
+          console.log(response);
           this.blog_length = Object.keys(response.data).length;
           for (let i = 0; i < this.blog_length - 1; i++) {
             // Vue 不能检测以下数组的变动，也就是说改变数组不会触发重新渲染
@@ -146,7 +147,7 @@ export default {
           this.start();
         })
         .catch((error) => {
-          alert("结果为空");
+          // alert("结果为空");
           this.back();
           console.log(error);
         });
@@ -255,7 +256,7 @@ export default {
               error ===
               "TypeError: Cannot read property 'count(*)' of undefined"
             ) {
-              alert("结果为空");
+              // alert("结果为空");
             }
 
             this.back();

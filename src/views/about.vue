@@ -118,7 +118,7 @@
 
           <div class="text-center my-6">
             <a
-              href="#/"
+              href="/"
               class="
                 v-btn v-btn--outlined v-btn--router
                 theme--light

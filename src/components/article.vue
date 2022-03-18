@@ -248,6 +248,7 @@ export default {
             axios.spread((reslistdata, rescomments) => {
               // 上面两个请求都完成后，才执行这个回调方法
               this.content_list = reslistdata.data[1];
+              console.log(reslistdata);
               this.tags = [
                 this.content_list.tag,
                 this.content_list.tag2,

@@ -26,7 +26,7 @@
         v-model="search"
         type="text"
         class="pl-2"
-        style="border: 0.5px solid"
+        style="border: .5px solid"
     />
     <h4 class="pt-1 ml-4">标签：</h4>
     <input type="text" class="pl-2" style="border: 0.5px solid"/>

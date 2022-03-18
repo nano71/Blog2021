@@ -19,7 +19,7 @@
         v-model="search"
         type="text"
         class="pl-2"
-        style="border: 0.5px solid"
+        style="border: .5px solid"
     />
     <!--    <v-btn-->
     <!--      elevation="0"-->
