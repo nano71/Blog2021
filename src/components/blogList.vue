@@ -4,11 +4,11 @@
   <div id="blogList">
     <!--suppress JSUnusedLocalSymbols -->
     <v-card
-      v-for="(item, index) in blogList"
-      id="indexList"
-      :key="index"
-      class="mx-auto rounded-lg-no pa-3 pa-sm-4 pa-md-6 pb-0 pb-sm-0 pb-md-0"
-      elevation="0"
+        v-for="(item, index) in blogList"
+        id="indexList"
+        :key="index"
+        class="mx-auto rounded-lg-no pa-3 pa-sm-4 pa-md-6 pb-0 pb-sm-0 pb-md-0"
+        elevation="0"
     >
       <v-card-text class="pa-0">
         <div>
@@ -16,12 +16,12 @@
           <span class="ml-2">ID: {{ blogList[index]["Bid"] }}</span>
         </div>
         <p
-          :class="`${
+            :class="`${
             $store.state.windowWidth > 450
               ? 'display-1 mt-1'
               : 'fs-18 font-weight-bold'
           } black--text link d-inline-block`"
-          @click="
+            @click="
             // reveal = true;
             $router.push({ path: '/article/' + blogList[index]['Bid'] });
           "
@@ -29,7 +29,7 @@
           {{ blogList[index]["title"] }}
         </p>
         <p
-          @click="
+            @click="
             // reveal = true;
             $router.push({ path: '/class/' + blogList[index]['tag'] + '/1' });
           "
@@ -37,8 +37,8 @@
           {{ blogList[index]["tag"] }}
         </p>
         <div
-          class="overflow-hidden line-3 link"
-          @click="
+            class="overflow-hidden line-3 link"
+            @click="
             // reveal = true;
             $router.push({ path: '/article/' + blogList[index]['Bid'] });
           "
@@ -48,10 +48,10 @@
       </v-card-text>
       <v-card-actions class="pa-0 mt-3 d-inline-block">
         <v-btn
-          text
-          color="teal accent-4"
-          class="pb-0 teal lighten-6"
-          @click="
+            text
+            color="teal accent-4"
+            class="pb-0 teal lighten-6"
+            @click="
             // reveal = true;
             $router.push({ path: '/article/' + blogList[index]['Bid'] });
           "
@@ -68,12 +68,12 @@
         <v-col>
           <v-container class="max-width">
             <v-pagination
-              id="pagination"
-              v-model="page"
-              color="teal accent-4"
-              class="my-4"
-              :length="max_page"
-              @input="next"
+                id="pagination"
+                v-model="page"
+                color="teal accent-4"
+                class="my-4"
+                :length="max_page"
+                @input="next"
             ></v-pagination>
           </v-container>
         </v-col>
@@ -103,59 +103,59 @@ export default {
     if (this.$route.params.class) {
       this.class = this.$route.params.class;
       this.$route.params.page
-        ? (this.page = parseInt(this.$route.params.page))
-        : (this.page = 1);
+          ? (this.page = parseInt(this.$route.params.page))
+          : (this.page = 1);
       axios
-        .post(this.$store.state.url, {
-          type: 6,
-          class: this.class,
-          limit_page: this.page,
-        })
-        .then((response) => {
-          this.blog_length = Object.keys(response.data).length;
-          for (let i = 0; i < this.blog_length - 1; i++) {
-            // Vue 不能检测以下数组的变动，也就是说改变数组不会触发重新渲染
-            Vue.set(this.blogList, i, response.data[i + 1]);
-          }
-          this.max_page = Math.ceil(
-            response.data[this.blog_length]["count(*)"] / 6
-          );
-          this.start();
-        })
-        .catch((error) => {
-          // alert("结果为空");
-          this.back();
-          console.log(error);
-        });
+          .post(this.$store.state.url, {
+            type: 6,
+            class: this.class,
+            limit_page: this.page,
+          })
+          .then((response) => {
+            this.blog_length = Object.keys(response.data).length;
+            for (let i = 0; i < this.blog_length - 1; i++) {
+              // Vue 不能检测以下数组的变动，也就是说改变数组不会触发重新渲染
+              Vue.set(this.blogList, i, response.data[i + 1]);
+            }
+            this.max_page = Math.ceil(
+                response.data[this.blog_length]["count(*)"] / 6
+            );
+            this.start();
+          })
+          .catch((error) => {
+            // alert("结果为空");
+            this.back();
+            console.log(error);
+          });
     } else if (this.$route.params.page && !this.$route.params.class) {
       this.page = parseInt(this.$route.params.page);
       axios
-        .post(this.$store.state.url, {
-          type: 0,
-          limit_page: this.page,
-        })
-        .then((response) => {
-          console.log(response);
-          this.blog_length = Object.keys(response.data).length;
-          for (let i = 0; i < this.blog_length - 1; i++) {
-            // Vue 不能检测以下数组的变动，也就是说改变数组不会触发重新渲染
-            Vue.set(this.blogList, i, response.data[i + 1]);
-          }
-          this.max_page = Math.ceil(
-            response.data[this.blog_length]["count(*)"] / 6
-          );
-          this.start();
-        })
-        .catch((error) => {
-          // alert("结果为空");
-          this.back();
-          console.log(error);
-        });
+          .post(this.$store.state.url, {
+            type: 0,
+            limit_page: this.page,
+          })
+          .then((response) => {
+            console.log(response);
+            this.blog_length = Object.keys(response.data).length;
+            for (let i = 0; i < this.blog_length - 1; i++) {
+              // Vue 不能检测以下数组的变动，也就是说改变数组不会触发重新渲染
+              Vue.set(this.blogList, i, response.data[i + 1]);
+            }
+            this.max_page = Math.ceil(
+                response.data[this.blog_length]["count(*)"] / 6
+            );
+            this.start();
+          })
+          .catch((error) => {
+            // alert("结果为空");
+            this.back();
+            console.log(error);
+          });
     }
   },
   methods: {
     removeHTMLTag(str) {
-      if(str){
+      if (str) {
         str = str.replace(/<\/?[^>]*>/g, ""); //去除HTML tag
         str = str.replace(/[ |]*\n/g, "\n"); //去除行尾空白
         //str = str.replace(/\n[\s| | ]*\r/g,'\n'); 去除多余空行
@@ -172,49 +172,49 @@ export default {
           this.$router.push({path: `/class/${this.class}/${this.page}`});
           this.blogList = [];
           axios
-            .post(this.$store.state.url, {
-              type: 6,
-              class: this.class,
-              limit_page: this.page,
-            })
-            .then((response) => {
-              // console.log(response);
-              this.blog_length = Object.keys(response.data).length;
-              for (let i = 0; i < this.blog_length - 1; i++) {
-                Vue.set(this.blogList, i, response.data[i + 1]);
-              }
-              this.max_page = Math.ceil(
-                response.data[this.blog_length]["count(*)"] / 6
-              );
-            })
-            .catch((error) => {
-              alert(error);
-              this.back();
-            });
+              .post(this.$store.state.url, {
+                type: 6,
+                class: this.class,
+                limit_page: this.page,
+              })
+              .then((response) => {
+                // console.log(response);
+                this.blog_length = Object.keys(response.data).length;
+                for (let i = 0; i < this.blog_length - 1; i++) {
+                  Vue.set(this.blogList, i, response.data[i + 1]);
+                }
+                this.max_page = Math.ceil(
+                    response.data[this.blog_length]["count(*)"] / 6
+                );
+              })
+              .catch((error) => {
+                alert(error);
+                this.back();
+              });
         }
       } else if (!this.$route.params.class && this.$route.params.page) {
         if (this.$route.path.slice(1, 2) > 0) {
-          this.$router.push({ path: `/${this.page}` });
+          this.$router.push({path: `/${this.page}`});
           this.blogList = [];
           axios
-            .post(this.$store.state.url, {
-              type: 0,
-              limit_page: this.page,
-            })
-            .then((response) => {
-              this.blog_length = Object.keys(response.data).length;
-              for (let i = 0; i < this.blog_length - 1; i++) {
-                // Vue 不能检测以下数组的变动，也就是说改变数组不会触发重新渲染
-                Vue.set(this.blogList, i, response.data[i + 1]);
-              }
-              this.max_page = Math.ceil(
-                response.data[this.blog_length]["count(*)"] / 6
-              );
-            })
-            .catch((error) => {
-              alert(error);
-              this.back();
-            });
+              .post(this.$store.state.url, {
+                type: 0,
+                limit_page: this.page,
+              })
+              .then((response) => {
+                this.blog_length = Object.keys(response.data).length;
+                for (let i = 0; i < this.blog_length - 1; i++) {
+                  // Vue 不能检测以下数组的变动，也就是说改变数组不会触发重新渲染
+                  Vue.set(this.blogList, i, response.data[i + 1]);
+                }
+                this.max_page = Math.ceil(
+                    response.data[this.blog_length]["count(*)"] / 6
+                );
+              })
+              .catch((error) => {
+                alert(error);
+                this.back();
+              });
         }
       }
     },
@@ -232,35 +232,36 @@ export default {
       this.timer_axios = setTimeout(() => {
         this.blogList = [];
         axios
-          .get(
-            this.$store.state.url +
-            "?search=" +
-            i +
-            "&type=6" +
-            "&limit_page" +
-            this.page
-          )
-          .then((response) => {
-            // console.log (response.data)
-            this.blog_length = Object.keys(response.data).length;
-            for (let i = 0; i < this.blog_length - 1; i++) {
-              Vue.set(this.blogList, i, response.data[i + 1]);
-            }
-            this.max_page = Math.ceil(
-              response.data[this.blog_length]["count(*)"] / 6
-            );
-            this.page = 1;
-          })
-          .catch((error) => {
-            if (
-              error ===
-              "TypeError: Cannot read property 'count(*)' of undefined"
-            ) {
-              // alert("结果为空");
-            }
+            .get(
+                this.$store.state.url +
+                "?search=" +
+                i +
+                "&type=6" +
+                "&limit_page" +
+                this.page
+            )
+            .then((response) => {
+              console.log(response.data)
+              this.blog_length = Object.keys(response.data).length;
+              for (let i = 0; i < this.blog_length - 1; i++) {
+                Vue.set(this.blogList, i, response.data[i + 1]);
+              }
+              this.max_page = Math.ceil(
+                  response.data[this.blog_length]["count(*)"] / 6
+              );
+              this.page = 1;
+            })
+            .catch((error) => {
+              // alert(error)
+              if (
+                  error ===
+                  "TypeError: Cannot read property 'count(*)' of undefined"
+              ) {
+                // alert("结果为空");
+              }
 
-            this.back();
-          });
+              this.back();
+            });
       }, 1000);
     },
     start() {

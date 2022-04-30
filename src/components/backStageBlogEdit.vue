@@ -3,19 +3,19 @@
     <v-col cols1="6">
       <v-col cols="12">
         <v-text-field
-          v-model="title"
-          label="博客标题"
-          autofocus
-          value="Test"
+            v-model="title"
+            label="博客标题"
+            autofocus
+            value="Test"
         ></v-text-field>
       </v-col>
       <v-col cols="12">
         <v-combobox
-          v-model="select"
-          :items="items"
-          label="博客标签"
-          multiple
-          chips
+            v-model="select"
+            :items="items"
+            label="博客标签"
+            multiple
+            chips
         ></v-combobox>
       </v-col>
     </v-col>
@@ -33,19 +33,19 @@
       <v-dialog v-model="date_dialog" max-width="600">
         <v-card class="pa-4">
           <v-date-picker
-            v-model="picker"
-            full-width
-            landscape
-            color="teal"
+              v-model="picker"
+              full-width
+              landscape
+              color="teal"
           ></v-date-picker>
           <v-card-actions class="mt-4">
             <v-btn text color="blue accent-4" @click="date_dialog = false">
               取消
             </v-btn>
             <v-btn
-              text
-              color="blue accent-4"
-              @click="
+                text
+                color="blue accent-4"
+                @click="
                 date_dialog = false;
                 time_dialog = true;
               "
@@ -59,12 +59,12 @@
       <v-dialog v-model="time_dialog" max-width="600">
         <v-card class="pa-4">
           <v-time-picker
-            v-model="time_picker"
-            full-width
-            color="teal"
-            use-seconds
-            scrollable
-            format="24hr"
+              v-model="time_picker"
+              full-width
+              color="teal"
+              use-seconds
+              scrollable
+              format="24hr"
           >
           </v-time-picker>
           <v-card-actions class="mt-4">
@@ -83,10 +83,10 @@
     <v-col cols="12" class="h-75">
       <div class="black06 scale-075">仅支持Markdown格式</div>
       <mavon-editor
-        ref="md"
-        v-model="context"
-        :toolbars="toolbars"
-        class="elevation-0 fill-height border"
+          ref="md"
+          v-model="context"
+          :toolbars="toolbars"
+          class="elevation-0 fill-height border"
       />
     </v-col>
   </v-row>
@@ -202,26 +202,26 @@ export default {
           this.select[2] = "1";
         }
         axios
-          .post(this.$store.state.url, {
-            type: 3,
-            title: this.title,
-            time: this.picker + " " + this.time_picker,
-            content: this.$refs.md.d_render,
-            url: "test",
-            tag1: this.select[0].toString(),
-            tag2: this.select[1].toString(),
-            tag3: this.select[2].toString(),
-            last_time: this.picker + " " + this.time_picker,
-          })
-          .then((res) => {
-            //成功
-            if (res.data !== "新记录插入成功") {
-              alert(res.data);
-            } else {
-              this.re_input_blog();
-              alert(res.data);
-            }
-          });
+            .post(this.$store.state.url, {
+              type: 3,
+              title: this.title,
+              time: this.picker + " " + this.time_picker,
+              content: this.$refs.md.d_render,
+              url: "test",
+              tag1: this.select[0].toString(),
+              tag2: this.select[1].toString(),
+              tag3: this.select[2].toString(),
+              last_time: this.picker + " " + this.time_picker,
+            })
+            .then((res) => {
+              //成功
+              if (res.data !== "新记录插入成功") {
+                alert(res.data);
+              } else {
+                this.re_input_blog();
+                alert(res.data);
+              }
+            });
         // .then(error => {
         //    console.log(error);
         // });

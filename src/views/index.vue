@@ -68,7 +68,7 @@
         </v-toolbar-title>
 
         <v-spacer></v-spacer>
-        <v-responsive max-width="260" class="d-none d-sm-block" >
+        <v-responsive max-width="260" class="d-none d-sm-block">
           <!--文本框-->
           <v-text-field
               v-model="search"
@@ -277,8 +277,7 @@
                             color="#00bfa5"
                             size="16"
                         >mdi-chevron-left
-                        </v-icon
-                        >
+                        </v-icon>
                       </div>
                     </v-list-item>
                     <v-list-item link class="fs-14" @click="_all">
@@ -296,8 +295,7 @@
                             color="#00bfa5"
                             size="16"
                         >mdi-chevron-left
-                        </v-icon
-                        >
+                        </v-icon>
                       </div>
                     </v-list-item>
                   </v-list>
@@ -312,11 +310,9 @@
                       rounded-lg-no rounded-b-0
                     "
                   >
-                    <div
-                        :class="`${QR === 'qq' ? 'state-1' : 'state-2'} QRBox`"
-                    >
-                      <img src="https://personal-station.cn/QQ_QR.png" alt=""/>
-                      <img src="https://personal-station.cn/WX_QR.png" alt=""/>
+                    <div :class="`${QR === 'qq' ? 'state-1' : 'state-2'} QRBox`">
+                      <img src="../assets/QQ_QR.png" alt=""/>
+                      <img src="../assets/WX_QR.png" alt=""/>
                     </div>
                   </div>
                   <div class="d-flex justify-space-between">
@@ -325,14 +321,16 @@
                         elevation="0"
                         :color="QR === 'qq' ? 'white' : ''"
                         @click="QR = 'qq'"
-                    >QQ
+                    >
+                      QQ
                     </v-btn>
                     <v-btn
                         elevation="0"
                         class="rounded-lg-no rounded-l-0 rounded-t-0 flex-grow-1"
                         :color="QR === 'wx' ? 'white' : ''"
                         @click="QR = 'wx'"
-                    >WX
+                    >
+                      WX
                     </v-btn>
                   </div>
                 </div>
@@ -451,7 +449,7 @@ export default {
           this.$route.path.slice(1, 2) !== "c"
       )
         this.$router.push({path: `/1`});
-      console.log(this.$refs.child);
+      // console.log(this.$refs.child);
       this.$refs.child.search(this.search);
     },
   },
@@ -486,7 +484,8 @@ export default {
 .sticky {
   position: sticky;
 }
-.v-input{
+
+.v-input {
   border-radius: 0 !important;
 }
 </style>
