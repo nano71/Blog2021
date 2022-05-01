@@ -115,7 +115,7 @@ export default {
   methods: {
     del() {
       if (this.selected) {
-        console.log(this.selected[0]["Bid"])
+      //  console.log(this.selected[0]["Bid"])
         axios.post(this.$store.state.url, {
           type: 9,
           bid: this.selected[0]["Bid"]

@@ -28,7 +28,7 @@
               v-for="(item, index) in $store.state.links"
               :key="index"
               text
-              @click="$router.push({ path: $store.state.links_href[index] })"
+              @click="$router.push({ path: $store.state.linkHrefs[index] })"
           >
             {{ item }}
           </v-btn>
@@ -47,7 +47,7 @@
                 color="teal"
                 class="rounded-lg-no"
                 @keyup="searchKeyup"
-                @change="search = null"
+                @blur="blurDeBug"
             >
               <template v-slot:label> Click here to search all...</template>
             </v-text-field>
@@ -67,7 +67,7 @@
         >NANO71<span class="text-caption">BLO<span class="info--text font-weight-bold">G</span></span>
         </v-toolbar-title>
 
-        <v-spacer></v-spacer>
+        <v-spacer/>
         <v-responsive max-width="260" class="d-none d-sm-block">
           <!--文本框-->
           <v-text-field
@@ -76,7 +76,6 @@
               flat
               class="rounded-0"
               @keyup="searchKeyup"
-              @change="search = null"
           >
             <template v-slot:label> Click here to search all...</template>
           </v-text-field>
@@ -114,12 +113,17 @@
             <v-list-item
                 v-for="(item, index) in $store.state.options"
                 :key="index"
-                @click="$router.push({ path: $store.state.links_href[index] })"
+                @click="$router.push({ path: $store.state.linkHrefs[index] })"
             >
               <v-list-item-title class="white--text"
               >{{ item }}
               </v-list-item-title>
             </v-list-item>
+            <!--            <v-list-item>-->
+            <!--              <v-list-item-title class="white&#45;&#45;text"-->
+            <!--              >聊天室-->
+            <!--              </v-list-item-title>-->
+            <!--            </v-list-item>-->
             <v-list-item>
               <v-list-item-title class="white--text"
               >留言板
@@ -172,7 +176,7 @@
               cols="12"
           >
             <v-list-item
-                v-for="(item, index) in $store.state.Tag_class"
+                v-for="(item, index) in $store.state.TagClass"
                 :key="index"
                 class="float-left"
                 link
@@ -257,7 +261,7 @@
                       技术分类
                     </div>
                     <v-list-item
-                        v-for="(item, index) in $store.state.Tag_class"
+                        v-for="(item, index) in $store.state.TagClass"
                         :key="index"
                         link
                         class="fs-14 text-uppercase justify-space-between"
@@ -337,7 +341,17 @@
                 <v-list-item
                     class="mt-md-3 mt-sm-2 rounded-lg-no fs-14 white"
                     link
-                    @click="$router.push({ path: '/document' })"
+                    @click="$to('https://nano71.com/chat')"
+                >
+                  <div class="w-100 d-flex justify-space-between">
+                    <span>聊天室</span>
+                    <v-icon color="#00bfa5" size="16">mdi-chevron-right</v-icon>
+                  </div>
+                </v-list-item>
+                <v-list-item
+                    class="mt-md-3 mt-sm-2 rounded-lg-no fs-14 white"
+                    link
+                    @click="$router.push({ path: '/messageBoard' })"
                 >
                   <div class="w-100 d-flex justify-space-between">
                     <span>留言板</span>
@@ -440,6 +454,10 @@ export default {
         this.top();
         this.reload();
       }
+    },
+    blurDeBug(event) {
+      // console.log(event);
+      this.search = ""
     },
     searchKeyup() {
       // console.log (this.search);

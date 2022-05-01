@@ -5,9 +5,9 @@
     <span v-html="$store.state.first <= 1 ? startStyle : ''"></span>
     <span v-html="$store.state.first > 0 ? startStyle2 : ''"></span>
     <div
-      v-if="$store.state.first > 0"
-      :class="$store.state.first === 1 ? 'end' : ''"
-      style="
+        v-if="$store.state.first > 0"
+        :class="$store.state.first === 1 ? 'end' : ''"
+        style="
         position: fixed;
         width: 100vw;
         height: 100vh;
@@ -22,8 +22,8 @@
       "
     >
       <div
-        v-if="$store.state.first > 1"
-        style="
+          v-if="$store.state.first > 1"
+          style="
           display: none;
           transform: scale(1.5);
           box-shadow: 0 0 1px black;
@@ -32,7 +32,7 @@
         "
       >
         <div
-          style="
+            style="
             background-color: #00bfa5;
             padding: 1rem 1rem 0;
             color: #00bfa5;
@@ -42,7 +42,7 @@
           NANO71
         </div>
         <div
-          style="
+            style="
             background-color: #fff;
             padding: 0 1rem 1rem;
             color: #fff;
@@ -52,7 +52,7 @@
           NANO71
         </div>
         <div
-          style="
+            style="
             color: #fff;
             position: absolute;
             line-height: 0.75;
@@ -65,20 +65,20 @@
             text-indent: 10px;
           "
         >
-          BLOG<br />
+          BLOG<br/>
           <span style="color: #00bfa5; letter-spacing: -6px">NANO71</span>
         </div>
       </div>
       <div
-        v-else
-        :style="`
+          v-else
+          :style="`
         ${$store.state.windowWidth > 450 && 'font-size: 2rem;'}
           max-width: 90vw;
           text-align: center;
           font-weight: lighter;
         `"
       >
-        {{ txt[Math.floor(Math.random() * txt.length)] }}
+        {{ $store.state.welcomeText[Math.floor(Math.random() * $store.state.welcomeText.length)] }}
       </div>
     </div>
     <router-view></router-view>
@@ -90,65 +90,61 @@ export default {
   data() {
     return {
       first: 2,
-      txt: [
-        "世间所有的相遇 , 都是久别重逢",
-        "人生的每一次相遇 , 都是一份来之不易的缘分",
-        "竹破四方遥来客 , 举杯不败古来人",
-        "有朋自远方来 , 不亦乐乎",
-        "相遇 , 幸之",
-        "你好!",
-        "别来无恙啊",
-      ],
       startStyle: `
-<style>#app{
-transition: 3s ease-in-out;
-background-color: #eeeeee;
-}</style>`,
+        <style>
+            #app{
+                transition: 3s ease-in-out;
+                background-color: #eeeeee;
+            }
+        </style>`,
       startStyle2: `
-<style>::selection {
-background: unset !important;
-color: unset;
-}
-::-webkit-scrollbar-thumb{
-background-color: #fff;
-}</style>`,
+        <style>
+            ::selection {
+                background: unset !important;
+                color: unset;
+            }
+
+            ::-webkit-scrollbar-thumb{
+                background-color: #fff;
+            }
+        </style>`,
     };
   },
   computed: {},
   watch: {},
   beforeCreate() {
-    console.log("beforeCreated");
+    //  console.log("beforeCreated");
   },
   created() {
-    console.log("created");
+    //  console.log("created");
   },
   beforeMount() {
     this.$store.state.blogListIndex = this.$route.params.class || null;
     if (sessionStorage.getItem("$store.state.first")) {
       this.$store.state.first = 1;
-      this.txt = [""];
+      this.$store.state.welcomeText = [""];
       setTimeout(() => {
         this.$store.state.first = 0;
       }, 2000);
     } else {
       sessionStorage.setItem("$store.state.first", "1");
     }
-    console.log("beforeMount");
+    //  console.log("beforeMount");
   },
   mounted() {
-    console.log("mounted");
+    //  console.log("mounted");
   },
   beforeUpdate() {
-    console.log("beforeUpdated");
+    //  console.log("beforeUpdated");
   },
   updated() {
-    console.log("updated");
+    //  console.log("updated");
   },
   beforeDestroy() {
-    console.log("beforeDestroy");
+    //  console.log("beforeDestroy");
   },
   destroyed() {
-    console.log("destroyed");
+    //  console.log("destroyed");
   },
   methods: {},
 };

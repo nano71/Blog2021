@@ -11,10 +11,10 @@ export default new Vuex.Store({
         key: "1742",
         QR: false,
         links: ["本站简介", "版权声明", "关于我", "控制台"],
-        links_href: ["/document", "/copyright", "/about", "/admin"],
+        linkHrefs: ["/document", "/copyright", "/about", "/admin"],
         options: ["本站简介", "版权声明", "关于我", "控制台"],
-        Tag_class: ["Promise", "PHP", "Vue", "日志"],
-        txt: [
+        TagClass: ["Promise", "PHP", "Vue", "日志"],
+        welcomeText: [
             "世间所有的相遇 , 都是久别重逢",
             "人生的每一次相遇 , 都是一份来之不易的缘分",
             "竹破四方遥来客 , 举杯不败古来人",

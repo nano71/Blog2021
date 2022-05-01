@@ -17,9 +17,12 @@ Vue.use(mavonEditor);
 //生产信息
 Vue.config.productionTip = false;
 Vue.config.silent = true;
+Vue.prototype.$to = (url) => {
+    window.location.href = url
+}
 new Vue({
-  router,
-  store,
-  vuetify,
-  render: (h) => h(App),
+    router,
+    store,
+    vuetify,
+    render: (h) => h(App),
 }).$mount("#app");
