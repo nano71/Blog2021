@@ -95,7 +95,6 @@ export default {
       page: 5,
       class: null,
       max_page: 1,
-      blog_length: 0,
       blogList: {},
     };
   },
@@ -112,20 +111,20 @@ export default {
             limit_page: this.page,
           })
           .then((response) => {
-            this.blog_length = Object.keys(response.data).length;
-            for (let i = 0; i < this.blog_length - 1; i++) {
+            let length = Object.keys(response.data).length;
+            for (let i = 0; i < length - 1; i++) {
               // Vue 不能检测以下数组的变动，也就是说改变数组不会触发重新渲染
               Vue.set(this.blogList, i, response.data[i + 1]);
             }
             this.max_page = Math.ceil(
-                response.data[this.blog_length]["count(*)"] / 6
+                response.data[length]["count(*)"] / 6
             );
             this.start();
           })
           .catch((error) => {
             // alert("结果为空");
             this.back();
-          //  console.log(error);
+            //  console.log(error);
           });
     } else if (this.$route.params.page && !this.$route.params.class) {
       this.page = parseInt(this.$route.params.page);
@@ -135,21 +134,21 @@ export default {
             limit_page: this.page,
           })
           .then((response) => {
-          //  console.log(response);
-            this.blog_length = Object.keys(response.data).length;
-            for (let i = 0; i < this.blog_length - 1; i++) {
+            //  console.log(response);
+            let length = Object.keys(response.data).length;
+            for (let i = 0; i < length - 1; i++) {
               // Vue 不能检测以下数组的变动，也就是说改变数组不会触发重新渲染
               Vue.set(this.blogList, i, response.data[i + 1]);
             }
             this.max_page = Math.ceil(
-                response.data[this.blog_length]["count(*)"] / 6
+                response.data[length]["count(*)"] / 6
             );
             this.start();
           })
           .catch((error) => {
             // alert("结果为空");
             this.back();
-          //  console.log(error);
+            //  console.log(error);
           });
     }
   },
@@ -179,12 +178,12 @@ export default {
               })
               .then((response) => {
                 // console.log(response);
-                this.blog_length = Object.keys(response.data).length;
-                for (let i = 0; i < this.blog_length - 1; i++) {
+                let length = Object.keys(response.data).length;
+                for (let i = 0; i < length - 1; i++) {
                   Vue.set(this.blogList, i, response.data[i + 1]);
                 }
                 this.max_page = Math.ceil(
-                    response.data[this.blog_length]["count(*)"] / 6
+                    response.data[length]["count(*)"] / 6
                 );
               })
               .catch((error) => {
@@ -202,13 +201,13 @@ export default {
                 limit_page: this.page,
               })
               .then((response) => {
-                this.blog_length = Object.keys(response.data).length;
-                for (let i = 0; i < this.blog_length - 1; i++) {
+                let length = Object.keys(response.data).length;
+                for (let i = 0; i < length - 1; i++) {
                   // Vue 不能检测以下数组的变动，也就是说改变数组不会触发重新渲染
                   Vue.set(this.blogList, i, response.data[i + 1]);
                 }
                 this.max_page = Math.ceil(
-                    response.data[this.blog_length]["count(*)"] / 6
+                    response.data[length]["count(*)"] / 6
                 );
               })
               .catch((error) => {
@@ -242,12 +241,12 @@ export default {
             )
             .then((response) => {
               // console.log(response.data)
-              this.blog_length = Object.keys(response.data).length;
-              for (let i = 0; i < this.blog_length - 1; i++) {
+              let length = Object.keys(response.data).length;
+              for (let i = 0; i < length - 1; i++) {
                 Vue.set(this.blogList, i, response.data[i + 1]);
               }
               this.max_page = Math.ceil(
-                  response.data[this.blog_length]["count(*)"] / 6
+                  response.data[length]["count(*)"] / 6
               );
               this.page = 1;
             })
@@ -259,7 +258,6 @@ export default {
               ) {
                 // alert("结果为空");
               }
-
               this.back();
             });
       }, 1000);

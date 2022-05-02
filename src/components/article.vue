@@ -134,8 +134,8 @@
               comments[index]["Email"] === "1742968988@qq.com"
                   ? "#站长"
                   : comments[index]["Email"] === ""
-                      ? "#匿名游客 "
-                      : "#游客 : "
+                      ? "#匿名网友 "
+                      : "#网友 : "
             }}
 
             <span class="subtitle-2">{{
@@ -215,54 +215,7 @@ export default {
     },
   },
   mounted() {
-    axios
-        .all([
-          //请求内容
-          axios.post(
-              this.$store.state.url,
-              {
-                type: 1,
-                bid: this.$route.params.bid,
-              },
-              {
-                headers: {
-                  "Content-Type": "application/json;charset=UTF-8",
-                },
-              }
-          ),
-          //请求评论
-          axios.post(
-              this.$store.state.url,
-              {
-                type: 2,
-                bid: this.$route.params.bid,
-              },
-              {
-                headers: {
-                  "Content-Type": "application/json;charset=UTF-8",
-                },
-              }
-          ),
-        ])
-        .then(
-            axios.spread((reslistdata, rescomments) => {
-              // 上面两个请求都完成后，才执行这个回调方法
-              this.content_list = reslistdata.data[1];
-            //  console.log(reslistdata);
-              this.tags = [
-                this.content_list.tag,
-                this.content_list.tag2,
-                this.content_list.tag3,
-              ];
-              for (let i = 0; i < this.tags.length; i++) {
-                if (this.tags[i] == "") {
-                  this.tags.splice(i, this.tags.length - i);
-                }
-              }
-              this.comments = rescomments.data;
-              this.start();
-            })
-        );
+    this.request();
     this.onResize();
     window.addEventListener("resize", this.onResize, {passive: true});
   },
@@ -274,6 +227,62 @@ export default {
     window.removeEventListener("resize", this.onResize, {passive: true});
   },
   methods: {
+    request() {
+      axios
+          .all([
+            //请求内容
+            this.getContent(),
+            //请求评论
+            this.getComment()
+          ])
+          .then(
+              axios.spread((reslistdata, rescomments) => {
+                // 上面两个请求都完成后，才执行这个回调方法
+                this.content_list = reslistdata.data[1];
+                //  console.log(reslistdata);
+                this.tags = [
+                  this.content_list.tag,
+                  this.content_list.tag2,
+                  this.content_list.tag3,
+                ];
+                for (let i = 0; i < this.tags.length; i++) {
+                  if (this.tags[i] == "") {
+                    this.tags.splice(i, this.tags.length - i);
+                  }
+                }
+                this.comments = rescomments.data;
+                this.start();
+              })
+          );
+    },
+    getContent() {
+      return axios.post(
+          this.$store.state.url,
+          {
+            type: 1,
+            bid: this.$route.params.bid,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json;charset=UTF-8",
+            },
+          }
+      )
+    },
+    getComment() {
+      return axios.post(
+          this.$store.state.url,
+          {
+            type: 2,
+            bid: this.$route.params.bid,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json;charset=UTF-8",
+            },
+          }
+      )
+    },
     top() {
       this.$emit("top");
       setTimeout(() => {
@@ -302,22 +311,9 @@ export default {
             alert(res.data);
             this.dialog = false;
             this.comment = "";
-            axios
-                .post(
-                    this.$store.state.url,
-                    {
-                      type: 2,
-                      bid: this.$route.params.bid,
-                    },
-                    {
-                      headers: {
-                        "Content-Type": "application/json;charset=UTF-8",
-                      },
-                    }
-                )
-                .then((res) => {
-                  this.comments = res.data;
-                });
+            this.getComment().then((res) => {
+              this.comments = res.data;
+            });
           });
     },
     start() {

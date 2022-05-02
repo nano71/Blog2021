@@ -20,6 +20,10 @@ Vue.config.silent = true;
 Vue.prototype.$to = (url) => {
     window.location.href = url
 }
+Vue.prototype.$set = (object, key, value) => {
+    Vue.set(object, key, value)
+}
+Vue.prototype.$url = "https://nano71.com/php/blog-bk.php"
 new Vue({
     router,
     store,
