@@ -21,7 +21,7 @@
     >
 
       <h3 class="d-flex mb-5 align-center">
-        填写以下
+        <span style="white-space: nowrap">填写以下</span>
         <span style="font-size: 14px" class="ms-2 font-weight-light">
           昵称留空默认匿名 , 邮箱地址和个人站点网址可空 , 内容必须有嗷
         </span>

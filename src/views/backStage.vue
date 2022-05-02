@@ -135,7 +135,7 @@ width: 0;
       ) {
         let key = parseInt(this.OnlineKey)
         axios.post(this.$url, {
-          type: "key",
+          type: 12,
           key
         }).then(response => {
           console.log(response);

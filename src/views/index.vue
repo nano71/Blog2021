@@ -124,7 +124,9 @@
             <!--              >聊天室-->
             <!--              </v-list-item-title>-->
             <!--            </v-list-item>-->
-            <v-list-item>
+            <v-list-item
+                @click="$router.push({ path: '/messageBoard' })"
+            >
               <v-list-item-title class="white--text"
               >留言板
               </v-list-item-title>
