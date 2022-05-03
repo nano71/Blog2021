@@ -19,14 +19,14 @@ const routes = [
     {
         path: "/index",
         component: () => {
-            window.location = "https://personal-station.cn";
+            window.location = "https://nano71.com";
         },
     },
     {
         path: "/resume",
         name: "resume",
         component: () => {
-            window.location = "https://personal-station.cn/resume";
+            window.location = "https://nano71.com/resume.html";
         },
     },
     {
@@ -44,11 +44,25 @@ const routes = [
         }]
     },
     {
+        path: "/links",
+        component: index,
+        children: [{
+            path: "/",
+            component: messageBoard
+        }]
+    },
+    {
         path: "/about",
         component: () => {
-            window.location = "https://personal-station.cn/resume_doc";
+            window.location = "https://nano71.com/resume_doc";
         },
         // component: About,
+    },
+    {
+        path: "/chat",
+        component: () => {
+            window.location = "https://nano71.com/chat";
+        },
     },
     {
         path: "/copyright",

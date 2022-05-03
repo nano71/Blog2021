@@ -98,7 +98,6 @@
           <a :href="item.url"
              class="ms-3">{{ item.url }}</a>
         </div>
-
       </div>
     </v-card>
     <v-container>

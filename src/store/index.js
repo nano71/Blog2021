@@ -10,8 +10,9 @@ export default new Vuex.Store({
         //后台密钥
         key: "1742",
         QR: false,
-        links: ["本站简介", "版权声明", "关于我", "控制台"],
-        linkHrefs: ["/document", "/copyright", "/about", "/admin"],
+        links: ["本站简介", "版权声明", "关于我", "留言板", "AI聊天室"],
+        linkHrefs: ["/document", "/copyright", "/about", "/messageBoard", "/chat"],
+        linksRight: [],
         options: ["本站简介", "版权声明", "关于我", "控制台"],
         TagClass: ["Promise", "PHP", "Vue", "日志"],
         welcomeText: [

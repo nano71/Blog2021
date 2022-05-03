@@ -22,7 +22,7 @@
             </v-list-item-content>
 
             <v-list-item-avatar tile size="80" color="grey">
-              <img src="https://personal-station.cn/ftp/touxiang.jpg" alt="" />
+              <img src="https://nano71.com/ftp/touxiang.jpg" alt="" />
             </v-list-item-avatar>
           </v-list-item>
           <v-divider></v-divider>

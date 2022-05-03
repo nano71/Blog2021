@@ -253,12 +253,10 @@
                         class="
                         py-2
                         pl-3
-                        my-1
-                        mt-lg-2
+                        mb-1
                         text-left
                         font-weight-bold
-                        border-right border-4 border-tel
-                      "
+                        border-right border-4 border-tel"
                     >
                       技术分类
                     </div>
@@ -323,7 +321,7 @@
                   </div>
                   <div class="d-flex justify-space-between">
                     <v-btn
-                        class="rounded-lg-no rounded-r-0 rounded-t-0 flex-grow-1"
+                        :class="{'rounded-lg-no rounded-l-0 rounded-t-0 flex-grow-1':1,'teal--text text--accent-4':QR==='qq'}"
                         elevation="0"
                         :color="QR === 'qq' ? 'white' : ''"
                         @click="QR = 'qq'"
@@ -332,7 +330,7 @@
                     </v-btn>
                     <v-btn
                         elevation="0"
-                        class="rounded-lg-no rounded-l-0 rounded-t-0 flex-grow-1"
+                        :class="{'rounded-lg-no rounded-l-0 rounded-t-0 flex-grow-1':1,'teal--text text--accent-4':QR==='wx'}"
                         :color="QR === 'wx' ? 'white' : ''"
                         @click="QR = 'wx'"
                     >
@@ -340,26 +338,6 @@
                     </v-btn>
                   </div>
                 </div>
-                <v-list-item
-                    class="mt-md-3 mt-sm-2 rounded-lg-no fs-14 white"
-                    link
-                    @click="$to('https://nano71.com/chat')"
-                >
-                  <div class="w-100 d-flex justify-space-between">
-                    <span>聊天室</span>
-                    <v-icon color="#00bfa5" size="16">mdi-chevron-right</v-icon>
-                  </div>
-                </v-list-item>
-                <v-list-item
-                    class="mt-md-3 mt-sm-2 rounded-lg-no fs-14 white"
-                    link
-                    @click="$router.push({ path: '/messageBoard' })"
-                >
-                  <div class="w-100 d-flex justify-space-between">
-                    <span>留言板</span>
-                    <v-icon color="#00bfa5" size="16">mdi-chevron-right</v-icon>
-                  </div>
-                </v-list-item>
                 <v-list-item
                     class="rounded-lg-no mt-md-3 mt-sm-2 fs-14 white"
                     link
